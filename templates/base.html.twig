@@ -1,12 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale|split('_')[0] }}">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta charset="UTF-8" />
+        <title>{% block title %}{{ 'Battleship'|trans }}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <base href="{{ url('homepage') }}" />
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% include "sidebar.html.twig" %}
+        <div id="container" canvas="container">
+            {% include "topbar.html.twig" %}
+
+            <div class="flash-container">
+                {% include "flash.html.twig" %}
+                {% block flash %}{% endblock %}
+                <noscript>
+                    <div class="flash-msg error">{{ 'no_javascript'|trans() }}</div>
+                </noscript>
+            </div>
+
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}
+            <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+            <script src="{{ path('bazinga_jstranslation_js') }}"></script>
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
 </html>

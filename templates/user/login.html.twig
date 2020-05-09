@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Login'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="center">{{ 'Login'|trans }}</h1>
+
+    <form method="post" action="{{ path('login_check') }}" class="small-12 large-5 column large-centered">
+        <label for="username" class="lbl">{{ 'Username'|trans }} :</label>
+        <input type="text" name="_username" id="username" placeholder="{{ 'Username'|trans }}" value="{{ last_username|default('') }}" required="required" />
+    </form>
+{% endblock %}

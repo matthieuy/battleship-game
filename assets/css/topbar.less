@@ -1,0 +1,119 @@
+@import "_vars";
+
+#topbar {
+  position: relative;
+  z-index: 10;
+  height: @topbar-height;
+  font-family: Lobster;
+  line-height: @topbar-height;
+  background-color: @topbar-bgcolor;
+  color: @topbar-color;
+  margin-bottom: 20px;
+  .box-shadow(fade(@topbar-bgcolor, 30%) 0 6px 10px);
+  .gradient(lighten(@topbar-bgcolor, 20%), @topbar-bgcolor);
+
+  #btn-top {
+    float: right;
+    height: @topbar-height;
+    margin-right: 5px;
+    font-size: 24px;
+  }
+
+  a {
+    text-decoration: none;
+    color: @topbar-color;
+  }
+
+  .menu {
+    float: left;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 70px;
+    margin: 0 15px;
+    color: @topbar-color;
+    transition: color 900ms ease-out;
+    &:hover {
+      color: darken(@topbar-color, 50%);
+    }
+    div {
+      float: left;
+    }
+    i {
+      font-size: 120%;
+    }
+  }
+
+  .title {
+    text-align: center;
+
+    a {
+      margin-left: 25px;
+    }
+
+    h1 {
+      font-size: 24px;
+      line-height: @topbar-height;
+    }
+  }
+}
+
+.switch-user {
+  background-color: #ff0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+  position: absolute;
+  color: #f00;
+  font-weight: bold;
+  a {
+    color: #f00;
+  }
+}
+
+.bubble {
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+  margin-right: 5px;
+  i {
+    float: left;
+    line-height: 40px;
+    margin-left: 5px;
+    color: @topbar-color;
+    transition: color 900ms ease-out;
+    &.selected {
+      color: #ff0000;
+    }
+  }
+  &:hover i {
+    color: darken(@topbar-color, 50%);
+  }
+  img {
+    width: 25px;
+    margin-top: 15px;
+    margin-left: -18px;
+    z-index: -2;
+  }
+  &.disabled {
+    cursor: default;
+    i {
+      color: darken(@topbar-color, 75%);
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #topbar {
+    .menu {
+      margin: 0 10px;
+      width: 25px;
+    }
+    #btn-top {
+      margin: 0;
+    }
+    .title a {
+      margin-left: 0;
+    }
+  }
+}

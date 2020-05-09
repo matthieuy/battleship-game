@@ -1,6 +1,15 @@
 {
+    "name": "matthieuy/battleship",
+    "description": "Battleship game with multiplayer support",
     "type": "project",
-    "license": "proprietary",
+    "homepage": "https://github.com/matthieuy/battleship",
+    "authors": [
+        {
+            "name": "Matthieu YK",
+            "email": "matthieuy@riseup.net"
+        }
+    ],
+    "license": "MIT",
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
@@ -27,7 +36,9 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.0.*",
         "symfony/web-link": "5.0.*",
-        "symfony/yaml": "5.0.*"
+        "symfony/webpack-encore-bundle": "^1.7",
+        "symfony/yaml": "5.0.*",
+        "willdurand/js-translation-bundle": "^3.0"
     },
     "require-dev": {
         "symfony/debug-pack": "*",

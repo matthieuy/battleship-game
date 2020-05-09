@@ -1,0 +1,29 @@
+{
+    "name": "battleship",
+    "description": "Battleship game with multiplayer support",
+    "license": "MIT",
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.29.0",
+        "core-js": "^3.0.0",
+        "less": "^3.11.1",
+        "less-loader": "^4.1.0",
+        "node-sass": "^4.14.1",
+        "regenerator-runtime": "^0.13.2",
+        "sass-loader": "^7.0.1",
+        "webpack-notifier": "^1.6.0"
+    },
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "bazinga-translator": "^3.0.1",
+        "font-awesome": "^4.7.0",
+        "jquery": "^3.5.1",
+        "slidebars": "https://github.com/jaredh159/Slidebars.git#3.0.0",
+        "typeface-lobster": "^0.0.72"
+    }
+}
