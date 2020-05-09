@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Register'|trans }} - {{ parent() }}{% endblock %}
+
+{% block flash %}
+    {{ parent() }}
+    {{ form_errors(form) }}
+{% endblock %}
+
+
+{% block body %}
+    <h1 class="center">{{ 'Register'|trans }}</h1>
+    {{ form_start(form, {'attr': {'class': 'small-12 large-5 large-centered column'}}) }}
+        {{ form_rest(form) }}
+        <div class="center">
+            <button type="submit" class="button round success small-12 large-4"><i class="gi gi-shaking-hands"></i> {{ 'Register'|trans }}</button>
+            <a href="{{ path('login') }}" class="button round small-12 large-4"><i class="fa fa-arrow-circle-left"></i> {{ 'Login'|trans }}</a>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

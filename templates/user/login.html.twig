@@ -8,5 +8,9 @@
     <form method="post" action="{{ path('login_check') }}" class="small-12 large-5 column large-centered">
         <label for="username" class="lbl">{{ 'Username'|trans }} :</label>
         <input type="text" name="_username" id="username" placeholder="{{ 'Username'|trans }}" value="{{ last_username|default('') }}" required="required" />
+
+        <div class="center">
+            <a href="{{ path('register') }}" class="button round small-12 large-5">{{ 'Register'|trans }}</a>
+        </div>
     </form>
 {% endblock %}

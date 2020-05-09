@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
@@ -23,13 +25,34 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string Username
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    protected $username;
+
+    /**
+     * @var string Email
+     * @ORM\Column(type="string")
+     * @Assert\Email(message="Invalid mail")
+     * @Assert\NotBlank(message="Field required")
+     */
+    protected $email;
+
+    /**
+     * @var boolean User is a AI ?
+     * @ORM\Column(type="boolean", name="ai")
+     */
+    protected $ai;
+
+    /**
+     * @var string Slug
+     * @ORM\Column(type="string", name="slug", length=255, unique=true)
+     * @Gedmo\Slug(fields={"username"}, updatable=true)
+     */
+    protected $slug;
 
     /**
      * @var array Roles
@@ -42,6 +65,14 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->ai = false;
+    }
 
     /**
      * Get the user id
@@ -70,6 +101,27 @@ class User implements UserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get AI
+     * @return bool
+     */
+    public function isAi(): bool
+    {
+        return $this->ai;
+    }
+
+    /**
+     * Set AI
+     * @param bool $ai
+     * @return $this
+     */
+    public function setAi(bool $ai)
+    {
+        $this->ai = $ai;
 
         return $this;
     }
@@ -137,5 +189,36 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Get Email
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * Set Email
+     * @param string $email
+     *
+     * @return $this
+     */
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get Slug
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }
