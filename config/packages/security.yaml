@@ -4,6 +4,8 @@ security:
             algorithm: auto
 
     role_hierarchy:
+        ROLE_USER: ~
+        ROLE_CREATE_GAME: [ROLE_ADMIN]
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
