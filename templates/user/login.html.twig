@@ -2,14 +2,31 @@
 
 {% block title %}{{ 'Login'|trans }} - {{ parent() }}{% endblock %}
 
+{% block flash %}
+    {{ parent() }}
+    {% if error %}
+        <div class="flash-msg error"><div class="close">&times;</div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     <h1 class="center">{{ 'Login'|trans }}</h1>
 
-    <form method="post" action="{{ path('login_check') }}" class="small-12 large-5 column large-centered">
+    <form method="post" class="small-12 large-5 column large-centered">
         <label for="username" class="lbl">{{ 'Username'|trans }} :</label>
-        <input type="text" name="_username" id="username" placeholder="{{ 'Username'|trans }}" value="{{ last_username|default('') }}" required="required" />
+        <input type="text" name="username" id="username" placeholder="{{ 'Username'|trans }}" value="{{ last_username|default('') }}" required="required" />
+
+        <label for="password" class="lbl">{{ 'Password'|trans }} :</label>
+        <input type="password" id="password" name="password" placeholder="{{ 'Password'|trans }}" required="required">
 
         <div class="center">
+            <label for="remember_me" class="cursor">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on">
+                {{ 'remember_me'|trans }}
+            </label>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input type="submit" id="_submit" name="_submit" value="{{ 'Login'|trans }}" class="button round success small-12 large-5">
             <a href="{{ path('register') }}" class="button round small-12 large-5">{{ 'Register'|trans }}</a>
         </div>
     </form>

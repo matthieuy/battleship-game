@@ -6,7 +6,9 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM as ORM;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -19,7 +21,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserLoaderInterface
 {
     /**
      * UserRepository constructor.
@@ -46,5 +48,37 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    /**
+     * Load a user (for login)
+     * @param string $username
+     * @return User
+     * @throws ORM\NonUniqueResultException
+     */
+    public function loadUserByUsername(string $username)
+    {
+        // Query
+        $builder = $this->createQueryBuilder('user');
+        $builder
+            ->select('user')
+            ->where('user.username=:username')
+            ->orWhere('user.email=:username')
+            ->andWhere('user.ai=0')
+            ->setParameter('username', $username);
+        $query = $builder->getQuery();
+
+        // Cache
+        $query
+            ->useQueryCache(true)
+            ->enableResultCache(10);
+
+        try {
+            $user = $query->getSingleResult();
+        } catch (ORM\NoResultException $e) {
+            throw new UsernameNotFoundException(sprintf('User "%s" not found', $username), 0, $e);
+        }
+
+        return $user;
     }
 }
