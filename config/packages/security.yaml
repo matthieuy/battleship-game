@@ -5,8 +5,8 @@ security:
 
     role_hierarchy:
         ROLE_USER: ~
-        ROLE_CREATE_GAME: [ROLE_ADMIN]
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_CREATE_GAME: [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_CREATE_GAME]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers

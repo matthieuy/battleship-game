@@ -65,7 +65,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('user.username=:username')
             ->orWhere('user.email=:username')
             ->andWhere('user.ai=0')
-            ->setParameter('username', $username);
+            ->setParameter('username', $username)
+            ->setMaxResults(1);
         $query = $builder->getQuery();
 
         // Cache

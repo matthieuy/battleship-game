@@ -10,6 +10,7 @@
         "node-sass": "^4.14.1",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.0.1",
+        "vue-template-compiler": "^2.6.11",
         "webpack-notifier": "^1.6.0"
     },
     "private": true,
@@ -24,6 +25,8 @@
         "font-awesome": "^4.7.0",
         "jquery": "^3.5.1",
         "slidebars": "https://github.com/jaredh159/Slidebars.git#3.0.0",
-        "typeface-lobster": "^0.0.72"
+        "typeface-lobster": "^0.0.72",
+        "vue": "^2.6.11",
+        "vue-loader": "^15.9.2"
     }
 }
