@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\Player;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -108,7 +109,7 @@ class WaitingController extends AbstractController
         // Check rights
         /** @var User $user */
         $user = $this->getUser();
-        if (!$user || !$game->isCreator($user)) {
+        if (!$user || !$game->isCreator($user) || $game->getStatus() === Game::STATUS_END) {
             return new JsonResponse(['error' => 'Not allowed']);
         }
 
@@ -136,5 +137,63 @@ class WaitingController extends AbstractController
             'option' => $optionName,
             'value' => $value,
         ]);
+    }
+
+    /**
+     * Change color
+     * @param Game $game
+     * @param Request $request
+     *
+     * @Route(
+     *     name="match.ajax.color",
+     *     path="/game/{slug}/color",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
+     * @return JsonResponse
+     */
+    public function ajaxSetColor(Game $game, Request $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($game->getStatus() === Game::STATUS_END) {
+            return new JsonResponse(['error' => 'Not allowed']);
+        }
+
+        // Get params
+        $playerId = $this->getPlayerId($game, $request);
+        $color = str_replace('#', '', $request->request->get('color', '000000'));
+        if (!preg_match('/^[a-f0-9]{6}/i', $color)) {
+            return new JsonResponse(['error' => 'Wrong color']);
+        }
+
+        // Change color
+        $repo = $this->getDoctrine()->getRepository('App:Player');
+        $player = $repo->getPlayer($game, $user, $playerId);
+        if ($player instanceof Player) {
+            $player->setColor($color);
+            $this->getDoctrine()->getManager()->flush();
+
+            return new JsonResponse([
+                'success' => true,
+                'color' => $player->getColor(),
+                'playerId' => $player->getId(),
+            ]);
+        }
+
+        return new JsonResponse(['error' => 'Player not found']);
+    }
+
+    /**
+     * Get the playerid from request or null
+     * @param Game $game
+     * @param Request $request
+     * @return int|null
+     */
+    private function getPlayerId(Game $game, Request $request): ?int
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        return ($user && $game->isCreator($user)) ? $request->request->get('playerId') : null;
     }
 }

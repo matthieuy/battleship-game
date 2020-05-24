@@ -64,6 +64,17 @@ export default {
     let url = Routing.generate('match.ajax.options', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change max player')
   },
+
+  /**
+   * Change color
+   */
+  [types.ACTION.CHANGE_COLOR] (context, obj) {
+    console.log('[STORE] Change color', obj)
+
+    // Request
+    let url = Routing.generate('match.ajax.color', { slug: context.state.slug })
+    return ajaxPostCall(url, obj, 'Can\'t change color')
+  },
 }
 
 

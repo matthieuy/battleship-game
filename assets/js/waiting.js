@@ -10,6 +10,7 @@ import * as types from './store/waiting/types'
 // Components
 import GameInfo from './components/waiting/GameInfo'
 import GameOptions from './components/waiting/GameOptions'
+import PlayersList from './components/waiting/PlayersList'
 
 // Theme
 import '../css/_table.less'
@@ -20,6 +21,10 @@ import '../css/waiting.less'
 // JS Lib
 require('./libs/table')
 require('./libs/tooltips')
+require('@npm/jquery-ui/ui/core')
+require('@npm/jquery-ui/ui/widget')
+require('@npm/jquery-ui/ui/widgets/mouse')
+require('@npm/jquery-ui/ui/widgets/sortable')
 
 // Store init
 store.commit(types.MUTATION.SET_USERID, document.getElementById('user-id').value)
@@ -31,5 +36,6 @@ new Vue({
   components: {
     GameInfo,
     GameOptions,
+    PlayersList,
   },
 })

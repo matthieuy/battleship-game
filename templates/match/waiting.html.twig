@@ -35,8 +35,8 @@
         </div>
 
         {#############
-             ### Score ###
-             #############}
+         ### Score ###
+         #############}
         <div class="column large-6 small-12">
             <table class="small-12 extendable">
                 <thead>
@@ -80,6 +80,37 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+
+        {###############
+         ### Players ###
+         ###############}
+        <div class="row">
+            <div class="column small-12 large-centered">
+                <players-list><i class="fa fa-spin fa-spinner"></i></players-list>
+            </div>
+        </div>
+
+        {###############
+         ### Actions ###
+         ###############}
+        <div class="row">
+            <div class="column small-12 large-centered">
+                <table class="small-12">
+                    <thead>
+                    <tr>
+                        <th>{{ 'Actions'|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center">
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}

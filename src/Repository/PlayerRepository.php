@@ -7,6 +7,7 @@ use App\Entity\Player;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -73,23 +74,6 @@ class PlayerRepository extends ServiceEntityRepository
         return true;
     }
 
-
-    /**
-     * Generate a hexa color
-     * @return string
-     */
-    private function randomColor()
-    {
-        $string = str_split('0123456789ABCDEF');
-        $color = '';
-        for ($i=0; $i < 6; $i++) {
-            $r = (int) floor(mt_rand(0, 15));
-            $color .= $string[$r];
-        }
-
-        return $color;
-    }
-
     /**
      * Get the last team number
      * @param Game $game The game
@@ -111,5 +95,65 @@ class PlayerRepository extends ServiceEntityRepository
         $result++;
 
         return $result;
+    }
+
+    /**
+     * Get a player
+     * @param Game $game
+     * @param User $user
+     * @param int|null $playerId
+     * @return Player|null
+     */
+    public function getPlayer(Game $game, User $user, ?int $playerId = null): ?Player
+    {
+        $builder = $this->createQueryPlayer($game, $user, $playerId);
+        $builder
+            ->select('player')
+            ->setMaxResults(1);
+
+        return $builder->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Generate a hexa color
+     * @return string
+     */
+    private function randomColor()
+    {
+        $string = str_split('0123456789ABCDEF');
+        $color = '';
+        for ($i=0; $i < 6; $i++) {
+            $r = (int) floor(mt_rand(0, 15));
+            $color .= $string[$r];
+        }
+
+        return $color;
+    }
+
+    /**
+     * Create a query with the playerId (if defined) or the current user
+     * @param Game $game
+     * @param User $user
+     * @param int|null $playerId
+     * @return QueryBuilder
+     */
+    private function createQueryPlayer(Game $game, User $user, int $playerId = null): QueryBuilder
+    {
+        $builder = $this->createQueryBuilder('player');
+        $builder
+            ->where('player.game=:game')
+            ->setParameter('game', $game);
+
+        if ($playerId) {
+            $builder
+                ->andWhere('player.id=:playerId')
+                ->setParameter('playerId', $playerId);
+        } else {
+            $builder
+                ->andWhere('player.user=:user')
+                ->setParameter('user', $user);
+        }
+
+        return $builder;
     }
 }

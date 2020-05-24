@@ -16,4 +16,5 @@ export const ACTION = {
   CHANGE_SIZE: 'CHANGE_SIZE', // Change grid size
   CHANGE_MAXPLAYER: 'CHANGE_MAXPLAYER', // Change max player
   CHANGE_OPTIONS: 'CHANGE_OPTIONS', // Change game options
+  CHANGE_COLOR: 'CHANGE_COLOR', // Change player color
 }
