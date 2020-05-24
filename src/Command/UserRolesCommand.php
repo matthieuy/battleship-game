@@ -29,6 +29,10 @@ class UserRolesCommand extends Command
      */
     private $entityManager;
 
+    /**
+     * UserRolesCommand constructor.
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -36,12 +40,11 @@ class UserRolesCommand extends Command
     }
 
     /**
-     * Configure the commande
+     * Configure the command
      */
     protected function configure()
     {
         $this
-            ->setName(self::$defaultName)
             ->setDescription('Add or remove roles')
             ->addOption('action', 'a', Input\InputOption::VALUE_OPTIONAL, 'add or remove')
             ->addArgument('username', Input\InputArgument::REQUIRED, 'Username')
