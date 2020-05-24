@@ -55,7 +55,7 @@
 
 <script>
     import { mapState } from 'vuex'
-    import * as types from '../../store/waiting/types'
+    import * as types from '@js/store/waiting/types'
 
     export default {
       props: {

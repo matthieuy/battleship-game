@@ -15,4 +15,5 @@ export const ACTION = {
   LOAD_INFO: 'LOAD_INFO', // Load game's infos
   CHANGE_SIZE: 'CHANGE_SIZE', // Change grid size
   CHANGE_MAXPLAYER: 'CHANGE_MAXPLAYER', // Change max player
+  CHANGE_OPTIONS: 'CHANGE_OPTIONS', // Change game options
 }

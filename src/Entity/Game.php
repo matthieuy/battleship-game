@@ -114,6 +114,13 @@ class Game
     protected $players;
 
     /**
+     * @var array
+     * @ORM\Column(type="json")
+     * @Groups("infos")
+     */
+    protected $options;
+
+    /**
      * @var string
      * @ORM\Column(type="string", unique=true, length=200)
      * @Gedmo\Slug(fields={"name"})
@@ -130,6 +137,7 @@ class Game
         $this->status = self::STATUS_WAIT;
         $this->maxPlayer = 4;
         $this->createAt = new \DateTime();
+        $this->options = [];
     }
 
     /**
@@ -357,6 +365,66 @@ class Game
     {
         if ($this->hasPlayer($player)) {
             $this->players->removeElement($player);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Options
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * Get a option value
+     * @param string $name The name of the option
+     * @param mixed $default Default value
+     * @return mixed The value
+     */
+    public function getOption(string $name, $default = false)
+    {
+        return (array_key_exists($name, $this->options)) ? $this->options[$name] : $default;
+    }
+
+    /**
+     * Set Options
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function setOptions(array $options): self
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * Set a option
+     * @param string $name The name of the option
+     * @param mixed $value Value
+     * @return $this
+     */
+    public function setOption(string $name, $value): self
+    {
+        $this->options[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Remove a option
+     * @param string $name The name of the option
+     * @return $this
+     */
+    public function removeOption(string $name): self
+    {
+        if (array_key_exists($name, $this->options)) {
+            unset($this->options[$name]);
         }
 
         return $this;

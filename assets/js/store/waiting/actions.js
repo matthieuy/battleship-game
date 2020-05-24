@@ -5,6 +5,7 @@
 import axios from 'axios'
 import * as types from './types'
 import Routing from '@js/Routing'
+import Flash from '@js/Flash'
 
 export default {
   /**
@@ -31,22 +32,12 @@ export default {
   [types.ACTION.CHANGE_SIZE] (context, size) {
     console.log('[STORE] Change size', size)
 
-    // Prepare request
+    // Request
     let url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
-    const params = new URLSearchParams({
+    return ajaxPostCall(url, {
       options: 'size',
       value: size,
-    })
-
-    // Post request
-    return axios.post(url, params).then((response) => {
-      if (response.status === 200 && response.data.success) {
-        return Promise.resolve(response.data.value)
-      }
-      return Promise.reject(new Error('Can\'t change size'))
-    }).catch(() => {
-      return Promise.reject(new Error('Can\'t change size'))
-    })
+    }, 'Can\'t change size !')
   },
 
   /**
@@ -55,21 +46,43 @@ export default {
   [types.ACTION.CHANGE_MAXPLAYER] (context, maxPlayer) {
     console.log('[STORE] Change maxPlayer', maxPlayer)
 
-    // Prepare request
+    // Request
     let url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
-    const params = new URLSearchParams({
+    return ajaxPostCall(url, {
       options: 'maxplayers',
       value: maxPlayer,
-    })
-
-    // Post request
-    return axios.post(url, params).then((response) => {
-      if (response.status === 200 && response.data.success) {
-        return Promise.resolve(response.data.value)
-      }
-      return Promise.reject(new Error('Can\'t change max player'))
-    }).catch(() => {
-      return Promise.reject(new Error('Can\'t change max player'))
-    })
+    }, 'Can\'t change max player')
   },
+
+  /**
+   * Change option
+   */
+  [types.ACTION.CHANGE_OPTIONS] (context, obj) {
+    console.log('[STORE] Change options', obj)
+
+    // Request
+    let url = Routing.generate('match.ajax.options', { slug: context.state.slug })
+    return ajaxPostCall(url, obj, 'Can\'t change max player')
+  },
+}
+
+
+/**
+ * Do a AJAX POST call
+ * @private
+ * @param url
+ * @param params
+ * @param errorMsg
+ * @returns {Promise}
+ */
+function ajaxPostCall (url, params, errorMsg) {
+  return axios.post(url, new URLSearchParams(params)).then((response) => {
+    if (response.status === 200 && response.data.success) {
+      return Promise.resolve(response.data)
+    }
+    return Promise.reject(new Error(errorMsg))
+  }).catch(() => {
+    Flash.error(errorMsg)
+    return Promise.reject(new Error(errorMsg))
+  })
 }

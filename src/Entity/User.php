@@ -47,7 +47,6 @@ class User implements UserInterface
     /**
      * @var boolean User is a AI ?
      * @ORM\Column(type="boolean", name="ai")
-     * @Groups("infos")
      */
     protected $ai;
 

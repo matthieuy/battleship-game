@@ -9,6 +9,7 @@ import * as types from './store/waiting/types'
 
 // Components
 import GameInfo from './components/waiting/GameInfo'
+import GameOptions from './components/waiting/GameOptions'
 
 // Theme
 import '../css/_table.less'
@@ -28,5 +29,6 @@ new Vue({
   store,
   components: {
     GameInfo,
+    GameOptions,
   },
 })

@@ -61,7 +61,13 @@ class GameType extends AbstractType
             if ($user instanceof UserInterface) {
                 $game->setCreator($user);
             }
-            $game->setSize($game->getMaxPlayer());
+            $game
+                ->setOptions([
+                    'penalty' => 20,
+                    'weapon' => true,
+                    'bonus' => true,
+                ])
+                ->setSize($game->getMaxPlayer());
         });
     }
 

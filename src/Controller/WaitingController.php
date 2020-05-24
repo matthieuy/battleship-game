@@ -89,4 +89,52 @@ class WaitingController extends AbstractController
             'value' => $value,
         ]);
     }
+
+    /**
+     * Set game options
+     * @param Game $game
+     * @param Request $request
+     *
+     * @Route(
+     *     name="match.ajax.options",
+     *     path="/game/{slug}/options",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
+     * @return JsonResponse
+     */
+    public function ajaxSetOption(Game $game, Request $request): JsonResponse
+    {
+        // Check rights
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user || !$game->isCreator($user)) {
+            return new JsonResponse(['error' => 'Not allowed']);
+        }
+
+        // Get params
+        $optionName = $request->request->get('option');
+        $value = $request->request->get('value');
+        if ($optionName === null || $value === null || !in_array($optionName, ['penalty', 'weapon', 'bonus'])) {
+            return new JsonResponse(['error' => 'Bad option']);
+        }
+
+        // Convert option value in good format
+        if ($optionName === 'penalty') {
+            $value = max(0, min(intval($value), 72));
+        } else {
+            $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        // Save
+        $game->setOption($optionName, $value);
+        $this->getDoctrine()->getManager()->flush();
+
+        // Return
+        return new JsonResponse([
+            'success' => true,
+            'option' => $optionName,
+            'value' => $value,
+        ]);
+    }
 }
