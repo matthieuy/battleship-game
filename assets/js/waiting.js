@@ -19,6 +19,7 @@ import '../css/waiting.less'
 
 // JS Lib
 require('./libs/table')
+require('./libs/tooltips')
 
 // Store init
 store.commit(types.MUTATION.SET_USERID, document.getElementById('user-id').value)
