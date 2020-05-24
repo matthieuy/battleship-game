@@ -33,8 +33,6 @@ class PlayerRepository extends ServiceEntityRepository
      * @param UserInterface|User $user
      * @param bool $ai
      * @return bool|string
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function joinGame(Game $game, UserInterface $user, $ai = false)
     {
@@ -64,9 +62,13 @@ class PlayerRepository extends ServiceEntityRepository
         $game->addPlayer($player);
 
         // Persist
-        $em = $this->getEntityManager();
-        $em->persist($player);
-        $em->flush();
+        try {
+            $em = $this->getEntityManager();
+            $em->persist($player);
+            $em->flush();
+        } catch (\Exception $e) {
+            return 'Error with persist data';
+        }
 
         return true;
     }

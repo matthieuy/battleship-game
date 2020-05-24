@@ -17,3 +17,15 @@ services:
     ports:
       - "3307:3306"
 
+###########
+# MERCURE #
+###########
+  mercure:
+    container_name: mercure
+    image: dunglas/mercure
+    env_file: ../.env
+    environment:
+      JWT_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOltdfX0.Oo0yg7y4yMa1vr_bziltxuTCqb8JVHKxp-f_FwwOim0'
+      CORS_ALLOWED_ORIGINS: '*'
+    ports:
+    - "3000:80"

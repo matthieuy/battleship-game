@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ game.name }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{  parent() }}
+    {{ encore_entry_link_tags('waiting') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('waiting') }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="center">{{ game.name }}</h1>
+
+    <div id="vue">
+        {#############
+         ### INFOS ###
+         #############}
+        <div class="row">
+            <div class="column large-8 small-12 large-centered">
+                <game-info date="{{ game.createAt|date }}"><i class="fa fa-spin fa-spinner"></i></game-info>
+                <input type="hidden" id="user-id" value="{{ app.user.id|default('0') }}">
+                <input type="hidden" id="slug" value="{{ game.slug }}">
+                <input type="hidden" id="game-id" value="{{ game.id }}">
+            </div>
+        </div>
+    </div>
+{% endblock %}

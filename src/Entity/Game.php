@@ -6,6 +6,7 @@ use App\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -40,6 +41,7 @@ class Game
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups("infos")
      */
     protected $id;
 
@@ -52,12 +54,14 @@ class Game
      *     minMessage="The game's name length must be greather than {{ limit }} characters",
      *     maxMessage="The game's name length must be less than {{ limit }} characters"
      * )
+     * @Groups("infos")
      */
     protected $name;
 
     /**
      * @var int
      * @ORM\Column(type="smallint", length=1, options={"unsigned"=true})
+     * @Groups("infos")
      */
     protected $status;
 
@@ -70,6 +74,7 @@ class Game
      *     minMessage="The number of player must be greater then {{ limit }}",
      *     maxMessage="The number of player must be under {{ limit }}"
      * )
+     * @Groups("infos")
      */
     protected $maxPlayer;
 
@@ -82,18 +87,21 @@ class Game
      *     minMessage="The grid size must be greater then {{ limit }}x{{ limit }}",
      *     maxMessage="The grid size must be under {{ limit }}x{{ limit }}"
      * )
+     * @Groups("infos")
      */
     protected $size;
 
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", fetch="EXTRA_LAZY")
+     * @Groups("infos")
      */
     protected $creator;
 
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
+     * @Groups("infos")
      */
     protected $createAt;
 
@@ -101,6 +109,7 @@ class Game
      * @var ArrayCollection|Player[]
      * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="game", cascade={"remove"})
      * @ORM\OrderBy({"position": "ASC"})
+     * @Groups("infos")
      */
     protected $players;
 
@@ -108,9 +117,13 @@ class Game
      * @var string
      * @ORM\Column(type="string", unique=true, length=200)
      * @Gedmo\Slug(fields={"name"})
+     * @Groups("infos")
      */
     protected $slug;
 
+    /**
+     * Game constructor.
+     */
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -276,19 +289,16 @@ class Game
     }
 
     /**
-     * Get sugest size by player number
+     * Set size by player number
      * @param int|null $playerNb
-     * @param  bool $andSet Set the value
-     * @return int
+     * @return $this
      */
-    public function getSizeByPlayerNb(int $playerNb = null, $andSet = false): int
+    public function setSizeByPlayersNb(int $playerNb = null): self
     {
-        $size = (array_key_exists($playerNb, $this->sizeList)) ? $this->sizeList[$playerNb]: $this->sizeList[0];
-        if ($andSet) {
-            $this->setSize($size);
-        }
+        $size = ($playerNb !== null && array_key_exists($playerNb, $this->sizeList)) ? $this->sizeList[$playerNb]: $this->sizeList[0];
+        $this->setSize($size);
 
-        return $size;
+        return $this;
     }
 
     /**

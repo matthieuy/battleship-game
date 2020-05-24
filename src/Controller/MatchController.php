@@ -24,9 +24,10 @@ class MatchController extends AbstractController
      * Create a game
      * @Route(name="match.create", path="/create-game", methods={"GET", "POST"})
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param EventDispatcherInterface $dispatcher
+     * @return Response
      */
-    public function create(Request $request, EventDispatcherInterface $dispatcher)
+    public function create(Request $request, EventDispatcherInterface $dispatcher): Response
     {
         // Allow to create game
         if (!$this->isGranted('ROLE_CREATE_GAME')) {
@@ -83,8 +84,14 @@ class MatchController extends AbstractController
      *     requirements={"slug": "([0-9A-Za-z\-]+)"})
      * @return Response
      */
-    public function display(Game $game)
+    public function display(Game $game): Response
     {
+        // Waiting page
+        if ($game->getStatus() === Game::STATUS_WAIT) {
+            return $this->render('match/waiting.html.twig', [
+                'game' => $game,
+            ]);
+        }
 
         return new Response();
     }

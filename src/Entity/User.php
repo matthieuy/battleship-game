@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -24,12 +25,14 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups("infos")
      */
     protected $id;
 
     /**
      * @var string Username
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("infos")
      */
     protected $username;
 
@@ -44,6 +47,7 @@ class User implements UserInterface
     /**
      * @var boolean User is a AI ?
      * @ORM\Column(type="boolean", name="ai")
+     * @Groups("infos")
      */
     protected $ai;
 
@@ -51,6 +55,7 @@ class User implements UserInterface
      * @var string Slug
      * @ORM\Column(type="string", name="slug", length=255, unique=true)
      * @Gedmo\Slug(fields={"username"}, updatable=true)
+     * @Groups("infos")
      */
     protected $slug;
 

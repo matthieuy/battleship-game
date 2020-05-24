@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
@@ -16,6 +17,7 @@ class Player
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups("infos")
      */
     private $id;
 
@@ -35,18 +37,21 @@ class Player
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Groups("infos")
      */
     protected $name;
 
     /**
      * @var int
      * @ORM\Column(type="smallint", length=1, nullable=true, options={"unsigned"=true})
+     * @Groups("infos")
      */
     protected $team;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=6)
+     * @Groups("infos")
      */
     protected $color;
 
@@ -54,16 +59,20 @@ class Player
      * @var int
      * @ORM\Column(type="smallint", length=1, options={"unsigned"=true})
      * @Gedmo\SortablePosition()
+     * @Groups("infos")
      */
     protected $position;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups("infos")
      */
     protected $ai;
 
-
+    /**
+     * Player constructor.
+     */
     public function __construct()
     {
         $this->ai = false;
@@ -129,6 +138,16 @@ class Player
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    /**
+     * Get the user ID
+     * @Groups("infos")
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->user->getId();
     }
 
     /**

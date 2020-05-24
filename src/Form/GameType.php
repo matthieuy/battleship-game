@@ -57,12 +57,11 @@ class GameType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($user) {
             /** @var Game $game */
             $game = $event->getData();
-            dump($user);
 
             if ($user instanceof UserInterface) {
                 $game->setCreator($user);
             }
-            $game->getSizeByPlayerNb($game->getMaxPlayer(), true);
+            $game->setSize($game->getMaxPlayer());
         });
     }
 

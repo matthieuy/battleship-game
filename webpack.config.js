@@ -17,6 +17,8 @@ Encore
   .addAliases({
     '@npm': path.resolve(__dirname, 'node_modules'),
     '@bundle': path.resolve(__dirname, 'public/bundles'),
+    '@public': path.resolve(__dirname, 'public'),
+    '@js': path.resolve(__dirname, 'assets/js'),
   })
 
     /*
@@ -30,6 +32,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('create', './assets/js/create.js')
+    .addEntry('waiting', './assets/js/waiting.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
