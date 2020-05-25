@@ -205,6 +205,10 @@
         <source>Can't add AI</source>
         <target>Impossible d'ajouter un IA</target>
       </trans-unit>
+      <trans-unit id="error_chgorder" resname="Can't change order">
+        <source>Can't change order</source>
+        <target>Impossible de changer l'ordre</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

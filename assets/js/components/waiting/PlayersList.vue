@@ -120,6 +120,7 @@
     },
     mounted() {
       console.log('[VUE] Mount PlayersList.vue')
+      let self = this
 
       // Playerlist sortable
       $('#playerlist tbody').sortable({
@@ -140,6 +141,10 @@
           $('.ui-placeholder').height($(ui.item).height())
         },
         update: function (e, ui) {
+          self.$store.dispatch(types.ACTION.UPDATE_ORDER, {
+            playerId: ui.item.data('id'),
+            position: ui.item.index('#playerlist tbody tr:visible'),
+          })
           return ui
         },
       })

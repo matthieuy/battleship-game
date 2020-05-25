@@ -21,4 +21,5 @@ export const ACTION = {
   JOIN_LEAVE: 'JOIN_LEAVE', // Join/Leave a game
   REMOVE_PLAYER: 'REMOVE_PLAYER', // Remove a player fril a game
   ADD_AI: 'ADD_AI', // Add a AI player
+  UPDATE_ORDER: 'UPDATE_ORDER', // Change order of player
 }

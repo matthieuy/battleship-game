@@ -122,7 +122,16 @@ export default {
       join: true,
       ai: true,
     }, 'Can\'t add AI')
-  }
+  },
+
+  /**
+   * Update order of game
+   */
+  [types.ACTION.UPDATE_ORDER] (context, obj) {
+    console.log('[STORE] Change order', obj)
+    let url = Routing.generate('match.ajax.order', { slug: context.state.slug })
+    return ajaxPostCall(url, obj, 'Can\'t change order')
+  },
 }
 
 

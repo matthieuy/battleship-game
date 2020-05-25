@@ -271,6 +271,45 @@ class WaitingController extends AbstractController
     }
 
     /**
+     * Change order of the game
+     * @param Game $game
+     * @param Request $request
+     *
+     * @Route(
+     *     name="match.ajax.order",
+     *     path="/game/{slug}/order",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
+     * @return JsonResponse
+     */
+    public function ajaxChangeOrder(Game $game, Request $request): JsonResponse
+    {
+        // Check right
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$game->isCreator($user) || $game->getStatus() !== Game::STATUS_WAIT) {
+            return new JsonResponse(['error' => 'Not allowed']);
+        }
+
+        // Get player
+        $position = $request->request->get('position', 0);
+        $playerId = $this->getPlayerId($game, $request);
+        $repo = $this->getDoctrine()->getRepository('App:Player');
+        $player = $repo->getPlayer($game, $user, $playerId);
+
+        // Move
+        if ($player instanceof Player && $player->getPosition() !== $position) {
+            $player->setPosition($position);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $em->refresh($game);
+        }
+
+        return new JsonResponse(['success' => true]);
+    }
+
+    /**
      * Get the playerid from request or null
      * @param Game $game
      * @param Request $request
