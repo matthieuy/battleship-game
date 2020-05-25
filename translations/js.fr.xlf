@@ -145,6 +145,10 @@
         <source>You are already in the game</source>
         <target>vous etes déjà dans la partie</target>
       </trans-unit>
+      <trans-unit id="any_ai" resname="Any AI available">
+        <source>Any AI available</source>
+        <target>Aucun IA disponible</target>
+      </trans-unit>
       <trans-unit id="error_persist" resname="Error with persist data">
         <source>Error with persist data</source>
         <target>Erreur lors de la sauvegarde des données</target>
@@ -188,6 +192,18 @@
       <trans-unit id="btn_leave_tip" resname="btn_leave_tip">
         <source>Leave the game.</source>
         <target>Quitter la partie.</target>
+      </trans-unit>
+      <trans-unit id="btn_ai" resname="btn_ai">
+        <source>Add a AI</source>
+        <target>Ajouter un IA</target>
+      </trans-unit>
+      <trans-unit id="btn_ai_tip" resname="btn_ai_tip">
+        <source>Add a player managed by the computer.</source>
+        <target>Ajouter un joueur géré par l'ordinateur.</target>
+      </trans-unit>
+      <trans-unit id="error_addai" resname="Can't add AI">
+        <source>Can't add AI</source>
+        <target>Impossible d'ajouter un IA</target>
       </trans-unit>
     </body>
   </file>

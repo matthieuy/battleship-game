@@ -145,6 +145,10 @@
         <source>You are already in the game</source>
         <target>You are already in the game</target>
       </trans-unit>
+      <trans-unit id="any_ai" resname="Any AI available">
+        <source>Any AI available</source>
+        <target>Any AI available</target>
+      </trans-unit>
       <trans-unit id="error_persist" resname="Error with persist data">
         <source>Error with persist data</source>
         <target>Error with persist data</target>
@@ -188,6 +192,18 @@
       <trans-unit id="btn_leave_tip" resname="btn_leave_tip">
         <source>Leave the game.</source>
         <target>Leave the game.</target>
+      </trans-unit>
+      <trans-unit id="btn_ai" resname="btn_ai">
+        <source>Add a AI</source>
+        <target>Add a AI</target>
+      </trans-unit>
+      <trans-unit id="btn_ai_tip" resname="btn_ai_tip">
+        <source>Add a player managed by the computer.</source>
+        <target>Add a player managed by the computer.</target>
+      </trans-unit>
+      <trans-unit id="error_addai" resname="Can't add AI">
+        <source>Can't add AI</source>
+        <target>Can't add AI</target>
       </trans-unit>
     </body>
   </file>

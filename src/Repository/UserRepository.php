@@ -33,6 +33,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * Get one AI available
+     * @param array $excludeIds List of IdUser to exclude
+     * @return User|null The AI or null
+     */
+    public function getAiavailable(array $excludeIds = []): ?User
+    {
+        // Count available AI
+        $builder = $this->createQueryForAI($excludeIds);
+        $builder->select('COUNT(user)');
+        $nbAvailable = $builder->getQuery()->getSingleScalarResult();
+
+        // None AI
+        if (!$nbAvailable) {
+            return null;
+        }
+
+        // Get random AI
+        $builder = $this->createQueryForAI($excludeIds);
+        $builder
+            ->orderBy('user.username')
+            ->setFirstResult(rand(0, $nbAvailable - 1))
+            ->setMaxResults(1);
+
+        return $builder->getQuery()->getOneOrNullResult();
+    }
+
+    /**
      * Used to upgrade (rehash) the user's password automatically over time.
      * @param UserInterface $user
      * @param string $newEncodedPassword
@@ -81,5 +108,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         return $user;
+    }
+
+    /**
+     * Create a query for get AI available
+     * @param array $excludeIDs
+     * @return ORM\QueryBuilder
+     */
+    private function createQueryForAI(array $excludeIDs = []): ORM\QueryBuilder
+    {
+        $builder = $this->createQueryBuilder('user');
+        $builder->where('user.ai=1');
+
+        if (!empty($excludeIDs)) {
+            $builder
+                ->andWhere('user.id NOT IN (:exclude)')
+                ->setParameter('exclude', $excludeIDs);
+        }
+
+        return $builder;
     }
 }

@@ -12,6 +12,7 @@ import GameInfo from './components/waiting/GameInfo'
 import GameOptions from './components/waiting/GameOptions'
 import PlayersList from './components/waiting/PlayersList'
 import BtnJoin from './components/waiting/BtnJoin'
+import BtnAi from './components/waiting/BtnAi'
 
 // Theme
 import '../css/_table.less'
@@ -39,5 +40,6 @@ new Vue({
     GameOptions,
     PlayersList,
     BtnJoin,
+    BtnAi,
   },
 })

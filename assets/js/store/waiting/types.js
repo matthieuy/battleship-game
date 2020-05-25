@@ -19,5 +19,6 @@ export const ACTION = {
   CHANGE_COLOR: 'CHANGE_COLOR', // Change player color
   CHANGE_TEAM: 'CHANGE_TEAM', // Change team
   JOIN_LEAVE: 'JOIN_LEAVE', // Join/Leave a game
-  REMOVE_PLAYER: 'REMOVE_PLAYER',
+  REMOVE_PLAYER: 'REMOVE_PLAYER', // Remove a player fril a game
+  ADD_AI: 'ADD_AI', // Add a AI player
 }

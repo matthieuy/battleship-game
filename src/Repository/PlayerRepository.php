@@ -44,7 +44,19 @@ class PlayerRepository extends ServiceEntityRepository
         }
 
         if ($ai) {
+            // Get AI already in game
+            $listExcludeAI = [];
+            foreach ($players as $player) {
+                if ($player->isAi()) {
+                    $listExcludeAI[] = $player->getUser()->getId();
+                }
+            }
 
+            $repo = $this->getEntityManager()->getRepository('App:User');
+            $user = $repo->getAiavailable($listExcludeAI);
+            if (!$user) {
+                return 'Any AI available';
+            }
         } else {
             foreach ($players as $player) {
                 if ($player->getUser()->getId() === $user->getId()) {

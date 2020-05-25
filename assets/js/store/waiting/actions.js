@@ -111,6 +111,18 @@ export default {
       playerId: playerId,
     }, 'Can\'t join/leave game')
   },
+
+  /**
+   * Add a AI
+   */
+  [types.ACTION.ADD_AI] (context) {
+    console.log('[STORE] Add a AI')
+    let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
+    return ajaxPostCall(url, {
+      join: true,
+      ai: true,
+    }, 'Can\'t add AI')
+  }
 }
 
 
