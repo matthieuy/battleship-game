@@ -30,7 +30,7 @@ class WaitingController extends AbstractController
      *     options={"expose"=true})
      * @return JsonResponse
      */
-    public function ajaxGameInfo(Game $game, SerializerInterface $serializer): JsonResponse
+    public function getGameInfo(Game $game, SerializerInterface $serializer): JsonResponse
     {
         $json = $serializer->serialize($game, 'json', ['groups' => 'infos']);
 
@@ -51,7 +51,7 @@ class WaitingController extends AbstractController
      * )
      * @return JsonResponse
      */
-    public function ajaxSetInfos(Game $game, Request $request): JsonResponse
+    public function setInfos(Game $game, Request $request): JsonResponse
     {
         // Check rights
         /** @var User $user */
@@ -104,7 +104,7 @@ class WaitingController extends AbstractController
      *     options={"expose"=true})
      * @return JsonResponse
      */
-    public function ajaxSetOption(Game $game, Request $request): JsonResponse
+    public function setOption(Game $game, Request $request): JsonResponse
     {
         // Check rights
         /** @var User $user */
@@ -152,7 +152,7 @@ class WaitingController extends AbstractController
      *     options={"expose"=true})
      * @return JsonResponse
      */
-    public function ajaxSetColor(Game $game, Request $request): JsonResponse
+    public function setColor(Game $game, Request $request): JsonResponse
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -197,7 +197,7 @@ class WaitingController extends AbstractController
      *     options={"expose"=true})
      * @return JsonResponse
      */
-    public function ajaxChangeTeam(Game $game, Request $request): JsonResponse
+    public function changeTeam(Game $game, Request $request): JsonResponse
     {
         // Check right
         /** @var User $user */
@@ -239,7 +239,7 @@ class WaitingController extends AbstractController
      *     options={"expose"=true})
      * @return JsonResponse
      */
-    public function ajaxJoinGame(Game $game, Request $request): JsonResponse
+    public function joinGame(Game $game, Request $request): JsonResponse
     {
         // Check right
         /** @var User $user */
@@ -283,7 +283,7 @@ class WaitingController extends AbstractController
      *     options={"expose"=true})
      * @return JsonResponse
      */
-    public function ajaxChangeOrder(Game $game, Request $request): JsonResponse
+    public function changeOrder(Game $game, Request $request): JsonResponse
     {
         // Check right
         /** @var User $user */
