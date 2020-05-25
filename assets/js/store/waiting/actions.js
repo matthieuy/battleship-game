@@ -97,6 +97,20 @@ export default {
     let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
     return ajaxPostCall(url, { join: join }, 'Can\'t join/leave game')
   },
+
+  /**
+   * Remove a player
+   */
+  [types.ACTION.REMOVE_PLAYER] (context, playerId) {
+    console.log('[STORE] Remove a player', playerId)
+
+    // Request
+    let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
+    return ajaxPostCall(url, {
+      join: false,
+      playerId: playerId,
+    }, 'Can\'t join/leave game')
+  },
 }
 
 
