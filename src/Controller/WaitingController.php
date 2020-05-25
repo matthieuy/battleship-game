@@ -185,6 +185,48 @@ class WaitingController extends AbstractController
     }
 
     /**
+     * Change team
+     * @param Game $game
+     * @param Request $request
+     *
+     * @Route(
+     *     name="match.ajax.team",
+     *     path="/game/{slug}/team",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
+     * @return JsonResponse
+     */
+    public function ajaxChangeTeam(Game $game, Request $request): JsonResponse
+    {
+        // Check right
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($game->getStatus() !== Game::STATUS_WAIT) {
+            return new JsonResponse(['error' => 'Not allowed']);
+        }
+
+        // Get params
+        $playerId = $this->getPlayerId($game, $request);
+        $team = max(1, min(12, intval($request->request->get('team'))));
+
+        $repo = $this->getDoctrine()->getRepository('App:Player');
+        $player = $repo->getPlayer($game, $user, $playerId);
+        if ($player instanceof Player) {
+            $player->setTeam($team);
+            $this->getDoctrine()->getManager()->flush();
+
+            return new JsonResponse([
+                'success' => true,
+                'team' => $player->getTeam(),
+                'playerId' => $player->getId(),
+            ]);
+        }
+
+        return new JsonResponse(['error' => 'Player not found']);
+    }
+
+    /**
      * Get the playerid from request or null
      * @param Game $game
      * @param Request $request

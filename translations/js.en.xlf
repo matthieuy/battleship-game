@@ -165,6 +165,10 @@
         <source>Player not found</source>
         <target>Player not found</target>
       </trans-unit>
+      <trans-unit id="error_chgteam" resname="Can't change team">
+        <source>Can't change team</source>
+        <target>Can't change team</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

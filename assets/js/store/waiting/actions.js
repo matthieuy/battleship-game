@@ -75,6 +75,17 @@ export default {
     let url = Routing.generate('match.ajax.color', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change color')
   },
+
+  /**
+   * Change team
+   */
+  [types.ACTION.CHANGE_TEAM] (context, obj) {
+    console.log('[STORE] Change team', obj)
+
+    // Request
+    let url = Routing.generate('match.ajax.team', { slug: context.state.slug })
+    return ajaxPostCall(url, obj, 'Can\'t change team')
+  },
 }
 
 

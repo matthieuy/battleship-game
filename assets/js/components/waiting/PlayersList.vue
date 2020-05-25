@@ -89,13 +89,19 @@
       },
       // Change player color
       changeColor(e, player) {
+        this.$store.commit(types.MUTATION.SET_LOADED, true)
         this.$store.dispatch(types.ACTION.CHANGE_COLOR, {
           playerId: player.id,
           color: e.target.value,
         })
       },
+      // Change team
       changeTeam(e, player) {
-
+        this.$store.commit(types.MUTATION.SET_LOADED, true)
+        this.$store.dispatch(types.ACTION.CHANGE_TEAM, {
+          playerId: player.id,
+          team: e.target.value
+        })
       },
       removePlayer (e, player) {
 
