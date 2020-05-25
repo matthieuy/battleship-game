@@ -104,6 +104,7 @@
             return false
           }
           this.loading[name] = true
+          this.$store.commit(types.MUTATION.SET_LOADED, true)
 
           this.$store.dispatch(types.ACTION.CHANGE_OPTIONS, {
             option: name,

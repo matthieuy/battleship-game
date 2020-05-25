@@ -17,5 +17,6 @@ export const ACTION = {
   CHANGE_MAXPLAYER: 'CHANGE_MAXPLAYER', // Change max player
   CHANGE_OPTIONS: 'CHANGE_OPTIONS', // Change game options
   CHANGE_COLOR: 'CHANGE_COLOR', // Change player color
-  CHANGE_TEAM: 'CHANGE_TEAM' // Change team
+  CHANGE_TEAM: 'CHANGE_TEAM', // Change team
+  JOIN_LEAVE: 'JOIN_LEAVE', // Join/Leave a game
 }

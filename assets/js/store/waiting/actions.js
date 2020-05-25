@@ -86,6 +86,17 @@ export default {
     let url = Routing.generate('match.ajax.team', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change team')
   },
+
+  /**
+   * Join/Leave game
+   */
+  [types.ACTION.JOIN_LEAVE] (context, join) {
+    console.log('[STORE] Join/Leave game', join)
+
+    // Request
+    let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
+    return ajaxPostCall(url, { join: join }, 'Can\'t join/leave game')
+  },
 }
 
 

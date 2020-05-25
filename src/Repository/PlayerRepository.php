@@ -75,6 +75,36 @@ class PlayerRepository extends ServiceEntityRepository
     }
 
     /**
+     * Remove player from the game
+     * @param Game $game
+     * @param User $user
+     * @param int|null $playerId
+     * @return bool
+     */
+    public function quitGame(Game $game, User $user, int $playerId = null): bool
+    {
+        // Query
+        $builder = $this->createQueryPlayer($game, $user, $playerId);
+        $player = $builder
+                ->select('player')
+                ->getQuery()
+                ->setMaxResults(1)
+                ->getOneOrNullResult();
+
+        // Already leave
+        if (!$player) {
+            return true;
+        }
+
+        // Delete
+        $em = $this->getEntityManager();
+        $em->remove($player);
+        $em->flush();
+
+        return true;
+    }
+
+    /**
      * Get the last team number
      * @param Game $game The game
      * @return integer The last team number

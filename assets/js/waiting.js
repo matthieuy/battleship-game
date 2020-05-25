@@ -11,6 +11,7 @@ import * as types from './store/waiting/types'
 import GameInfo from './components/waiting/GameInfo'
 import GameOptions from './components/waiting/GameOptions'
 import PlayersList from './components/waiting/PlayersList'
+import BtnJoin from './components/waiting/BtnJoin'
 
 // Theme
 import '../css/_table.less'
@@ -37,5 +38,6 @@ new Vue({
     GameInfo,
     GameOptions,
     PlayersList,
+    BtnJoin,
   },
 })

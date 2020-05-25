@@ -137,6 +137,10 @@
         <source>Could not join : game is full</source>
         <target>Could not join : game is full</target>
       </trans-unit>
+      <trans-unit id="error_join" resname="Can't join/leave game">
+        <source>Can't join/leave game</source>
+        <target>Can't join/leave game</target>
+      </trans-unit>
       <trans-unit id="error_alreadyin" resname="You are already in the game">
         <source>You are already in the game</source>
         <target>You are already in the game</target>
@@ -168,6 +172,22 @@
       <trans-unit id="error_chgteam" resname="Can't change team">
         <source>Can't change team</source>
         <target>Can't change team</target>
+      </trans-unit>
+      <trans-unit id="btn_join" resname="btn_join">
+        <source>Join</source>
+        <target>Join</target>
+      </trans-unit>
+      <trans-unit id="btn_join_tip" resname="btn_join_tip">
+        <source>Join the game.</source>
+        <target>Join the game.</target>
+      </trans-unit>
+      <trans-unit id="btn_leave" resname="btn_leave">
+        <source>Leave</source>
+        <target>Leave</target>
+      </trans-unit>
+      <trans-unit id="btn_leave_tip" resname="btn_leave_tip">
+        <source>Leave the game.</source>
+        <target>Leave the game.</target>
       </trans-unit>
     </body>
   </file>

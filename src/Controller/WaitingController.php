@@ -227,6 +227,50 @@ class WaitingController extends AbstractController
     }
 
     /**
+     * Join or leave a game
+     * @param Game $game
+     * @param Request $request
+     *
+     * @Route(
+     *     name="match.ajax.join",
+     *     path="/game/{slug}/join",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
+     * @return JsonResponse
+     */
+    public function ajaxJoinGame(Game $game, Request $request): JsonResponse
+    {
+        // Check right
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($game->getStatus() !== Game::STATUS_WAIT) {
+            return new JsonResponse(['error' => 'Not allowed']);
+        }
+
+        $repo = $this->getDoctrine()->getRepository('App:Player');
+        if ($request->request->getBoolean('join', false)) {
+            // Join
+            $isAi = ($game->isCreator($user) && $request->request->getBoolean('ai'));
+            $result = $repo->joinGame($game, $user, $isAi);
+        } else {
+            // Leave
+            $playerId = $this->getPlayerId($game, $request);
+            $result = $repo->quitGame($game, $user, $playerId);
+        }
+
+        // Error (result contain message)
+        if (is_string($result)) {
+            return new JsonResponse(['error' => $result]);
+        }
+
+
+        return new JsonResponse([
+            'success' => $result,
+        ]);
+    }
+
+    /**
      * Get the playerid from request or null
      * @param Game $game
      * @param Request $request
