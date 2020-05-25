@@ -19,7 +19,7 @@
          ### INFOS ###
          #############}
         <div class="row">
-            <div class="column large-10 small-12 large-centered">
+            <div class="column large-12 small-12 large-centered">
                 <game-info date="{{ game.createAt|date }}"><i class="fa fa-spin fa-spinner"></i></game-info>
                 <input type="hidden" id="user-id" value="{{ app.user.id|default('0') }}">
                 <input type="hidden" id="slug" value="{{ game.slug }}">
@@ -27,59 +27,61 @@
             </div>
         </div>
 
-        {###############
-         ### OPTIONS ###
-         ###############}
-        <div class="column large-6 small-12">
-            <game-options></game-options>
-        </div>
+        <div class="row">
+            {###############
+             ### OPTIONS ###
+             ###############}
+            <div class="column large-6 small-12">
+                <game-options></game-options>
+            </div>
 
-        {#############
-         ### Score ###
-         #############}
-        <div class="column large-6 small-12">
-            <table class="small-12 extendable">
-                <thead>
-                <tr>
-                    <th colspan="2">
-                        {{ 'Score'|trans({}) }}
-                        <div class="fa caret"></div>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ 'Discovery'|trans }}
-                        <span class="fa opentip" data-tip="<strong>{{ 'Discovery'|trans }} :</strong>{{ 'The first hit on the boat.'|trans }}"></span> :
-                    </td>
-                    <td><strong>{{ constant("App\\PointsConstants::SCORE_DISCOVERY") }}</strong> {{ 'points'|trans }}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'Direction'|trans }}
-                        <span class="fa opentip" data-tip="<strong>{{ 'Direction'|trans }} :</strong>{{ 'The second hit on the boat.'|trans }}"></span> :
-                    </td>
-                    <td><strong>{{ constant("App\\PointsConstants::SCORE_DIRECTION") }}</strong> {{ 'points'|trans }}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'Touch'|trans }}
-                        <span class="fa opentip" data-tip="<strong>{{ 'Touch'|trans }} :</strong>{{ 'Touch a boat.'|trans }}"></span> :
-                    </td>
-                    <td><strong>{{ constant("App\\PointsConstants::SCORE_TOUCH") }}</strong> {{ 'points'|trans }}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'Sink'|trans }}
-                        <span class="fa opentip" data-tip="<strong>{{ 'Sink'|trans }} :</strong>{{ 'Last shot on a boat.'|trans }}"></span> :
-                    </td>
-                    <td><strong>{{ constant("App\\PointsConstants::SCORE_SINK") }}</strong> {{ 'points'|trans }}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'Blow'|trans }}
-                        <span class="fa opentip" data-tip="<strong>{{ 'Blow'|trans }} :</strong>{{ 'Sink the last boat of your enemy.'|trans }}"></span> :
-                    </td>
-                    <td><strong>{{ constant("App\\PointsConstants::SCORE_FATAL") }}</strong> {{ 'points'|trans }}</td>
-                </tr>
-                </tbody>
-            </table>
+            {#############
+             ### Score ###
+             #############}
+            <div class="column large-6 small-12">
+                <table class="small-12 extendable">
+                    <thead>
+                    <tr>
+                        <th colspan="2">
+                            {{ 'Score'|trans({}) }}
+                            <div class="fa caret"></div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ 'Discovery'|trans }}
+                            <span class="fa opentip" data-tip="<strong>{{ 'Discovery'|trans }} :</strong>{{ 'The first hit on the boat.'|trans }}"></span> :
+                        </td>
+                        <td><strong>{{ constant("App\\PointsConstants::SCORE_DISCOVERY") }}</strong> {{ 'points'|trans }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Direction'|trans }}
+                            <span class="fa opentip" data-tip="<strong>{{ 'Direction'|trans }} :</strong>{{ 'The second hit on the boat.'|trans }}"></span> :
+                        </td>
+                        <td><strong>{{ constant("App\\PointsConstants::SCORE_DIRECTION") }}</strong> {{ 'points'|trans }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Touch'|trans }}
+                            <span class="fa opentip" data-tip="<strong>{{ 'Touch'|trans }} :</strong>{{ 'Touch a boat.'|trans }}"></span> :
+                        </td>
+                        <td><strong>{{ constant("App\\PointsConstants::SCORE_TOUCH") }}</strong> {{ 'points'|trans }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Sink'|trans }}
+                            <span class="fa opentip" data-tip="<strong>{{ 'Sink'|trans }} :</strong>{{ 'Last shot on a boat.'|trans }}"></span> :
+                        </td>
+                        <td><strong>{{ constant("App\\PointsConstants::SCORE_SINK") }}</strong> {{ 'points'|trans }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Blow'|trans }}
+                            <span class="fa opentip" data-tip="<strong>{{ 'Blow'|trans }} :</strong>{{ 'Sink the last boat of your enemy.'|trans }}"></span> :
+                        </td>
+                        <td><strong>{{ constant("App\\PointsConstants::SCORE_FATAL") }}</strong> {{ 'points'|trans }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         {###############
