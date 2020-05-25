@@ -77,7 +77,7 @@ class WaitingController extends AbstractController
                 break;
 
             default:
-                return new JsonResponse(['error' => 'Bad options']);
+                return new JsonResponse(['error' => 'Bad option']);
         }
 
         // Save

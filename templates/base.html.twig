@@ -20,7 +20,7 @@
                 {% include "flash.html.twig" %}
                 {% block flash %}{% endblock %}
                 <noscript>
-                    <div class="flash-msg error">{{ 'no_javascript'|trans() }}</div>
+                    <div class="flash-msg error">{{ 'no_javascript'|trans }}</div>
                 </noscript>
             </div>
 
@@ -28,9 +28,8 @@
         </div>
 
         {% block javascripts %}
-            <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
-            <script src="{{ path('bazinga_jstranslation_js') }}"></script>
             {{ encore_entry_script_tags('app') }}
+            <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'js'}) }}"></script>
         {% endblock %}
     </body>
 </html>

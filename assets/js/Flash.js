@@ -15,7 +15,7 @@ let flash = function () {
    */
   this.error = (msg) => {
     addMessage('error', msg)
-    console.error(Translator.trans(msg))
+    console.error(Translator.trans(msg, {}, 'js'))
     return false
   }
 
@@ -30,7 +30,7 @@ let flash = function () {
     if (msg === '') {
       return false
     }
-    let flash = $('<div class="flash-msg ' + type + '" style="display: none;"><div class="close">&times;</div>' + Translator.trans(msg) + '</div>').appendTo('.flash-container')
+    let flash = $('<div class="flash-msg ' + type + '" style="display: none;"><div class="close">&times;</div>' + Translator.trans(msg, {}, 'js') + '</div>').appendTo('.flash-container')
     $('#container').animate({scrollTop: $('.flash-container').offset().top - 5}, 2000)
     $(flash).show('slow', function () {
       setTimeout(function () {

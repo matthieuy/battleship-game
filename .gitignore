@@ -1,6 +1,8 @@
 /old/
 !/extras/dev-docker-persist/.gitkeep
 /extras/dev-docker-persist/*
+/public/translations/.gitkeep
+/public/translations/*
 
 ###> symfony/framework-bundle ###
 /.env.local

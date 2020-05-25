@@ -18,11 +18,15 @@ import '../css/theme.less';
 
 
 import $ from 'jquery'
+import Sidebar from './Sidebar'
 window.Translator = require('bazinga-translator')
 
 // Flash message
 import Flash from './Flash'
-import Sidebar from './Sidebar'
+window.addEventListener('unhandledrejection', function(event) {
+  Flash.error(event.reason.message)
+  event.stopPropagation()
+});
 
 // Document ready
 $(() => {

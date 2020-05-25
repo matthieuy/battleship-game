@@ -40,7 +40,7 @@ class PlayerRepository extends ServiceEntityRepository
         // Game is full
         $players = $game->getPlayers();
         if (count($players) >= $game->getMaxPlayer()) {
-            return 'Coulnd not join : game is full';
+            return 'Could not join : game is full';
         }
 
         if ($ai) {

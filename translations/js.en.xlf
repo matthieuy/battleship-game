@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="infos" resname="Informations">
+        <source>Informations</source>
+        <target>Informations</target>
+      </trans-unit>
+      <trans-unit id="namegame" resname="Name of the game">
+        <source>Name of the game</source>
+        <target>Name of the game</target>
+      </trans-unit>
+      <trans-unit id="gridsize" resname="gridsize">
+        <source>gridsize</source>
+        <target>Size of the grid</target>
+      </trans-unit>
+      <trans-unit id="nbuser" resname="nb_players">
+        <source>nb_players</source>
+        <target>%nb% players</target>
+      </trans-unit>
+      <trans-unit id="xxl" resname="XXL">
+        <source>XXL</source>
+        <target>XXL</target>
+      </trans-unit>
+      <trans-unit id="create_date" resname="create_date">
+        <source>create_date</source>
+        <target>Date of create</target>
+      </trans-unit>
+      <trans-unit id="Creator" resname="Creator">
+        <source>Creator</source>
+        <target>Creator</target>
+      </trans-unit>
+      <trans-unit id="Players" resname="Players">
+        <source>Players</source>
+        <target>Players</target>
+      </trans-unit>
+      <trans-unit id="Player" resname="Player">
+        <source>Player</source>
+        <target>Player</target>
+      </trans-unit>
+      <trans-unit id="Team" resname="Team">
+        <source>Team</source>
+        <target>Team</target>
+      </trans-unit>
+      <trans-unit id="Status" resname="Status">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="waiting_player" resname="waiting_player">
+        <source>waiting_player</source>
+        <target>Waiting new players</target>
+      </trans-unit>
+      <trans-unit id="game_full" resname="game_full">
+        <source>game_full</source>
+        <target>Game is full</target>
+      </trans-unit>
+      <trans-unit id="Color" resname="Color">
+        <source>Color</source>
+        <target>Color</target>
+      </trans-unit>
+      <trans-unit id="Change_color" resname="Change color">
+        <source>Change color</source>
+        <target>Change color</target>
+      </trans-unit>
+      <trans-unit id="AI" resname="AI">
+        <source>AI</source>
+        <target>AI</target>
+      </trans-unit>
+      <trans-unit id="remove_player" resname="Remove the player">
+        <source>Remove the player</source>
+        <target>Remove the player</target>
+      </trans-unit>
+      <trans-unit id="loading" resname="loading">
+        <source>loading</source>
+        <target>Loading...</target>
+      </trans-unit>
+      <trans-unit id="no_player" resname="no_player">
+        <source>no_player</source>
+        <target>No player in this game</target>
+      </trans-unit>
+      <trans-unit id="Options" resname="Options">
+        <source>Options</source>
+        <target>Options</target>
+      </trans-unit>
+      <trans-unit id="penalty_name" resname="penalty_name">
+        <source>penalty_name</source>
+        <target>Penalty</target>
+      </trans-unit>
+      <trans-unit id="penalty_desc" resname="penalty_desc">
+        <source><![CDATA[Over a certain time without playing,<br>the player takes a shot on one of his boats.]]></source>
+        <target><![CDATA[Over a certain time without playing,<br>the player takes a shot on one of his boats.]]></target>
+      </trans-unit>
+      <trans-unit id="enabled" resname="enabled">
+        <source>enabled</source>
+        <target>enabled</target>
+      </trans-unit>
+      <trans-unit id="disabled" resname="disabled">
+        <source>disabled</source>
+        <target>disabled</target>
+      </trans-unit>
+      <trans-unit id="weapon_name" resname="weapon_name">
+        <source>weapon_name</source>
+        <target>Weapon</target>
+      </trans-unit>
+      <trans-unit id="weapon_desc" resname="weapon_desc">
+        <source><![CDATA[Players can use their points <br>for use special weapon.<br><br>(see scores table)]]></source>
+        <target><![CDATA[Players can use their points <br>for use special weapon.<br><br>(see scores table)]]></target>
+      </trans-unit>
+      <trans-unit id="bonus_name" resname="bonus_name">
+        <source>bonus_name</source>
+        <target>Bonus</target>
+      </trans-unit>
+      <trans-unit id="bonus_desc" resname="bonus_desc">
+        <source>Players can catch bonus</source>
+        <target>Players can catch bonus</target>
+      </trans-unit>
+      <trans-unit id="errorloadgame" resname="Can't load game">
+        <source>Can't load game</source>
+        <target>Can't load game</target>
+      </trans-unit>
+      <trans-unit id="error_chgsize" resname="Can't change size !">
+        <source>Can't change size !</source>
+        <target>Can't change size !</target>
+      </trans-unit>
+      <trans-unit id="error_chgmax" resname="Can't change max player">
+        <source>Can't change max player</source>
+        <target>Can't change max player</target>
+      </trans-unit>
+      <trans-unit id="error_chgcolor" resname="Can't change color">
+        <source>Can't change color</source>
+        <target>Can't change color</target>
+      </trans-unit>
+      <trans-unit id="error_full" resname="Could not join : game is full">
+        <source>Could not join : game is full</source>
+        <target>Could not join : game is full</target>
+      </trans-unit>
+      <trans-unit id="error_alreadyin" resname="You are already in the game">
+        <source>You are already in the game</source>
+        <target>You are already in the game</target>
+      </trans-unit>
+      <trans-unit id="error_persist" resname="Error with persist data">
+        <source>Error with persist data</source>
+        <target>Error with persist data</target>
+      </trans-unit>
+      <trans-unit id="error_allow_create" resname="error_allow_create">
+        <source>error_allow_create</source>
+        <target>Not allowed to create game</target>
+      </trans-unit>
+      <trans-unit id="not_allowed" resname="Not allowed">
+        <source>Not allowed</source>
+        <target>Not allowed</target>
+      </trans-unit>
+      <trans-unit id="bad_option" resname="Bad option">
+        <source>Bad option</source>
+        <target>Bad option</target>
+      </trans-unit>
+      <trans-unit id="wrong_color" resname="Wrong color">
+        <source>Wrong color</source>
+        <target>Wrong color</target>
+      </trans-unit>
+      <trans-unit id="player404" resname="Player not found">
+        <source>Player not found</source>
+        <target>Player not found</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

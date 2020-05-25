@@ -88,12 +88,18 @@ export default {
  */
 function ajaxPostCall (url, params, errorMsg) {
   return axios.post(url, new URLSearchParams(params)).then((response) => {
-    if (response.status === 200 && response.data.success) {
-      return Promise.resolve(response.data)
+    console.log(response.status, response.data, response.data.hasOwnProperty('error'))
+    if (response.status === 200) {
+      if (response.data.success) {
+        return Promise.resolve(response.data)
+      } else if (response.data.hasOwnProperty('error')) {
+        errorMsg = response.data.error
+      }
+
+      return Promise.reject(new Error(errorMsg))
     }
     return Promise.reject(new Error(errorMsg))
   }).catch(() => {
     Flash.error(errorMsg)
-    return Promise.reject(new Error(errorMsg))
   })
 }

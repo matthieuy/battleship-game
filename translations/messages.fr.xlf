@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="8giH1x2" resname="Create game">
+        <source>Create game</source>
+        <target>Créer une partie</target>
+      </trans-unit>
+      <trans-unit id="tYgn5T6" resname="nb_players">
+        <source>nb_players</source>
+        <target>%nb% joueurs</target>
+      </trans-unit>
+      <trans-unit id="OOWkbLx" resname="Score">
+        <source>Score</source>
+        <target>Score</target>
+      </trans-unit>
+      <trans-unit id="gPxAITM" resname="Discovery">
+        <source>Discovery</source>
+        <target>Découverte</target>
+      </trans-unit>
+      <trans-unit id="cC2RKL_" resname="The first hit on the boat.">
+        <source>The first hit on the boat.</source>
+        <target>Le 1er tir sur un bateau.</target>
+      </trans-unit>
+      <trans-unit id="xUoGHfz" resname="points">
+        <source>points</source>
+        <target>points</target>
+      </trans-unit>
+      <trans-unit id="nIqVeav" resname="Direction">
+        <source>Direction</source>
+        <target>Direction</target>
+      </trans-unit>
+      <trans-unit id="h29M_FU" resname="The second hit on the boat.">
+        <source>The second hit on the boat.</source>
+        <target>Le 2ème tir sur un bateau.</target>
+      </trans-unit>
+      <trans-unit id="afaJUJm" resname="Touch">
+        <source>Touch</source>
+        <target>Touche</target>
+      </trans-unit>
+      <trans-unit id="iUCLcBV" resname="Touch a boat.">
+        <source>Touch a boat.</source>
+        <target>Toucher un bateau.</target>
+      </trans-unit>
+      <trans-unit id="NdhmkQ4" resname="Sink">
+        <source>Sink</source>
+        <target>Couler</target>
+      </trans-unit>
+      <trans-unit id="SLWCjNh" resname="Last shot on a boat.">
+        <source>Last shot on a boat.</source>
+        <target>Dernier tir sur un bateau.</target>
+      </trans-unit>
+      <trans-unit id="IjqCt6d" resname="Blow">
+        <source>Blow</source>
+        <target>Coup de grâce</target>
+      </trans-unit>
+      <trans-unit id="2OnD0zd" resname="Sink the last boat of your enemy.">
+        <source>Sink the last boat of your enemy.</source>
+        <target>Couler le dernier bateau d'un ennemi.</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="ma9mBv_" resname="Menu">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="txdwlqr" resname="app_name">
+        <source>app_name</source>
+        <target>Battleship</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>S'inscrire</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Se connecter</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Nom d'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="uTT64Kc" resname="remember_me">
+        <source>remember_me</source>
+        <target>Se souvenir de moi</target>
+      </trans-unit>
+      <trans-unit id="pcWhXux" resname="homepage">
+        <source>homepage</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Se déconnecter</target>
+      </trans-unit>
+      <trans-unit id="bM1ceFY" resname="Close menu">
+        <source>Close menu</source>
+        <target>Fermer le menu</target>
+      </trans-unit>
+      <trans-unit id="X3gVVS7" resname="no_javascript">
+        <source>no_javascript</source>
+        <target>Activez javascript dans votre navigateur</target>
+      </trans-unit>
+      <trans-unit id="eSlJRX6" resname="Battleship">
+        <source>Battleship</source>
+        <target>Bataille</target>
+      </trans-unit>
+      <trans-unit id="create1" resname="Name of the game">
+        <source>Name of the game</source>
+        <target>Nom de la partie</target>
+      </trans-unit>
+      <trans-unit id="create2" resname="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="register1" resname="Email">
+        <source>Email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="error1" resname="error_allow_create">
+        <source>You don't be allow to create game</source>
+        <target>Vous n'etes pas autorisé à créer une partie</target>
+      </trans-unit>
+      <trans-unit id="reg3" resname="Subscribe with success">
+        <source>Subscribe with success</source>
+        <target>Inscription faite avec succès</target>
+      </trans-unit>
+      <trans-unit id="error2" resname="Not allowed">
+        <source>Not allowed</source>
+        <target>Non autorisé</target>
+      </trans-unit>
+      <trans-unit id="badOp" resname="Bad option">
+        <source>Bad option</source>
+        <target>Mauvaise option</target>
+      </trans-unit>
+      <trans-unit id="errColor" resname="Wrong color">
+        <source>Wrong color</source>
+        <target>Couleur incorrect</target>
+      </trans-unit>
+      <trans-unit id="player404" resname="Player not found">
+        <source>Player not found</source>
+        <target>Joueur introuvable</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

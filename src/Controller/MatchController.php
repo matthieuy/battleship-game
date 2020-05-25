@@ -31,7 +31,7 @@ class MatchController extends AbstractController
     {
         // Allow to create game
         if (!$this->isGranted('ROLE_CREATE_GAME')) {
-            $this->addFlash('error', 'You don\'t be allow to create game');
+            $this->addFlash('error', "error_allow_create");
             return $this->redirectToRoute('homepage');
         }
 

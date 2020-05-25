@@ -3,4 +3,10 @@ framework:
     translator:
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
-            - "%env(LOCALE)%"
+            - "en"
+
+bazinga_js_translation:
+    default_domain: js
+    active_locales:
+        - fr
+        - en
