@@ -17,7 +17,7 @@ class Player
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
-     * @Groups("infos")
+     * @Groups("players")
      */
     private $id;
 
@@ -37,21 +37,21 @@ class Player
     /**
      * @var string
      * @ORM\Column(type="string")
-     * @Groups("infos")
+     * @Groups("players")
      */
     protected $name;
 
     /**
      * @var int
      * @ORM\Column(type="smallint", length=1, nullable=true, options={"unsigned"=true})
-     * @Groups("infos")
+     * @Groups("players")
      */
     protected $team;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=6)
-     * @Groups("infos")
+     * @Groups("players")
      */
     protected $color;
 
@@ -59,14 +59,14 @@ class Player
      * @var int
      * @ORM\Column(type="smallint", length=1, options={"unsigned"=true})
      * @Gedmo\SortablePosition()
-     * @Groups("infos")
+     * @Groups("players")
      */
     protected $position;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups("infos")
+     * @Groups("players")
      */
     protected $ai;
 

@@ -109,7 +109,7 @@ class Game
      * @var ArrayCollection|Player[]
      * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="game", cascade={"remove"})
      * @ORM\OrderBy({"position": "ASC"})
-     * @Groups("infos")
+     * @Groups("players")
      */
     protected $players;
 

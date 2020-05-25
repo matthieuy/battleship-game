@@ -32,7 +32,7 @@ class WaitingController extends AbstractController
      */
     public function getGameInfo(Game $game, SerializerInterface $serializer): JsonResponse
     {
-        $json = $serializer->serialize($game, 'json', ['groups' => 'infos']);
+        $json = $serializer->serialize($game, 'json', ['groups' => ['infos', 'players']]);
 
         return (new JsonResponse())->setJson($json);
     }

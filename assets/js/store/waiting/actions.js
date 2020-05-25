@@ -17,6 +17,9 @@ export default {
     console.log('[STORE] Load infos', url)
     return axios.get(url).then((response) => {
       if (response.status === 200 && response.data.id) {
+        if (response.data.hasOwnProperty('players')) {
+          context.commit(types.MUTATION.SET_PLAYERS, response.data.players)
+        }
         context.commit(types.MUTATION.SET_GAMEINFO, response.data)
         return Promise.resolve(response.data)
       }

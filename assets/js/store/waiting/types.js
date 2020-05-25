@@ -8,6 +8,7 @@ export const MUTATION = {
   SET_LOADED: 'SET_LOADED', // Set if game is loaded
   SET_SLUG: 'SET_SLUG', // Set slug
   SET_GAMEINFO: 'SET_GAMEINFO', // Set game infos
+  SET_PLAYERS: 'SET_PLAYERS', // Set players list
 }
 
 // Actions
