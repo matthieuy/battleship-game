@@ -73,6 +73,7 @@ class PlayerRepository extends ServiceEntityRepository
         $player = new Player();
         $player
             ->setUser($user)
+            ->setAi($ai)
             ->setTeam($this->getLastTeam($game))
             ->setName($user->getUsername())
             ->setColor($this->randomColor());
