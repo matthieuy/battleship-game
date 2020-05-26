@@ -34,9 +34,11 @@
                     </div>
                 </td>
                 <td>
-                    <select v-show="isCreator || player.userId === userId" :value="player.team" @change="changeTeam($event, player)">
-                        <option v-for="n in 12">{{ n }}</option>
-                    </select>
+                    <span>
+                        <select v-show="isCreator || player.userId === userId" :value="player.team" @change="changeTeam($event, player)">
+                            <option v-for="n in 12">{{ n }}</option>
+                        </select>
+                    </span>
                     <span
                         class="delete"
                         :title="trans('Remove the player', {}, 'js')"
@@ -89,7 +91,7 @@
       },
       // Change player color
       changeColor(e, player) {
-        this.$store.commit(types.MUTATION.SET_LOADED, false)
+        e.target.parentElement.innerHTML = '<i class="fa fa-spin fa-spinner"></i>'
         this.$store.dispatch(types.ACTION.CHANGE_COLOR, {
           playerId: player.id,
           color: e.target.value,
@@ -97,7 +99,7 @@
       },
       // Change team
       changeTeam(e, player) {
-        this.$store.commit(types.MUTATION.SET_LOADED, false)
+        e.target.parentElement.innerHTML = '<i class="fa fa-spin fa-spinner"></i>'
         this.$store.dispatch(types.ACTION.CHANGE_TEAM, {
           playerId: player.id,
           team: e.target.value
