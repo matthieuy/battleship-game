@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,14 +11,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class UserListCommand
- * @package App\Command
  */
 class UserListCommand extends Command
 {
     protected static $defaultName = 'user:list';
-    /**
-     * @var EntityManager
-     */
     private $entityManager;
 
     /**
@@ -28,24 +23,24 @@ class UserListCommand extends Command
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
         parent::__construct();
+
+        $this->entityManager = $entityManager;
     }
 
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
-        $this
-            ->setDescription('Display user list')
-        ;
+        $this->setDescription('Display user list');
     }
 
     /**
      * Execute the commande
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output): int

@@ -7,7 +7,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Class DisposableEmailValidator
- * @package App\Validator
  */
 class DisposableEmailValidator extends ConstraintValidator
 {
@@ -65,18 +64,18 @@ class DisposableEmailValidator extends ConstraintValidator
 
     /**
      * Validate disposable email
-     * @param mixed $value
+     * @param mixed      $value
      * @param Constraint $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        /* @var $constraint \App\Validator\DisposableEmail */
         $value = strtolower($value);
 
         foreach ($this->emails as $email) {
             if (strpos($value, $email) !== false) {
                 $this->context->addViolation($constraint->message);
-                break;
+
+                return;
             }
         }
     }

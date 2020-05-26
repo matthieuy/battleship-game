@@ -7,7 +7,6 @@ use App\Entity\Player;
 use App\Event\GameEvent;
 use App\Event\MatchEvents;
 use App\Form\GameType;
-use App\Repository\PlayerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,15 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class MatchController
- * @package App\Controller
  */
 class MatchController extends AbstractController
 {
     /**
      * Create a game
      * @Route(name="match.create", path="/create-game", methods={"GET", "POST"})
-     * @param Request $request
+     *
+     * @param Request                  $request
      * @param EventDispatcherInterface $dispatcher
+     *
      * @return Response
      */
     public function create(Request $request, EventDispatcherInterface $dispatcher): Response
@@ -32,6 +32,7 @@ class MatchController extends AbstractController
         // Allow to create game
         if (!$this->isGranted('ROLE_CREATE_GAME')) {
             $this->addFlash('error', "error_allow_create");
+
             return $this->redirectToRoute('homepage');
         }
 
@@ -50,7 +51,7 @@ class MatchController extends AbstractController
             $em->flush();
 
             // Join the game
-            /** @var PlayerRepository $repo */
+            /** @var App\Repository\PlayerRepository $repo */
             $repo = $em->getRepository(Player::class);
             $result = $repo->joinGame($game, $this->getUser());
             if (is_string($result)) {
@@ -75,13 +76,14 @@ class MatchController extends AbstractController
 
     /**
      * Display a game
-     * @param Game $game
-     *
      * @Route(
      *     name="match.display",
      *     path="/game/{slug}",
      *     methods={"GET"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"})
+     *
+     * @param Game $game
+     *
      * @return Response
      */
     public function display(Game $game): Response

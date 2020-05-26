@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTime as DateTimeAlias;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -11,20 +12,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Game
- * @package App\Entity
  * @ORM\Entity(repositoryClass=GameRepository::class)
  * @ORM\Table(name="games")
  */
 class Game
 {
     // Status
-    const STATUS_WAIT = 0;
-    const STATUS_RUN  = 1;
-    const STATUS_END  = 2;
+    public const STATUS_WAIT = 0;
+    public const STATUS_RUN  = 1;
+    public const STATUS_END  = 2;
 
-    // Number of player => size of grid
-    private $sizeList = [
-        0 => 50, // Default
+    // Number of player => size of grid (default k=0)
+    protected $sizeList = [
+        0 => 50,
         2 => 15,
         3 => 20,
         4 => 25,
@@ -99,7 +99,7 @@ class Game
     protected $creator;
 
     /**
-     * @var \DateTime
+     * @var DateTimeAlias
      * @ORM\Column(type="datetime")
      * @Groups("infos")
      */
@@ -114,7 +114,7 @@ class Game
     protected $players;
 
     /**
-     * @var array
+     * @var array<mixed>
      * @ORM\Column(type="json")
      * @Groups("infos")
      */
@@ -136,7 +136,7 @@ class Game
         $this->players = new ArrayCollection();
         $this->status = self::STATUS_WAIT;
         $this->maxPlayer = 4;
-        $this->createAt = new \DateTime();
+        $this->createAt = new DateTimeAlias();
         $this->options = [];
     }
 
@@ -176,15 +176,6 @@ class Game
      * @return string
      */
     public function getSlug(): string
-    {
-        return (string) $this->slug;
-    }
-
-    /**
-     * Convert to string (slug)
-     * @return string
-     */
-    public function __toString()
     {
         return (string) $this->slug;
     }
@@ -236,9 +227,10 @@ class Game
     /**
      * Check if a user is the creator of game
      * @param User|null $user
+     *
      * @return bool
      */
-    public function isCreator(User $user = null): bool
+    public function isCreator(?User $user = null): bool
     {
         return $user !== null && $this->creator->getId() === $user->getId();
     }
@@ -267,9 +259,9 @@ class Game
 
     /**
      * Get CreateAt
-     * @return \DateTime
+     * @return DateTimeAlias
      */
-    public function getCreateAt(): \DateTime
+    public function getCreateAt(): DateTimeAlias
     {
         return $this->createAt;
     }
@@ -299,9 +291,10 @@ class Game
     /**
      * Set size by player number
      * @param int|null $playerNb
+     *
      * @return $this
      */
-    public function setSizeByPlayersNb(int $playerNb = null): self
+    public function setSizeByPlayersNb(?int $playerNb = null): self
     {
         $size = ($playerNb !== null && array_key_exists($playerNb, $this->sizeList)) ? $this->sizeList[$playerNb]: $this->sizeList[0];
         $this->setSize($size);
@@ -313,7 +306,7 @@ class Game
      * Get Players
      * @return Player[]|ArrayCollection
      */
-    public function getPlayers()
+    public function getPlayers(): ArrayCollection
     {
         return $this->players;
     }
@@ -334,16 +327,18 @@ class Game
     /**
      * Is player is in game
      * @param Player $player
+     *
      * @return bool
      */
     public function hasPlayer(Player $player): bool
     {
-        return  $this->players->contains($player);
+        return $this->players->contains($player);
     }
 
     /**
      * Add a player
      * @param Player $player
+     *
      * @return $this
      */
     public function addPlayer(Player $player): self
@@ -353,12 +348,13 @@ class Game
             $this->players->add($player);
         }
 
-        return  $this;
+        return $this;
     }
 
     /**
      * Remove a player
      * @param Player $player
+     *
      * @return $this
      */
     public function removePlayer(Player $player): self
@@ -372,7 +368,7 @@ class Game
 
     /**
      * Get Options
-     * @return array
+     * @return array<mixed>
      */
     public function getOptions(): array
     {
@@ -381,18 +377,19 @@ class Game
 
     /**
      * Get a option value
-     * @param string $name The name of the option
-     * @param mixed $default Default value
+     * @param string $name    The name of the option
+     * @param mixed  $default Default value
+     *
      * @return mixed The value
      */
     public function getOption(string $name, $default = false)
     {
-        return (array_key_exists($name, $this->options)) ? $this->options[$name] : $default;
+        return array_key_exists($name, $this->options) ? $this->options[$name] : $default;
     }
 
     /**
      * Set Options
-     * @param array $options
+     * @param array<mixed> $options
      *
      * @return $this
      */
@@ -405,8 +402,9 @@ class Game
 
     /**
      * Set a option
-     * @param string $name The name of the option
-     * @param mixed $value Value
+     * @param string $name  The name of the option
+     * @param mixed  $value Value
+     *
      * @return $this
      */
     public function setOption(string $name, $value): self
@@ -419,6 +417,7 @@ class Game
     /**
      * Remove a option
      * @param string $name The name of the option
+     *
      * @return $this
      */
     public function removeOption(string $name): self
@@ -428,5 +427,14 @@ class Game
         }
 
         return $this;
+    }
+
+    /**
+     * Convert to string (slug)
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string) $this->slug;
     }
 }

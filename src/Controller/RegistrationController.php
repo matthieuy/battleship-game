@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class RegistrationController
- * @package App\Controller
  */
 class RegistrationController extends AbstractController
 {
@@ -20,7 +19,7 @@ class RegistrationController extends AbstractController
      * Register page
      * @Route("/register", name="register", methods={"GET", "POST"})
      *
-     * @param Request $request
+     * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      *
      * @return Response
@@ -38,12 +37,8 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            $password = $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData());
+            $user->setPassword($password);
 
             // persist
             $entityManager = $this->getDoctrine()->getManager();

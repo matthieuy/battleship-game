@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class GameType
- * @package App\Form
  */
 class GameType extends AbstractType
 {
@@ -34,9 +33,9 @@ class GameType extends AbstractType
     /**
      * Build
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array<mixed>         $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // Create form
         $builder
@@ -54,7 +53,7 @@ class GameType extends AbstractType
 
         // Default value on post submit
         $user = $this->user;
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($user) {
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($user): void {
             /** @var Game $game */
             $game = $event->getData();
 
@@ -75,7 +74,7 @@ class GameType extends AbstractType
      * Configure
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Game::class,

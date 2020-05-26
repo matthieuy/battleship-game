@@ -2,20 +2,18 @@
 
 namespace App\Event;
 
-
 use App\Entity\Game;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class GameEvent
- * @package App\Event
  */
 class GameEvent extends Event implements GameEventInterface
 {
     private $game;
 
     /**
-     * GameEvent constructor.
+     * GameEvent constructor
      * @param Game $game
      */
     public function __construct(Game $game)
@@ -23,6 +21,10 @@ class GameEvent extends Event implements GameEventInterface
         $this->game = $game;
     }
 
+    /**
+     * Get game
+     * @return Game
+     */
     public function getGame(): Game
     {
         return $this->game;

@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class Ai
- * @package App\DataFixtures
  */
 class Ai extends Fixture implements OrderedFixtureInterface
 {
@@ -32,14 +31,14 @@ class Ai extends Fixture implements OrderedFixtureInterface
      * Load data fixtures
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         foreach ($this->aiList as $name) {
             $ai = new User();
             $ai
                 ->setAi(true)
                 ->setUsername($name)
-                ->setEmail(str_replace(' ', '', $name) . '@ai')
+                ->setEmail(str_replace(' ', '', $name).'@ai')
                 ->setPassword($name);
 
             $manager->persist($ai);
@@ -48,7 +47,11 @@ class Ai extends Fixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder()
+    /**
+     * Get order fixture
+     * @return int
+     */
+    public function getOrder(): int
     {
         return 1;
     }

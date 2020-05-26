@@ -12,10 +12,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
- *
- * @package App\Entity
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
+ *
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
@@ -45,7 +44,7 @@ class User implements UserInterface
     protected $email;
 
     /**
-     * @var boolean User is a AI ?
+     * @var bool User is a AI ?
      * @ORM\Column(type="boolean", name="ai")
      */
     protected $ai;
@@ -59,7 +58,7 @@ class User implements UserInterface
     protected $slug;
 
     /**
-     * @var array Roles
+     * @var array<string> Roles
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -121,9 +120,10 @@ class User implements UserInterface
     /**
      * Set AI
      * @param bool $ai
+     *
      * @return $this
      */
-    public function setAi(bool $ai)
+    public function setAi(bool $ai): self
     {
         $this->ai = $ai;
 
@@ -132,7 +132,7 @@ class User implements UserInterface
 
     /**
      * Get roles
-     * @return array
+     * @return array<string>
      */
     public function getRoles(): array
     {
@@ -144,7 +144,7 @@ class User implements UserInterface
 
     /**
      * Set roles
-     * @param array $roles
+     * @param array<string> $roles
      *
      * @return $this
      */
@@ -189,7 +189,7 @@ class User implements UserInterface
     /**
      * Clear sensitive data
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

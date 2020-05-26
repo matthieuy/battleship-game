@@ -4,30 +4,25 @@ namespace App\Command;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input as Input ;
+use Symfony\Component\Console\Input as In ;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class UserRolesCommand
- * @package App\Command
  */
 class UserRolesCommand extends Command
 {
-    protected static $defaultName = 'user:roles';
     protected $roles = [
         'ROLE_CREATE_GAME',
         'ROLE_ADMIN',
         'ROLE_SUPER_ADMIN',
-        'ROLE_ALLOWED_TO_SWITCH'
+        'ROLE_ALLOWED_TO_SWITCH',
     ];
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
+    protected $entityManager;
+    protected static $defaultName = 'user:roles';
 
     /**
      * UserRolesCommand constructor.
@@ -35,35 +30,38 @@ class UserRolesCommand extends Command
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
         parent::__construct();
+
+        $this->entityManager = $entityManager;
     }
 
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Add or remove roles')
-            ->addOption('action', 'a', Input\InputOption::VALUE_OPTIONAL, 'add or remove')
-            ->addArgument('username', Input\InputArgument::REQUIRED, 'Username')
-            ->addOption('role', 'r',  Input\InputOption::VALUE_OPTIONAL, 'Role to add or remove')
+            ->addOption('action', 'a', In\InputOption::VALUE_OPTIONAL, 'add or remove')
+            ->addArgument('username', In\InputArgument::REQUIRED, 'Username')
+            ->addOption('role', 'r', In\InputOption::VALUE_OPTIONAL, 'Role to add or remove')
         ;
     }
 
     /**
-     * @param Input\InputInterface $input
-     * @param OutputInterface $output
+     * Execute command
+     * @param In\InputInterface $input
+     * @param OutputInterface   $output
+     *
      * @return int
      */
-    protected function execute(Input\InputInterface $input, OutputInterface $output): int
+    protected function execute(In\InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         // Get arguments
         $action = $io->choice('Select the action to do', ['add', 'remove'], 0);
-        $role = $io->choice('Select the role to '. $action, $this->roles);
+        $role = $io->choice('Select the role to '.$action, $this->roles);
         $username = $input->getArgument('username');
 
         // Get user
@@ -72,6 +70,7 @@ class UserRolesCommand extends Command
         $user = $repo->findOneBy(['username' => $username]);
         if (!$user) {
             $io->error(sprintf('User "%s" don\'t exist !', $username));
+
             return 1;
         }
 

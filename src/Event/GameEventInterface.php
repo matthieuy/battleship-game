@@ -6,7 +6,6 @@ use App\Entity\Game;
 
 /**
  * Interface GameEventInterface
- * @package App\Event
  */
 interface GameEventInterface
 {
@@ -14,5 +13,5 @@ interface GameEventInterface
      * Get game
      * @return Game
      */
-    public function getGame();
+    public function getGame(): Game;
 }

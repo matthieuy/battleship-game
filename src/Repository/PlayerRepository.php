@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\Player;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,12 +31,13 @@ class PlayerRepository extends ServiceEntityRepository
 
     /**
      * Join a game
-     * @param Game $game
+     * @param Game               $game
      * @param UserInterface|User $user
-     * @param bool $ai
+     * @param bool               $ai
+     *
      * @return bool|string
      */
-    public function joinGame(Game $game, UserInterface $user, $ai = false)
+    public function joinGame(Game $game, UserInterface $user, ?bool $ai = false)
     {
         // Game is full
         $players = $game->getPlayers();
@@ -44,14 +46,16 @@ class PlayerRepository extends ServiceEntityRepository
         }
 
         if ($ai) {
-            // Get AI already in game
-            $listExcludeAI = [];
-            foreach ($players as $player) {
+            // Get AI ID already in game
+            $listExcludeAI = array_reduce($players, function ($carry, Player $player) {
                 if ($player->isAi()) {
-                    $listExcludeAI[] = $player->getUser()->getId();
+                    $carry[] = $player->getUser()->getId();
                 }
-            }
 
+                return $carry;
+            });
+
+            // Get random AI user
             $repo = $this->getEntityManager()->getRepository('App:User');
             $user = $repo->getAiavailable($listExcludeAI);
             if (!$user) {
@@ -79,7 +83,7 @@ class PlayerRepository extends ServiceEntityRepository
             $em = $this->getEntityManager();
             $em->persist($player);
             $em->flush();
-        } catch (\Exception $e) {
+        } catch (ORMException $e) {
             return 'Error with persist data';
         }
 
@@ -88,12 +92,13 @@ class PlayerRepository extends ServiceEntityRepository
 
     /**
      * Remove player from the game
-     * @param Game $game
-     * @param User $user
+     * @param Game     $game
+     * @param User     $user
      * @param int|null $playerId
+     *
      * @return bool
      */
-    public function quitGame(Game $game, User $user, int $playerId = null): bool
+    public function quitGame(Game $game, User $user, ?int $playerId = null): bool
     {
         // Query
         $builder = $this->createQueryPlayer($game, $user, $playerId);
@@ -119,9 +124,10 @@ class PlayerRepository extends ServiceEntityRepository
     /**
      * Get the last team number
      * @param Game $game The game
-     * @return integer The last team number
+     *
+     * @return int The last team number
      */
-    public function getLastTeam(Game $game)
+    public function getLastTeam(Game $game): int
     {
         $builder = $this->createQueryBuilder('player');
         $expr = new Expr();
@@ -141,9 +147,10 @@ class PlayerRepository extends ServiceEntityRepository
 
     /**
      * Get a player
-     * @param Game $game
-     * @param User $user
+     * @param Game     $game
+     * @param User     $user
      * @param int|null $playerId
+     *
      * @return Player|null
      */
     public function getPlayer(Game $game, User $user, ?int $playerId = null): ?Player
@@ -160,11 +167,11 @@ class PlayerRepository extends ServiceEntityRepository
      * Generate a hexa color
      * @return string
      */
-    private function randomColor()
+    private function randomColor(): string
     {
         $string = str_split('0123456789ABCDEF');
         $color = '';
-        for ($i=0; $i < 6; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $r = (int) floor(mt_rand(0, 15));
             $color .= $string[$r];
         }
@@ -174,12 +181,13 @@ class PlayerRepository extends ServiceEntityRepository
 
     /**
      * Create a query with the playerId (if defined) or the current user
-     * @param Game $game
-     * @param User $user
+     * @param Game     $game
+     * @param User     $user
      * @param int|null $playerId
+     *
      * @return QueryBuilder
      */
-    private function createQueryPlayer(Game $game, User $user, int $playerId = null): QueryBuilder
+    private function createQueryPlayer(Game $game, User $user, ?int $playerId = null): QueryBuilder
     {
         $builder = $this->createQueryBuilder('player');
         $builder

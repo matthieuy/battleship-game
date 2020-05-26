@@ -13,21 +13,21 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class WaitingController
- * @package App\Controller
  */
 class WaitingController extends AbstractController
 {
     /**
      * Get game's infos
-     * @param Game $game
-     * @param SerializerInterface $serializer
-     *
      * @Route(
      *     name="match.ajax.infos",
      *     path="/game/{slug}.json",
      *     methods={"GET"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     *
+     * @param Game                $game
+     * @param SerializerInterface $serializer
+     *
      * @return JsonResponse
      */
     public function getGameInfo(Game $game, SerializerInterface $serializer): JsonResponse
@@ -39,16 +39,16 @@ class WaitingController extends AbstractController
 
     /**
      * Edit infos (ajax)
-     * @param Game $game
-     * @param Request $request
-     *
      * @Route(
      *     name="match.ajax.edit.infos",
      *     path="/game/{slug}/infos",
      *     methods={"POST"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
-     * )
+     *
+     * @param Game    $game
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function setInfos(Game $game, Request $request): JsonResponse
@@ -93,15 +93,16 @@ class WaitingController extends AbstractController
 
     /**
      * Set game options
-     * @param Game $game
-     * @param Request $request
-     *
      * @Route(
      *     name="match.ajax.options",
      *     path="/game/{slug}/options",
      *     methods={"POST"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     *
+     * @param Game    $game
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function setOption(Game $game, Request $request): JsonResponse
@@ -141,15 +142,16 @@ class WaitingController extends AbstractController
 
     /**
      * Change color
-     * @param Game $game
-     * @param Request $request
-     *
      * @Route(
      *     name="match.ajax.color",
      *     path="/game/{slug}/color",
      *     methods={"POST"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     *
+     * @param Game    $game
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function setColor(Game $game, Request $request): JsonResponse
@@ -186,15 +188,16 @@ class WaitingController extends AbstractController
 
     /**
      * Change team
-     * @param Game $game
-     * @param Request $request
-     *
      * @Route(
      *     name="match.ajax.team",
      *     path="/game/{slug}/team",
      *     methods={"POST"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     *
+     * @param Game    $game
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function changeTeam(Game $game, Request $request): JsonResponse
@@ -228,15 +231,16 @@ class WaitingController extends AbstractController
 
     /**
      * Join or leave a game
-     * @param Game $game
-     * @param Request $request
-     *
      * @Route(
      *     name="match.ajax.join",
      *     path="/game/{slug}/join",
      *     methods={"POST"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     *
+     * @param Game    $game
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function joinGame(Game $game, Request $request): JsonResponse
@@ -272,15 +276,16 @@ class WaitingController extends AbstractController
 
     /**
      * Change order of the game
-     * @param Game $game
-     * @param Request $request
-     *
      * @Route(
      *     name="match.ajax.order",
      *     path="/game/{slug}/order",
      *     methods={"POST"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     *
+     * @param Game    $game
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function changeOrder(Game $game, Request $request): JsonResponse
@@ -311,14 +316,16 @@ class WaitingController extends AbstractController
 
     /**
      * Get the playerid from request or null
-     * @param Game $game
+     * @param Game    $game
      * @param Request $request
+     *
      * @return int|null
      */
     private function getPlayerId(Game $game, Request $request): ?int
     {
         /** @var User $user */
         $user = $this->getUser();
-        return ($user && $game->isCreator($user)) ? $request->request->get('playerId') : null;
+
+        return $user && $game->isCreator($user) ? $request->request->get('playerId') : null;
     }
 }

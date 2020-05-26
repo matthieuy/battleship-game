@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM as ORM;
+use Doctrine\ORM;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -14,8 +14,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class UserRepository
- * @package App\Repository
- *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -34,7 +32,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Get one AI available
-     * @param array $excludeIds List of IdUser to exclude
+     * @param array<int> $excludeIds List of IdUser to exclude
+     *
      * @return User|null The AI or null
      */
     public function getAiavailable(array $excludeIds = []): ?User
@@ -62,9 +61,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      * @param UserInterface $user
-     * @param string $newEncodedPassword
+     * @param string        $newEncodedPassword
+     *
      * @throws ORM\ORMException
-     * @throws ORM\OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -80,10 +79,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Load a user (for login)
      * @param string $username
+     *
      * @return User
-     * @throws ORM\NonUniqueResultException
      */
-    public function loadUserByUsername(string $username)
+    public function loadUserByUsername(string $username): User
     {
         // Query
         $builder = $this->createQueryBuilder('user');
@@ -112,7 +111,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Create a query for get AI available
-     * @param array $excludeIDs
+     * @param array<int> $excludeIDs
+     *
      * @return ORM\QueryBuilder
      */
     private function createQueryForAI(array $excludeIDs = []): ORM\QueryBuilder
@@ -120,7 +120,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $builder = $this->createQueryBuilder('user');
         $builder->where('user.ai=1');
 
-        if (!empty($excludeIDs)) {
+        if (!count($excludeIDs)) {
             $builder
                 ->andWhere('user.id NOT IN (:exclude)')
                 ->setParameter('exclude', $excludeIDs);

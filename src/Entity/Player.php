@@ -19,7 +19,7 @@ class Player
      * @ORM\Column(type="integer")
      * @Groups("players")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var Game
@@ -126,7 +126,7 @@ class Player
      * Is player is AI
      * @return bool
      */
-    public function isAi()
+    public function isAi(): bool
     {
         return $this->ai;
     }
@@ -182,15 +182,6 @@ class Player
         $this->name = (string) $name;
 
         return $this;
-    }
-
-    /**
-     * Convert to string (name)
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return (string) $this->name;
     }
 
     /**
@@ -257,5 +248,14 @@ class Player
         $this->team = min(12, max(1, intval($team)));
 
         return $this;
+    }
+
+    /**
+     * Convert to string (name)
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string) $this->name;
     }
 }
