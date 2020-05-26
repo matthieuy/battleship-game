@@ -91,6 +91,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @return object|UserInterface|null
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
@@ -140,6 +142,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param Request        $request
      * @param TokenInterface $token
      * @param string         $providerKey
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response|null
      */

@@ -57,11 +57,11 @@ class UserRolesCommand extends Command
      */
     protected function execute(In\InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $console = new SymfonyStyle($input, $output);
 
         // Get arguments
-        $action = $io->choice('Select the action to do', ['add', 'remove'], 0);
-        $role = $io->choice('Select the role to '.$action, $this->roles);
+        $action = $console->choice('Select the action to do', ['add', 'remove'], 0);
+        $role = $console->choice('Select the role to '.$action, $this->roles);
         $username = $input->getArgument('username');
 
         // Get user
@@ -69,7 +69,7 @@ class UserRolesCommand extends Command
         $repo = $this->entityManager->getRepository(User::class);
         $user = $repo->findOneBy(['username' => $username]);
         if (!$user) {
-            $io->error(sprintf('User "%s" don\'t exist !', $username));
+            $console->error(sprintf('User "%s" don\'t exist !', $username));
 
             return 1;
         }
@@ -78,7 +78,7 @@ class UserRolesCommand extends Command
         $roles = $user->getRoles();
         if ($action === 'add') {
             $roles[] = $role;
-        } else {
+        } elseif ($action === 'remove') {
             if (($key = array_search($role, $roles)) !== false) {
                 unset($roles[$key]);
             }
@@ -87,7 +87,7 @@ class UserRolesCommand extends Command
 
         // Save
         $this->entityManager->flush();
-        $io->success(sprintf('User "%s" has roles : %s', $username, implode(', ', $roles)));
+        $console->success(sprintf('User "%s" has roles : %s', $username, implode(', ', $roles)));
 
         return 0;
     }

@@ -252,7 +252,7 @@ class Game
      */
     public function setStatus(int $status): self
     {
-        $this->status = $status
+        $this->status = $status;
 
         return $this;
     }

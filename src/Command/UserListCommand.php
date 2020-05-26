@@ -45,7 +45,7 @@ class UserListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $console = new SymfonyStyle($input, $output);
 
         // Get users
         $repo = $this->entityManager->getRepository(User::class);
@@ -64,7 +64,7 @@ class UserListCommand extends Command
         }
         $headers = ['ID', 'Username', 'AI', 'Slug', 'E-mail', 'Roles'];
 
-        $io->table($headers, $list);
+        $console->table($headers, $list);
 
         return 0;
     }

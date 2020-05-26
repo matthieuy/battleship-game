@@ -34,6 +34,8 @@ class GameType extends AbstractType
      * Build
      * @param FormBuilderInterface $builder
      * @param array<mixed>         $options
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

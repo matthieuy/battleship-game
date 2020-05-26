@@ -172,8 +172,8 @@ class PlayerRepository extends ServiceEntityRepository
         $string = str_split('0123456789ABCDEF');
         $color = '';
         for ($i = 0; $i < 6; $i++) {
-            $r = (int) floor(mt_rand(0, 15));
-            $color .= $string[$r];
+            $random = (int) floor(mt_rand(0, 15));
+            $color .= $string[$random];
         }
 
         return $color;

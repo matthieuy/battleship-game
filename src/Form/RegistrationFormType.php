@@ -20,6 +20,8 @@ class RegistrationFormType extends AbstractType
      * Builder
      * @param FormBuilderInterface $builder
      * @param array<mixed>         $options
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
