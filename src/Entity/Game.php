@@ -306,7 +306,7 @@ class Game
      * Get Players
      * @return Player[]|ArrayCollection
      */
-    public function getPlayers(): ArrayCollection
+    public function getPlayers()
     {
         return $this->players;
     }
