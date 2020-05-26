@@ -2,7 +2,7 @@
  * Sidebar module
  */
 import $ from 'jquery'
-import slidebars from 'slidebars';
+import slidebars from 'slidebars'
 
 export default {
   sidebar: null,
@@ -17,7 +17,7 @@ export default {
     this.sidebar.init()
 
     // Event listener
-    let self = this
+    const self = this
     $('#btn-menu').click(function (e) {
       e.stopPropagation()
       self.sidebar.toggle('sidebar')
@@ -27,7 +27,7 @@ export default {
     })
 
     // Submenu
-    let $submenu = $('.sidebar-menu .has-submenu')
+    const $submenu = $('.sidebar-menu .has-submenu')
     if ($submenu.length) {
       $submenu.click(function () {
         if ($(this).hasClass('disabled')) {
@@ -35,7 +35,7 @@ export default {
         }
 
         $(this).toggleClass('active')
-        let ul = $(this).find('ul')
+        const ul = $(this).find('ul')
         if ($(ul).length > 0) {
           if ($(this).hasClass('active')) {
             $(ul).slideDown(600)

@@ -13,7 +13,8 @@
     "vue/max-attributes-per-line": "off",
     "vue/html-self-closing": "off",
     "vue/order-in-components": "off",
-    "vue/component-tags-order": "off"
+    "vue/component-tags-order": "off",
+    "vue/singleline-html-element-content-newline": "off"
   },
   "ignorePatterns": ["public/**", "node_modules/**"]
 }

@@ -2,21 +2,21 @@
  * Tooltip *
  ***********/
 /* global $ */
-let moveTooltip = function (e) {
-  let height = $('div.tooltip').outerHeight()
+const moveTooltip = function (e) {
+  const height = $('div.tooltip').outerHeight()
   $('div.tooltip').css({
     top: (e.pageY - height - 8),
     left: (e.pageX),
   })
 }
 
-let openTooltip = function (e) {
+const openTooltip = function (e) {
   $('div.tooltip').remove()
   $('<div class="tooltip">' + $(this).attr('data-tip') + '</div>').appendTo('body')
   moveTooltip(e)
 }
 
-let hideTooltip = function () {
+const hideTooltip = function () {
   $('div.tooltip').remove()
 }
 

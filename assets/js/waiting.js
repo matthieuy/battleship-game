@@ -32,7 +32,7 @@ require('@npm/jquery-ui/ui/widgets/sortable')
 store.commit(types.MUTATION.SET_USERID, document.getElementById('user-id').value)
 
 // App vue
-new Vue({
+new Vue({ // eslint-disable-line no-new
   el: '#vue',
   store,
   components: {

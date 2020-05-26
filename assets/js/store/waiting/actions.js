@@ -13,7 +13,7 @@ export default {
    */
   [types.ACTION.LOAD_INFO] (context, slug) {
     context.commit(types.MUTATION.SET_SLUG, slug)
-    let url = Routing.generate('match.ajax.infos', {slug: slug})
+    const url = Routing.generate('match.ajax.infos', { slug: slug })
     console.log('[STORE] Load infos', url)
     return axios.get(url).then((response) => {
       if (response.status === 200 && response.data.id) {
@@ -36,7 +36,7 @@ export default {
     console.log('[STORE] Change size', size)
 
     // Request
-    let url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
     return ajaxPostCall(url, {
       options: 'size',
       value: size,
@@ -50,7 +50,7 @@ export default {
     console.log('[STORE] Change maxPlayer', maxPlayer)
 
     // Request
-    let url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
     return ajaxPostCall(url, {
       options: 'maxplayers',
       value: maxPlayer,
@@ -64,7 +64,7 @@ export default {
     console.log('[STORE] Change options', obj)
 
     // Request
-    let url = Routing.generate('match.ajax.options', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.options', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change max player')
   },
 
@@ -75,7 +75,7 @@ export default {
     console.log('[STORE] Change color', obj)
 
     // Request
-    let url = Routing.generate('match.ajax.color', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.color', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change color')
   },
 
@@ -86,7 +86,7 @@ export default {
     console.log('[STORE] Change team', obj)
 
     // Request
-    let url = Routing.generate('match.ajax.team', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.team', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change team')
   },
 
@@ -97,7 +97,7 @@ export default {
     console.log('[STORE] Join/Leave game', join)
 
     // Request
-    let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.join', { slug: context.state.slug })
     return ajaxPostCall(url, { join: join }, 'Can\'t join/leave game')
   },
 
@@ -108,7 +108,7 @@ export default {
     console.log('[STORE] Remove a player', playerId)
 
     // Request
-    let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.join', { slug: context.state.slug })
     return ajaxPostCall(url, {
       join: false,
       playerId: playerId,
@@ -120,7 +120,7 @@ export default {
    */
   [types.ACTION.ADD_AI] (context) {
     console.log('[STORE] Add a AI')
-    let url = Routing.generate('match.ajax.join', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.join', { slug: context.state.slug })
     return ajaxPostCall(url, {
       join: true,
       ai: true,
@@ -132,11 +132,10 @@ export default {
    */
   [types.ACTION.UPDATE_ORDER] (context, obj) {
     console.log('[STORE] Change order', obj)
-    let url = Routing.generate('match.ajax.order', { slug: context.state.slug })
+    const url = Routing.generate('match.ajax.order', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change order')
   },
 }
-
 
 /**
  * Do a AJAX POST call

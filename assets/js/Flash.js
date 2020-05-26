@@ -1,8 +1,8 @@
 /* global Translator, $ */
 
-let flash = function () {
+const Flash = function () {
   $('.flash-container').on('click', '.close', function () {
-    let $flash = $(this).parents('.flash-msg')
+    const $flash = $(this).parents('.flash-msg')
     $flash.slideUp(300, () => {
       $flash.remove()
     })
@@ -30,8 +30,8 @@ let flash = function () {
     if (msg === '') {
       return false
     }
-    let flash = $('<div class="flash-msg ' + type + '" style="display: none;"><div class="close">&times;</div>' + Translator.trans(msg, {}, 'js') + '</div>').appendTo('.flash-container')
-    $('#container').animate({scrollTop: $('.flash-container').offset().top - 5}, 2000)
+    const flash = $('<div class="flash-msg ' + type + '" style="display: none;"><div class="close">&times;</div>' + Translator.trans(msg, {}, 'js') + '</div>').appendTo('.flash-container')
+    $('#container').animate({ scrollTop: $('.flash-container').offset().top - 5 }, 2000)
     $(flash).show('slow', function () {
       setTimeout(function () {
         $(flash).hide('slow', function () {
@@ -46,4 +46,4 @@ let flash = function () {
   return this
 }
 
-module.exports = new flash()
+module.exports = new Flash()
