@@ -96,6 +96,9 @@
     "egulias/email-validator": {
         "version": "2.1.17"
     },
+    "escapestudios/symfony2-coding-standard": {
+        "version": "3.11.0"
+    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "2.3",
         "recipe": {
@@ -147,6 +150,12 @@
     "phpdocumentor/type-resolver": {
         "version": "1.1.0"
     },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.4"
+    },
+    "projektmotor/symfony-coding-standard": {
+        "version": "1.0.6"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -172,6 +181,21 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "slevomat/coding-standard": {
+        "version": "6.3.7"
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "stof/doctrine-extensions-bundle": {

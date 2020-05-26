@@ -11,7 +11,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
@@ -45,6 +45,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "projektmotor/symfony-coding-standard": "^1.0",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

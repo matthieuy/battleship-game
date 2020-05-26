@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <!-- Arguments -->
+    <arg name="basepath" value="." />
+    <arg name="cache" value=".phpcs-cache" />
+    <arg name="colors" />
+    <arg name="extensions" value="php" />
+    <arg value="p" />
+    <arg value="s" />
+
+    <!-- Directory to scan -->
+    <file>config/</file>
+    <file>public/</file>
+    <file>src/</file>
+
+    <!-- Exclude path -->
+    <exclude-pattern>./src/Migrations/*</exclude-pattern>
+    <exclude-pattern>./src/Kernel.php</exclude-pattern>
+    <exclude-pattern>./public/index.php</exclude-pattern>
+    <exclude-pattern>./config/bundles.php</exclude-pattern>
+    <exclude-pattern>./config/bootstrap.php</exclude-pattern>
+    <exclude-pattern>./tests/features/bootstrap/bootstrap.php</exclude-pattern>
+
+    <!-- PSR2 Rules -->
+    <rule ref="PSR2"/>
+
+    <rule ref="vendor/escapestudios/symfony2-coding-standard/Symfony/ruleset.xml">
+        <exclude name="Symfony.Commenting.License.Warning" />
+        <exclude name="Symfony.Functions.Arguments.Invalid" />
+        <exclude name="Symfony.ControlStructure.YodaConditions.Invalid" />
+    </rule>
+
+    <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+        <exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment.OneLinePropertyComment" />
+        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified" />
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions.NonFullyQualified" />
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation.NonFullyQualifiedClassName"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions.NonFullyQualifiedException"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants.NonFullyQualified" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison.DisallowedYodaComparison" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses" />
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousPrefix" />
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming" />
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix" />
+        <exclude name="SlevomatCodingStandard.Files.LineLength.LineTooLong" />
+        <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectLinesCountBetweenDifferentAnnotationsTypes" />
+        <exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountBeforeFirstUse" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator.MultiLineTernaryOperatorNotUsed" />
+        <exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax.DisallowedArrayTypeHintSyntax"/>
+        <exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator" />
+        <exclude name="SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic" />
+        <exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators" />
+
+        <!-- Enable rules after testing -->
+        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing" />
+        <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.AssignmentInCondition" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing" />
+        <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion" />
+        <exclude name="SlevomatCodingStandard.Functions.StrictCall.StrictParameterMissing" />
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator.TernaryOperatorNotUsed" />
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint" />
+
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint" />
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation" />
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation" />
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+        <properties>
+            <property name="allowFullyQualifiedExceptions" value="true" />
+            <property name="allowFullyQualifiedGlobalFunctions" value="true" />
+            <property name="allowFullyQualifiedGlobalClasses" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.PHP.UselessParentheses">
+        <properties>
+            <property name="ignoreComplexTernaryConditions" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="Symfony.Commenting.Annotations.Invalid">
+        <exclude-pattern>src/Entity/*</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias">
+        <properties>
+            <property name="searchAnnotations" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
+        <properties>
+            <property name="linesCountBetweenDescriptionAndAnnotations" value="0" />
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Functions.UnusedParameter">
+        <exclude-pattern>./src/Security/LoginFormAuthenticator.php</exclude-pattern>
+        <exclude-pattern>./src/Form/*</exclude-pattern>
+    </rule>
+
+    <!-- No empty line before/after class brace -->
+    <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+        <properties>
+            <property name="linesCountAfterOpeningBrace" value="0" />
+            <property name="linesCountBeforeClosingBrace" value="0" />
+        </properties>
+    </rule>
+
+    <!-- Namespace match path -->
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="src" value="App" />
+                <element key="tests" value="App\Tests" />
+                <element key="tests/features/bootstrap" value="App\Tests\Behat" />
+            </property>
+            <property name="ignoredNamespaces" type="array" value="DoctrineMigrations" />
+        </properties>
+    </rule>
+
+    <!-- Jump space -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
+        <properties>
+            <property name="linesCountBeforeControlStructure" value="0" />
+            <property name="linesCountAfterControlStructure" value="1" />
+            <property name="linesCountAfterLastControlStructure" value="1" />
+            <property name="linesCountAfterWhenLastInCaseOrDefault" value="1" />
+            <property name="linesCountAfterWhenLastInLastCaseOrDefault" value="0" />
+            <property name="tokensToCheck" type="array">
+                <element value="T_CONTINUE" />
+                <element value="T_BREAK" />
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+        <properties>
+            <property name="ignoreSpacesBeforeAssignment" value="true" />
+            <property name="ignoreSpacesInAnnotation" value="true" />
+            <property name="ignoreSpacesInComment" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Length line -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="150" />
+            <property name="absoluteLineLimit" value="150" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature">
+        <properties>
+            <property name="minLineLength" value="130" />
+        </properties>
+    </rule>
+</ruleset>
