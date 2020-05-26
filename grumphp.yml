@@ -8,3 +8,6 @@ parameters:
         phpmd:
             ruleset: ['phpmd.xml']
             exclude: ['Migrations']
+        securitychecker:
+            run_always: true
+            timeout: 10
