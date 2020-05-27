@@ -209,6 +209,18 @@
         <source>Can't change order</source>
         <target>Impossible de changer l'ordre</target>
       </trans-unit>
+      <trans-unit id="btn_delete" resname="btn_delete">
+        <source>btn_delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="btn_delete_tip" resname="btn_delete_tip">
+        <source>btn_delete_tip</source>
+        <target>Supprimer cette partie</target>
+      </trans-unit>
+      <trans-unit id="btn_delete_confirm" resname="btn_delete_confirm">
+        <source>btn_delete_confirm</source>
+        <target>Etes-vous sur de vouloir supprimer cette partie ?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -13,7 +13,11 @@ class HomepageController extends AbstractController
 {
     /**
      * Homepage
-     * @Route(path="/", name="homepage", methods={"GET"})
+     * @Route(
+     *     path="/",
+     *     name="homepage",
+     *     methods={"GET"},
+     *     options={"expose"="true"})
      *
      * @return Response
      */

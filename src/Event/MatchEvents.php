@@ -12,4 +12,16 @@ final class MatchEvents
      * Instance of Event\GameEvent
      */
     public const CREATE = 'match.create';
+
+    /**
+     * Before a game is delete
+     * Instance of Event\GameEvent
+     */
+    public const BEFORE_DELETE = 'match.delete.before';
+
+    /**
+     * When a game is delete
+     * Instance of Event\GameEvent
+     */
+    public const DELETE = 'match.delete';
 }

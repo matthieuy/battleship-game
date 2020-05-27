@@ -13,6 +13,7 @@ import GameOptions from './components/waiting/GameOptions'
 import PlayersList from './components/waiting/PlayersList'
 import BtnJoin from './components/waiting/BtnJoin'
 import BtnAi from './components/waiting/BtnAi'
+import BtnDelete from './components/waiting/BtnDelete'
 
 // Theme
 import '../css/_table.less'
@@ -41,5 +42,6 @@ new Vue({ // eslint-disable-line no-new
     PlayersList,
     BtnJoin,
     BtnAi,
+    BtnDelete,
   },
 })

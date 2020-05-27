@@ -23,4 +23,5 @@ export const ACTION = {
   REMOVE_PLAYER: 'REMOVE_PLAYER', // Remove a player fril a game
   ADD_AI: 'ADD_AI', // Add a AI player
   UPDATE_ORDER: 'UPDATE_ORDER', // Change order of player
+  DELETE_GAME: 'DELETE_GAME', // Delete the game
 }

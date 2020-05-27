@@ -209,6 +209,18 @@
         <source>Can't change order</source>
         <target>Can't change order</target>
       </trans-unit>
+      <trans-unit id="btn_delete" resname="btn_delete">
+        <source>btn_delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="btn_delete_tip" resname="btn_delete_tip">
+        <source>btn_delete_tip</source>
+        <target>Delete the current game</target>
+      </trans-unit>
+      <trans-unit id="btn_delete_confirm" resname="btn_delete_confirm">
+        <source>btn_delete_confirm</source>
+        <target>Are you sure to delete this game ?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

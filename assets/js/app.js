@@ -18,7 +18,8 @@ import '../css/theme.less'
 import $ from 'jquery'
 import Sidebar from './Sidebar'
 import Flash from './Flash'
-window.Translator = require('bazinga-translator')
+import Routing from '@js/Routing'
+const Translator = window.Translator = require('bazinga-translator')
 
 // Flash message
 window.addEventListener('unhandledrejection', function (event) {
@@ -30,4 +31,21 @@ window.addEventListener('unhandledrejection', function (event) {
 $(() => {
   // Sidebar
   Sidebar.init()
+
+  // Delete game link
+  $('#link-delete-game').click(function (e) {
+    e.preventDefault()
+    const confirmMsg = Translator.trans('btn_delete_confirm', {}, 'js')
+    if (confirm(confirmMsg)) {
+      $.ajax({
+        url: Routing.generate('match.delete', { slug: $(this).data('slug') }),
+        method: 'POST',
+        success (obj) {
+          if (obj.success) {
+            window.location.replace(Routing.generate('homepage'))
+          }
+        },
+      })
+    }
+  })
 })

@@ -149,6 +149,10 @@
         <source>Player not found</source>
         <target>Joueur introuvable</target>
       </trans-unit>
+      <trans-unit id="delete_link" resname="delete_link">
+        <source>delete_link</source>
+        <target>Supprimer la partie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

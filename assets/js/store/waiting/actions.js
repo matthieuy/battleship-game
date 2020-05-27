@@ -135,6 +135,19 @@ export default {
     const url = Routing.generate('match.ajax.order', { slug: context.state.slug })
     return ajaxPostCall(url, obj, 'Can\'t change order')
   },
+
+  /**
+   * Delete the game
+   */
+  [types.ACTION.DELETE_GAME] (context) {
+    console.log('[STORE] Delete game')
+    const url = Routing.generate('match.delete', { slug: context.state.slug })
+    return ajaxPostCall(url, {}, 'Can\'t delete').then((obj) => {
+      if (obj.success) {
+        window.location.replace(Routing.generate('homepage'))
+      }
+    })
+  },
 }
 
 /**
