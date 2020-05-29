@@ -56,6 +56,7 @@
 <script>
 import { mapState } from 'vuex'
 import * as types from '@js/store/waiting/types'
+import Mercure from '@js/Mercure'
 /* global Translator */
 
 export default {
@@ -110,8 +111,18 @@ export default {
   mounted () {
     console.log('[VUE] Mount GameInfo.vue')
     if (!this.loaded) {
+      // Load info by ajax
       const slug = document.getElementById('slug').value
       this.$store.dispatch(types.ACTION.LOAD_INFO, slug)
+
+      // Mercure
+      Mercure
+        .subscribeTopic('match.ajax.infos', { slug: slug }, (infos) => {
+          this.$store.commit(types.MUTATION.SET_GAMEINFO, infos)
+        })
+        .subscribeTopic('match.ajax.infos.players', { slug: slug }, (players) => {
+          this.$store.commit(types.MUTATION.SET_PLAYERS, players)
+        })
     }
   },
 }

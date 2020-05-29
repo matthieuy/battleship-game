@@ -47,13 +47,13 @@ class PlayerRepository extends ServiceEntityRepository
 
         if ($ai) {
             // Get AI ID already in game
-            $listExcludeAI = array_reduce($players, function ($carry, Player $player) {
+            $listExcludeAI = [];
+            foreach ($players as $player) {
+                // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
                 if ($player->isAi()) {
-                    $carry[] = $player->getUser()->getId();
+                    $listExcludeAI[] = $player->getUser()->getId();
                 }
-
-                return $carry;
-            });
+            }
 
             // Get random AI user
             $repo = $this->getEntityManager()->getRepository('App:User');

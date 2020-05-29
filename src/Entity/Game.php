@@ -283,7 +283,7 @@ class Game
      */
     public function setSize(int $size): self
     {
-        $this->size = min($this->sizeList[0], max($this->sizeList, $size));
+        $this->size = min($this->sizeList[0], max($this->sizeList[2], $size));
 
         return $this;
     }

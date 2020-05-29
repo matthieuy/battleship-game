@@ -142,7 +142,7 @@ class Player
 
     /**
      * Get the user ID
-     * @Groups("infos")
+     * @Groups("players")
      * @return int
      */
     public function getUserId(): int

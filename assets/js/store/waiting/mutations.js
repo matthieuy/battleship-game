@@ -54,6 +54,7 @@ export default {
    * Set players list
    */
   [types.MUTATION.SET_PLAYERS] (state, players) {
+    console.log('[STORE] Set players list', players)
     state.me = null
     state.players = players
     players.forEach((player) => {

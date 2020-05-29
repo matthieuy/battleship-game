@@ -5,17 +5,32 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\Player;
 use App\Entity\User;
+use App\Utils\MercureDispatcher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * Class WaitingController
  */
 class WaitingController extends AbstractController
 {
+    private $mercure;
+    private $normalizer;
+
+    /**
+     * WaitingController constructor.
+     * @param MercureDispatcher   $mercure
+     * @param NormalizerInterface $normalizer
+     */
+    public function __construct(MercureDispatcher $mercure, NormalizerInterface $normalizer)
+    {
+        $this->mercure = $mercure;
+        $this->normalizer = $normalizer;
+    }
+
     /**
      * Get game's infos
      * @Route(
@@ -24,17 +39,19 @@ class WaitingController extends AbstractController
      *     methods={"GET"},
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"=true})
+     * @Route(
+     *     name="match.ajax.infos.players",
+     *     path="/game/{slug}-players.json",
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
      *
-     * @param Game                $game
-     * @param SerializerInterface $serializer
+     * @param Game $game
      *
      * @return JsonResponse
      */
-    public function getGameInfo(Game $game, SerializerInterface $serializer): JsonResponse
+    public function getGameInfo(Game $game): JsonResponse
     {
-        $json = $serializer->serialize($game, 'json', ['groups' => ['infos', 'players']]);
-
-        return (new JsonResponse())->setJson($json);
+        return new JsonResponse($this->normalizer->normalize($game, null, ['groups' => ['infos', 'players']]));
     }
 
     /**
@@ -82,6 +99,9 @@ class WaitingController extends AbstractController
 
         // Save
         $this->getDoctrine()->getManager()->flush();
+
+        // Dispatch
+        $this->dispatchUpdateGame($game);
 
         // Response
         return new JsonResponse([
@@ -132,6 +152,9 @@ class WaitingController extends AbstractController
         $game->setOption($optionName, $value);
         $this->getDoctrine()->getManager()->flush();
 
+        // Dispatch
+        $this->dispatchUpdateGame($game);
+
         // Return
         return new JsonResponse([
             'success' => true,
@@ -176,6 +199,10 @@ class WaitingController extends AbstractController
             $player->setColor($color);
             $this->getDoctrine()->getManager()->flush();
 
+            // Dispatch
+            $this->dispatchUpdatePlayers($game);
+
+            // Result
             return new JsonResponse([
                 'success' => true,
                 'color' => $player->getColor(),
@@ -219,6 +246,10 @@ class WaitingController extends AbstractController
             $player->setTeam($team);
             $this->getDoctrine()->getManager()->flush();
 
+            // Dispatch
+            $this->dispatchUpdatePlayers($game);
+
+            // Result
             return new JsonResponse([
                 'success' => true,
                 'team' => $player->getTeam(),
@@ -268,7 +299,10 @@ class WaitingController extends AbstractController
             return new JsonResponse(['error' => $result]);
         }
 
+        // Dispatch
+        $this->dispatchUpdatePlayers($game);
 
+        // Result
         return new JsonResponse([
             'success' => $result,
         ]);
@@ -311,6 +345,10 @@ class WaitingController extends AbstractController
             $em->refresh($game);
         }
 
+        // Dispatch
+        $this->dispatchUpdatePlayers($game);
+
+        // Result
         return new JsonResponse(['success' => true]);
     }
 
@@ -327,5 +365,25 @@ class WaitingController extends AbstractController
         $user = $this->getUser();
 
         return $user && $game->isCreator($user) ? $request->request->get('playerId') : null;
+    }
+
+    /**
+     * Dispatch game info with mercure
+     * @param Game $game
+     */
+    private function dispatchUpdateGame(Game $game): void
+    {
+        $infos = $this->normalizer->normalize($game, null, ['groups' => 'infos']);
+        $this->mercure->dispatchData('match.ajax.infos', ['slug' => $game->getSlug()], $infos);
+    }
+
+    /**
+     * Dispatch players list with mercure
+     * @param Game $game
+     */
+    private function dispatchUpdatePlayers(Game $game): void
+    {
+        $players = $this->normalizer->normalize($game->getPlayers(), null, ['groups' => 'players']);
+        $this->mercure->dispatchData('match.ajax.infos.players', ['slug' => $game->getSlug()], $players);
     }
 }

@@ -27,7 +27,13 @@
             {% block body %}{% endblock %}
         </div>
 
+
         {% block javascripts %}
+            <script>
+                var mercureURL = "{{ mercure_url }}";
+                var baseURL = "{{ app.request.getSchemeAndHttpHost() }}";
+                // var Mercure;
+            </script>
             {{ encore_entry_script_tags('app') }}
             <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'js'}) }}"></script>
         {% endblock %}

@@ -13,8 +13,15 @@ List of game options available :
 
 #### Mercure URI
 
+* /game/{slug}.json (match.ajax.infos) => Waiting page (update game)
+* /game/{slug}-players.json (match.ajax.infos.players) => Waiting page (update players)
+
 #### Box (grid)
 
 #### Boat
 
 #### Mercure return
+
+All responses content 2 items :
+* topic : The topic URI
+* content : The data

@@ -19,10 +19,12 @@ import $ from 'jquery'
 import Sidebar from './Sidebar'
 import Flash from './Flash'
 import Routing from '@js/Routing'
+import Mercure from '@js/Mercure'
 const Translator = window.Translator = require('bazinga-translator')
 
 // Flash message
 window.addEventListener('unhandledrejection', function (event) {
+  console.error('Error', event)
   Flash.error(event.reason.message)
   event.stopPropagation()
 })
@@ -31,6 +33,9 @@ window.addEventListener('unhandledrejection', function (event) {
 $(() => {
   // Sidebar
   Sidebar.init()
+
+  // Mercure
+  Mercure.connect()
 
   // Delete game link
   $('#link-delete-game').click(function (e) {

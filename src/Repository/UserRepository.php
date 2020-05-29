@@ -120,7 +120,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $builder = $this->createQueryBuilder('user');
         $builder->where('user.ai=1');
 
-        if (!count($excludeIDs)) {
+        if (count($excludeIDs)) {
             $builder
                 ->andWhere('user.id NOT IN (:exclude)')
                 ->setParameter('exclude', $excludeIDs);
