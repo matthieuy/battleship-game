@@ -105,7 +105,6 @@ export default {
     },
     // Change player color
     changeColor (e, player) {
-      e.target.parentElement.innerHTML = '<i class="fa fa-spin fa-spinner"></i>'
       this.$store.dispatch(types.ACTION.CHANGE_COLOR, {
         playerId: player.id,
         color: e.target.value,
@@ -113,7 +112,6 @@ export default {
     },
     // Change team
     changeTeam (e, player) {
-      e.target.parentElement.innerHTML = '<i class="fa fa-spin fa-spinner"></i>'
       this.$store.dispatch(types.ACTION.CHANGE_TEAM, {
         playerId: player.id,
         team: e.target.value,
@@ -122,7 +120,9 @@ export default {
     removePlayer (e, player) {
       e.target.innerHTML = '<i class="fa fa-spin fa-spinner"></i>'
       this.$store.commit(types.MUTATION.SET_LOADED, false)
-      this.$store.dispatch(types.ACTION.REMOVE_PLAYER, player.id)
+      this.$store.dispatch(types.ACTION.REMOVE_PLAYER, player.id).then(() => {
+        this.$store.commit(types.MUTATION.SET_LOADED, true)
+      })
     },
   },
   watch: {

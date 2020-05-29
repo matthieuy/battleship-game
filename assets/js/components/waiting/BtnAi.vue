@@ -33,7 +33,7 @@ export default {
     // CSS class on button
     btnClass () {
       return {
-        disabled: this.isDisabled() || this.loading || !this.loaded,
+        disabled: this.isDisabled() || this.loading || !this.loaded || (this.players.length >= this.game.maxPlayer),
       }
     },
   },
@@ -48,10 +48,11 @@ export default {
 
       // Loading
       this.loading = true
-      this.$store.commit(types.MUTATION.SET_LOADED, false)
 
       // Request
-      this.$store.dispatch(types.ACTION.ADD_AI)
+      this.$store.dispatch(types.ACTION.ADD_AI).then(() => {
+        this.loading = false
+      })
     },
     /**
      * Check if btn is disabled

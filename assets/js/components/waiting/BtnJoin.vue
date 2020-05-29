@@ -35,7 +35,7 @@ export default {
     btnClass () {
       return {
         alert: this.joined,
-        disabled: this.isDisabled() || this.loading,
+        disabled: this.isDisabled() || this.loading || (!this.joined && this.players.length >= this.game.maxPlayer),
       }
     },
   },
