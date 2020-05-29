@@ -23,7 +23,7 @@
           </span>
           <span v-show="penalty">
             <span v-if="isCreator">
-              <input :value="penalty" type="number" min="1" max="72" /> hour(s)
+              <input :value="penalty" type="number" min="1" max="72" @change="changeOption('penalty', $event.target.value)" /> hour(s)
             </span>
             <span v-else>
               <strong>{{ penalty }}</strong> hour(s)
