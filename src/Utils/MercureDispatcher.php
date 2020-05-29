@@ -2,8 +2,8 @@
 
 namespace App\Utils;
 
-use Symfony\Component\Mercure\PublisherInterface;
 use Symfony\Component\Mercure\Update;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -12,17 +12,17 @@ use Symfony\Component\Routing\RouterInterface;
 class MercureDispatcher
 {
     protected $router;
-    protected $publisher;
+    private $messageBus;
 
     /**
      * MercureDispatcher constructor.
-     * @param RouterInterface    $router
-     * @param PublisherInterface $publisher
+     * @param RouterInterface     $router
+     * @param MessageBusInterface $messageBus
      */
-    public function __construct(RouterInterface $router, PublisherInterface $publisher)
+    public function __construct(RouterInterface $router, MessageBusInterface $messageBus)
     {
         $this->router = $router;
-        $this->publisher = $publisher;
+        $this->messageBus = $messageBus;
     }
 
     /**
@@ -41,7 +41,6 @@ class MercureDispatcher
         ], true);
 
         $update = new Update($topic, $json, $targets);
-        $publisher = $this->publisher;
-        $publisher($update);
+        $this->messageBus->dispatch($update);
     }
 }
