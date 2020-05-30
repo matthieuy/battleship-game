@@ -24,4 +24,10 @@ final class MatchEvents
      * Instance of Event\GameEvent
      */
     public const DELETE = 'match.delete';
+
+    /**
+     * When a game is launch
+     * Instance of Event\GameEvent
+     */
+    public const LAUNCH = 'match.launch';
 }

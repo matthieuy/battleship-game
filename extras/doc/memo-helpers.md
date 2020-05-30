@@ -18,7 +18,17 @@ List of game options available :
 
 #### Box (grid)
 
+* img : the img number to display
+* player : the player position of the owner boat (warning : it's not the player's ID)
+* team : the team
+* boat : the boat number
+
+
 #### Boat
+
+* 0 : Boat number
+* 1 : The lenght of the boat
+* 2 : Number of touch
 
 #### Mercure return
 

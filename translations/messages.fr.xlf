@@ -153,6 +153,10 @@
         <source>delete_link</source>
         <target>Supprimer la partie</target>
       </trans-unit>
+      <trans-unit id="error_generate_loop" resname="error_generate_loop">
+        <source>error_generate_loop</source>
+        <target>Impossible de générer la grille après %try% essais</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

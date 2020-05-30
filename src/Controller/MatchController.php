@@ -9,6 +9,7 @@ use App\Event\GameEvent;
 use App\Event\MatchEvents;
 use App\Form\GameType;
 use App\GameHelper\GridGenerator;
+use DateTime as DateTimeAlias;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -118,12 +119,13 @@ class MatchController extends AbstractController
      *     requirements={"slug": "([0-9A-Za-z\-]+)"},
      *     options={"expose"="true"})
      *
-     * @param Game                $game
-     * @param TranslatorInterface $translator
+     * @param Game                     $game
+     * @param TranslatorInterface      $translator
+     * @param EventDispatcherInterface $dispatcher
      *
      * @return JsonResponse
      */
-    public function run(Game $game, TranslatorInterface $translator): JsonResponse
+    public function run(Game $game, TranslatorInterface $translator, EventDispatcherInterface $dispatcher): JsonResponse
     {
         // Check right
         /** @var User $user */
@@ -144,6 +146,39 @@ class MatchController extends AbstractController
             ]);
         }
 
+        // Generate grid
+        $result = $generator->generateGrid();
+        if ($result === false) {
+            // @todo Refactor code
+            $error = $generator->getCurentError();
+            $msg = $translator->trans($error['id'], $error['parameters']);
+
+            return new JsonResponse([
+                'success' => false,
+                'error' => $msg,
+            ]);
+        }
+
+        // Get tour
+        $players = $game->getPlayersByTeam(1, false);
+        $tour = [];
+        foreach ($players as $player) {
+            $tour[] = $player->getPosition();
+        }
+
+        // Save
+        $now = new DateTimeAlias();
+        $game
+            ->setGrid($generator->getGrid())
+            ->setTour($tour)
+            ->setLastShoot($now)
+            ->setRunAt($now)
+            ->setStatus(Game::STATUS_RUN);
+        $this->getDoctrine()->getManager()->flush();
+
+        // Event
+        $event = new GameEvent($game);
+        $dispatcher->dispatch($event, MatchEvents::LAUNCH);
 
         // Result
         return new JsonResponse([

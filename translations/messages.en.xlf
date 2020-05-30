@@ -153,6 +153,10 @@
         <source>delete_link</source>
         <target>Delete the game</target>
       </trans-unit>
+      <trans-unit id="error_generate_loop" resname="error_generate_loop">
+        <source>error_generate_loop</source>
+        <target>Can't generate the grid after %try% try</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

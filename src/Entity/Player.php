@@ -71,11 +71,32 @@ class Player
     protected $ai;
 
     /**
+     * @var int
+     * @ORM\Column(type="smallint", length=2, options={"unsigned"=true})
+     */
+    protected $life;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
+     */
+    protected $score;
+
+    /**
+     * @var array<mixed>
+     * @ORM\Column(type="json", nullable=true)
+     */
+    protected $boats;
+
+    /**
      * Player constructor.
      */
     public function __construct()
     {
         $this->ai = false;
+        $this->life = 0;
+        $this->score = 0;
+        $this->boats = [];
     }
 
     /**
@@ -246,6 +267,92 @@ class Player
     public function setTeam(int $team): self
     {
         $this->team = min(12, max(1, intval($team)));
+
+        return $this;
+    }
+
+    /**
+     * Get Life
+     * @return int
+     */
+    public function getLife(): int
+    {
+        return $this->life;
+    }
+
+    /**
+     * Is player is alive
+     * @return bool
+     */
+    public function isAlive(): bool
+    {
+        return $this->life > 0;
+    }
+
+    /**
+     * Set Life
+     * @param int $life
+     *
+     * @return $this
+     */
+    public function setLife(int $life): self
+    {
+        $this->life = $life;
+
+        return $this;
+    }
+
+    /**
+     * Remove a life
+     * @return $this
+     */
+    public function removeLife(): self
+    {
+        $this->life--;
+
+        return $this;
+    }
+
+    /**
+     * Get Boats
+     * @return array<mixed>
+     */
+    public function getBoats(): array
+    {
+        return $this->boats;
+    }
+
+    /**
+     * Set Boats
+     * @param array<int> $boats
+     *
+     * @return $this
+     */
+    public function setBoats(array $boats): self
+    {
+        $this->boats = $boats;
+
+        return $this;
+    }
+
+    /**
+     * Get Score
+     * @return int
+     */
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    /**
+     * Set Score
+     * @param int $score
+     *
+     * @return $this
+     */
+    public function setScore(int $score): self
+    {
+        $this->score = $score;
 
         return $this;
     }

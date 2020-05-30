@@ -129,6 +129,30 @@ class Game
     protected $slug;
 
     /**
+     * @var DateTimeAlias
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $runAt;
+
+    /**
+     * @var DateTimeAlias
+     * @ORM\Column(type="datetime", name="last", nullable=true)
+     */
+    protected $lastShoot;
+
+    /**
+     * @var array<int>
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    protected $tour;
+
+    /**
+     * @var array<mixed>
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $grid;
+
+    /**
      * Game constructor.
      */
     public function __construct()
@@ -138,6 +162,8 @@ class Game
         $this->maxPlayer = 4;
         $this->createAt = new DateTimeAlias();
         $this->options = [];
+        $this->grid = [];
+        $this->tour = [];
     }
 
     /**
@@ -427,6 +453,117 @@ class Game
         }
 
         return $this;
+    }
+
+    /**
+     * Get Grid
+     * @return array<mixed>
+     */
+    public function getGrid(): array
+    {
+        return $this->grid;
+    }
+
+    /**
+     * Set Grid
+     * @param array<mixed> $grid
+     *
+     * @return $this
+     */
+    public function setGrid(array $grid): self
+    {
+        $this->grid = $grid;
+
+        return $this;
+    }
+
+    /**
+     * Get RunAt
+     * @return DateTimeAlias
+     */
+    public function getRunAt(): DateTimeAlias
+    {
+        return $this->runAt;
+    }
+
+    /**
+     * Set RunAt
+     * @param DateTimeAlias $dateTime
+     *
+     * @return $this
+     */
+    public function setRunAt(DateTimeAlias $dateTime): self
+    {
+        $this->runAt = $dateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get LastShoot
+     * @return DateTimeAlias
+     */
+    public function getLastShoot(): DateTimeAlias
+    {
+        return $this->lastShoot;
+    }
+
+    /**
+     * Set LastShoot
+     * @param DateTimeAlias|null $lastShoot
+     *
+     * @return $this
+     */
+    public function setLastShoot(?DateTimeAlias $lastShoot = null): self
+    {
+        if (!$lastShoot) {
+            $lastShoot = new DateTimeAlias('now');
+        }
+        $this->lastShoot = $lastShoot;
+
+        return $this;
+    }
+
+    /**
+     * Get Tour
+     * @return array<int>
+     */
+    public function getTour(): array
+    {
+        return $this->tour;
+    }
+
+    /**
+     * Set Tour
+     * @param array<int> $tour
+     *
+     * @return $this
+     */
+    public function setTour(array $tour): self
+    {
+        $this->tour = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Get players from team number
+     * @param int  $team      Team number
+     * @param bool $aliveOnly Only return alive player
+     *
+     * @return array<Player>
+     */
+    public function getPlayersByTeam(int $team, bool $aliveOnly = true): array
+    {
+        $players = [];
+        foreach ($this->players as $player) {
+            // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+            if ($player->getTeam() === $team && (!$aliveOnly || ($aliveOnly && $player->isAlive()))) {
+                $players[] = $player;
+            }
+        }
+
+        return $players;
     }
 
     /**
