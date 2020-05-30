@@ -257,13 +257,12 @@ class GridGenerator
     protected function clearGrid(array $grid): array
     {
         $gridSize = $this->game->getSize();
-        $grid = $this->grid;
         $clearGrid = [];
 
         for ($y = 0; $y < $gridSize; $y++) {
             for ($x = 0; $x < $gridSize; $x++) {
                 // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
-                if (!count($grid[$y][$x])) {
+                if (count($grid[$y][$x])) {
                     $clearGrid[$y][$x] = $grid[$y][$x];
                 }
             }

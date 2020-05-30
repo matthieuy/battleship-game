@@ -73,6 +73,12 @@ class Mercure {
 
         // Call all callback subscribe
         if (typeof this._subscribe[topic] !== 'undefined') {
+          // Redirect
+          if (data.content.redirect) {
+            return window.location.replace(data.content.redirect)
+          }
+
+          // Callback
           const listCallback = this._subscribe[topic]
           for (let i = 0; i < listCallback.length; i++) {
             listCallback[i](data.content)
