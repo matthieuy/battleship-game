@@ -221,6 +221,34 @@
         <source>btn_delete_confirm</source>
         <target>Are you sure to delete this game ?</target>
       </trans-unit>
+      <trans-unit id="btn_run" resname="btn_run">
+        <source>btn_run</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="btn_run_tip" resname="btn_run_tip">
+        <source>btn_run_tip</source>
+        <target><![CDATA[Once everyone is ready<br>and options configured: you can start the game!]]></target>
+      </trans-unit>
+      <trans-unit id="error_run_team" resname="error_run_team">
+        <source>error_run_team</source>
+        <target>The game must consist with SEVERAL teams !</target>
+      </trans-unit>
+      <trans-unit id="error_run_emptyteam" resname="error_run_emptyteam">
+        <source>error_run_emptyteam</source>
+        <target>Nobody in team #%team% !</target>
+      </trans-unit>
+      <trans-unit id="error_run_ai" resname="error_run_ai">
+        <source>error_run_ai</source>
+        <target>Game contains only AI!</target>
+      </trans-unit>
+      <trans-unit id="confirm_run" resname="confirm_run">
+        <source>confirm_run</source>
+        <target>Etes vous sur de vouloir lancer la partie ?</target>
+      </trans-unit>
+      <trans-unit id="error_run" resname="error_run">
+        <source>Can't run</source>
+        <target>Can't run</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

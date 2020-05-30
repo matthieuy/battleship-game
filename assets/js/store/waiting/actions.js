@@ -148,6 +148,12 @@ export default {
       }
     })
   },
+
+  [types.ACTION.RUN] (context) {
+    console.log('[STORE] Run')
+    const url = Routing.generate('match.run', { slug: context.state.slug })
+    return ajaxPostCall(url, {}, 'Can\'t run')
+  },
 }
 
 /**

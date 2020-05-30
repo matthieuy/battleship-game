@@ -15,6 +15,7 @@ import '../css/topbar.less'
 import '../css/sidebar.less'
 import '../css/theme.less'
 
+import './polyfill'
 import $ from 'jquery'
 import Sidebar from './Sidebar'
 import Flash from './Flash'

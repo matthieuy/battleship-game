@@ -8,12 +8,14 @@ use App\Entity\User;
 use App\Event\GameEvent;
 use App\Event\MatchEvents;
 use App\Form\GameType;
+use App\GameHelper\GridGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class MatchController
@@ -105,6 +107,48 @@ class MatchController extends AbstractController
         }
 
         return new Response();
+    }
+
+    /**
+     * Lautch the game
+     * @Route(
+     *     name="match.run",
+     *     path="/game/{slug}/run",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"="true"})
+     *
+     * @param Game                $game
+     * @param TranslatorInterface $translator
+     *
+     * @return JsonResponse
+     */
+    public function run(Game $game, TranslatorInterface $translator): JsonResponse
+    {
+        // Check right
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$game->isCreator($user) || $game->getStatus() !== Game::STATUS_WAIT) {
+            return new JsonResponse(['error' => 'Not allowed']);
+        }
+
+        // Check configuration (same as vuejs code but in server side)
+        $generator = new GridGenerator($game);
+        if (!$generator->checkConfiguration()) {
+            $error = $generator->getCurentError();
+            $msg = $translator->trans($error['id'], $error['parameters'], 'js');
+
+            return new JsonResponse([
+                'success' => false,
+                'error' => $msg,
+            ]);
+        }
+
+
+        // Result
+        return new JsonResponse([
+            'success' => true,
+        ]);
     }
 
     /**

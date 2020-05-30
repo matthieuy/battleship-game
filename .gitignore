@@ -1,8 +1,9 @@
 !/extras/dev-docker-persist/.gitkeep
 /extras/dev-docker-persist/*
 /old/
-/public/translations/.gitkeep
+!/public/translations/.gitkeep
 /public/translations/*
+/public/js/fos_js_routes.json
 
 ###> symfony/framework-bundle ###
 /.env.local
