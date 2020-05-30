@@ -30,9 +30,8 @@ class MercureDispatcher
      * @param string        $route      The #Route name
      * @param array<string> $parameters The route parameters
      * @param array<mixed>  $data       Data to dispatch
-     * @param array<string> $targets    Targets
      */
-    public function dispatchData(string $route, array $parameters = [], array $data = [], array $targets = []): void
+    public function dispatchData(string $route, array $parameters = [], array $data = []): void
     {
         $topic = $this->router->generate($route, $parameters, RouterInterface::ABSOLUTE_URL);
         $json = json_encode([
@@ -40,7 +39,7 @@ class MercureDispatcher
             'content' => $data,
         ], true);
 
-        $update = new Update($topic, $json, $targets);
+        $update = new Update($topic, $json);
         $this->messageBus->dispatch($update);
     }
 }
