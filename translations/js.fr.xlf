@@ -249,6 +249,30 @@
         <source>Can't run</source>
         <target>Impossible de lancer la partie</target>
       </trans-unit>
+      <trans-unit id="shoot_of" resname="shoot_of">
+        <source>shoot_of</source>
+        <target>Tir de %name%</target>
+      </trans-unit>
+      <trans-unit id="boat_of" resname="boat_of">
+        <source>boat_of</source>
+        <target>Bateau de %name%</target>
+      </trans-unit>
+      <trans-unit id="your_boat" resname="your_boat">
+        <source>your_boat</source>
+        <target>Votre bateau</target>
+      </trans-unit>
+      <trans-unit id="your_shot" resname="your_shot">
+        <source>your_shot</source>
+        <target>Votre tir</target>
+      </trans-unit>
+      <trans-unit id="winner_list" resname="winner_list">
+        <source>winner_list</source>
+        <target>Vainqueur : %list%</target>
+      </trans-unit>
+      <trans-unit id="waiting_list" resname="waiting_list">
+        <source>waiting_list</source>
+        <target>En attente des tirs de %list%</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

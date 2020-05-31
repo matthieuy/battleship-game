@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Game
  * @ORM\Entity(repositoryClass=GameRepository::class)
  * @ORM\Table(name="games")
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Game
 {
@@ -87,7 +88,7 @@ class Game
      *     minMessage="The grid size must be greater then {{ limit }}x{{ limit }}",
      *     maxMessage="The grid size must be under {{ limit }}x{{ limit }}"
      * )
-     * @Groups("infos")
+     * @Groups({"infos", "run"})
      */
     protected $size;
 
@@ -116,7 +117,7 @@ class Game
     /**
      * @var array<mixed>
      * @ORM\Column(type="json")
-     * @Groups("infos")
+     * @Groups({"infos", "run"})
      */
     protected $options;
 
@@ -143,6 +144,7 @@ class Game
     /**
      * @var array<int>
      * @ORM\Column(type="simple_array", nullable=true)
+     * @Groups("run")
      */
     protected $tour;
 
@@ -284,6 +286,17 @@ class Game
     }
 
     /**
+     * Is game is over ?
+     * @return bool
+     *
+     * @Groups("run")
+     */
+    public function isFinished(): bool
+    {
+        return $this->status === self::STATUS_END;
+    }
+
+    /**
      * Get CreateAt
      * @return DateTimeAlias
      */
@@ -390,6 +403,23 @@ class Game
         }
 
         return $this;
+    }
+
+    /**
+     * Get player by user
+     * @param User $user
+     *
+     * @return Player|null
+     */
+    public function getPlayerByUser(User $user): ?Player
+    {
+        foreach ($this->players as $player) {
+            if ($player->getUserId() === $user->getId()) {
+                return $player;
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -100,6 +100,7 @@ class MatchController extends AbstractController
         $viewParams = [
             'game' => $game,
             'canDelete' => $this->isGranted('ROLE_ADMIN') || $game->isCreator($user),
+            'inGame' => $game->getStatus() !== Game::STATUS_WAIT,
         ];
 
         // Waiting page
@@ -107,7 +108,8 @@ class MatchController extends AbstractController
             return $this->render('match/waiting.html.twig', $viewParams);
         }
 
-        return new Response();
+        // Running page
+        return $this->render('match/game.html.twig', $viewParams);
     }
 
     /**

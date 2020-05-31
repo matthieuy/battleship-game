@@ -13,9 +13,11 @@
     "require": {
         "php": "^7.3",
         "ext-ctype": "*",
+        "ext-gd": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
+        "intervention/image": "^2.5",
         "lcobucci/jwt": "^3.3",
         "sensio/framework-extra-bundle": "^5.1",
         "stof/doctrine-extensions-bundle": "^1.4",

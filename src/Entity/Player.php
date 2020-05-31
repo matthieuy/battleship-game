@@ -73,12 +73,14 @@ class Player
     /**
      * @var int
      * @ORM\Column(type="smallint", length=2, options={"unsigned"=true})
+     * @Groups("run")
      */
     protected $life;
 
     /**
      * @var int
      * @ORM\Column(type="smallint", options={"unsigned"=true})
+     * @Groups("run")
      */
     protected $score;
 

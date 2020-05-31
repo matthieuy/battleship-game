@@ -8,6 +8,7 @@ use App\Entity\Player;
 
 /**
  * Class GridGenerator
+ * @SuppressWarnings(PHPMD)
  */
 class GridGenerator
 {
@@ -246,6 +247,51 @@ class GridGenerator
     public function getGrid(): array
     {
         return $this->grid;
+    }
+
+    /**
+     * Get grid to display for a specific player
+     * @param Player|null $player
+     *
+     * @return array<mixed>
+     */
+    public function getGridForPlayer(?Player $player = null): array
+    {
+        $boxList = [];
+        $grid = $this->game->getGrid();
+        $finished = $this->game->isFinished();
+        $team = $player ? $player->getTeam() : null;
+
+        // Show all box
+        $debug = true;
+
+        foreach ($grid as $y => $row) {
+            foreach ($row as $x => $data) {
+                $box = Box::createFromBox($x, $y, $data);
+
+                // Can we show this box ?
+                if ($finished || $debug) {
+                    $show = !$box->isEmpty();
+                } else {
+                    $show = false;
+                    if ($box->isAlreadyShoot()) {
+                        $show = true;
+                    } elseif (!$player) {
+                        continue;
+                    } elseif ($team !== null && $team === $box->getTeam()) {
+                        $show = true;
+                    }
+                }
+
+                // Add the box to list
+                // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+                if ($show) {
+                    $boxList[] = $box->getInfosToReturn();
+                }
+            }
+        }
+
+        return $boxList;
     }
 
     /**

@@ -14,6 +14,7 @@
     "vue/html-self-closing": "off",
     "vue/order-in-components": "off",
     "vue/component-tags-order": "off",
+    "vue/require-v-for-key": "off",
     "vue/singleline-html-element-content-newline": "off"
   },
   "ignorePatterns": ["public/**", "node_modules/**"]

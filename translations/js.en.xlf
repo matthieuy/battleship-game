@@ -249,6 +249,30 @@
         <source>Can't run</source>
         <target>Can't run</target>
       </trans-unit>
+      <trans-unit id="shoot_of" resname="shoot_of">
+        <source>shoot_of</source>
+        <target>Shot of %name%</target>
+      </trans-unit>
+      <trans-unit id="boat_of" resname="boat_of">
+        <source>boat_of</source>
+        <target>Boat of %name%</target>
+      </trans-unit>
+      <trans-unit id="your_boat" resname="your_boat">
+        <source>your_boat</source>
+        <target>Your boat</target>
+      </trans-unit>
+      <trans-unit id="your_shot" resname="your_shot">
+        <source>your_shot</source>
+        <target>Your shot</target>
+      </trans-unit>
+      <trans-unit id="winner_list" resname="winner_list">
+        <source>winner_list</source>
+        <target>Winner : %list%</target>
+      </trans-unit>
+      <trans-unit id="waiting_list" resname="waiting_list">
+        <source>waiting_list</source>
+        <target>Waiting shot of %list%</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,0 +1,34 @@
+#status {
+  text-align: center;
+  font-style: italic;
+}
+
+.grid {
+  margin: 20px auto;
+  background-color: #002a98;
+  cursor: pointer;
+  .grid-line {
+    clear: left;
+    float: left;
+  }
+  .box {
+    display: block;
+    float: left;
+    padding: 0;
+    .explose {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+}
+.miss.animated { animation: explose-ice 2s steps(12) 1; }
+.hit.animated { animation: explose-fire 2s steps(12) infinite; }
+
+
+/*****************
+ * MEDIA QUERIES *
+ *****************/
+@media only screen and (max-width: 500px) {
+  h1.title { display: none; }
+}

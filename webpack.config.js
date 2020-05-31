@@ -20,6 +20,7 @@ Encore
     '@bundle': path.resolve(__dirname, 'public/bundles'),
     '@public': path.resolve(__dirname, 'public'),
     '@js': path.resolve(__dirname, 'assets/js'),
+    '@css': path.resolve(__dirname, 'assets/css'),
   })
 
     /*
@@ -34,6 +35,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('create', './assets/js/create.js')
     .addEntry('waiting', './assets/js/waiting.js')
+    .addEntry('game', './assets/js/game.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

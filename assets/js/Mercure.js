@@ -40,6 +40,9 @@ class Mercure {
     if (this.init) {
       throw Error('Mercure is already init')
     }
+    if (!Object.size(this._subscribe)) {
+      throw Error('[MERCURE] Any topic')
+    }
 
     // Create mercure url
     const url = new URL(mercureURL)

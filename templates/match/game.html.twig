@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ game.name }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('game') }}
+    <link rel="stylesheet" href="{{ path('match.css', { slug: game.slug }) }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('game') }}
+{% endblock %}
+
+{% block body%}
+    <h1 class="center title">{{ game.name }}</h1>
+    <div id="vue">
+        <grid><div class="center"><i class="fa fa-spin fa-spinner"></i></div></grid>
+    </div>
+    <input type="hidden" id="user-id" value="{{ app.user.id|default('0') }}" />
+    <input type="hidden" id="slug" value="{{ game.slug }}" />
+{% endblock %}

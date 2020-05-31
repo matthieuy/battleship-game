@@ -4,6 +4,7 @@
 
 // Imports
 import Vue from 'vue'
+import Mercure from '@js/Mercure'
 import store from './store/WaitingStore'
 import * as types from './store/waiting/types'
 
@@ -17,12 +18,13 @@ import BtnDelete from './components/waiting/BtnDelete'
 import BtnRun from './components/waiting/BtnRun'
 
 // Theme
-import '../css/_table.less'
-import '../css/_tooltip.less'
-import '../css/_modal.less'
-import '../css/waiting.less'
+import '@css/_table.less'
+import '@css/_tooltip.less'
+import '@css/_modal.less'
+import '@css/waiting.less'
 
 // JS Lib
+import $ from 'jquery'
 require('./libs/table')
 require('./libs/tooltips')
 require('@npm/jquery-ui/ui/core')
@@ -46,4 +48,9 @@ new Vue({ // eslint-disable-line no-new
     BtnDelete,
     BtnRun,
   },
+})
+
+// Document ready
+$(() => {
+  Mercure.connect()
 })
