@@ -30,3 +30,24 @@ services:
     App\Security\JwtProvider:
         arguments:
             $secret: "%env(JWT_KEY)%"
+
+    # Weapons registry
+    App\Weapons\WeaponRegistry:
+        arguments:
+            $weapons: [!tagged { tag: 'weapon.type' }]
+
+    ###############
+    ### Weapons ###
+    ###############
+    App\Weapons\BomberWeapon:
+        tags:
+            - { name: weapon.type }
+    App\Weapons\FlashWeapon:
+        tags:
+            - { name: weapon.type }
+    App\Weapons\GustWeapon:
+        tags:
+            - { name: weapon.type }
+    App\Weapons\MortarWeapon:
+        tags:
+            - { name: weapon.type }

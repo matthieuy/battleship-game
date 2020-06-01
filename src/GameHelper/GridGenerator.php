@@ -263,7 +263,7 @@ class GridGenerator
         $team = $player ? $player->getTeam() : null;
 
         // Show all box
-        $debug = true;
+        $debug = false;
 
         foreach ($grid as $y => $row) {
             foreach ($row as $x => $data) {

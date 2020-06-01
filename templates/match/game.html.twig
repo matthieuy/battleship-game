@@ -16,6 +16,7 @@
     <h1 class="center title">{{ game.name }}</h1>
     <div id="vue">
         <grid><div class="center"><i class="fa fa-spin fa-spinner"></i></div></grid>
+        <modal-weapon></modal-weapon>
     </div>
     <input type="hidden" id="user-id" value="{{ app.user.id|default('0') }}" />
     <input type="hidden" id="slug" value="{{ game.slug }}" />

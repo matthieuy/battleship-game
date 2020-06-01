@@ -10,6 +10,9 @@ import * as types from './store/game/types'
 
 // Components
 import Grid from '@js/components/Grid'
+import BtnScore from '@js/components/BtnScore'
+import BtnWeapon from '@js/components/BtnWeapon'
+import ModalWeapon from '@js/components/ModalWeapon'
 
 // Theme
 import '@css/_tooltip.less'
@@ -30,6 +33,18 @@ new Vue({
   store,
   components: {
     Grid,
+    ModalWeapon,
+  },
+})
+
+// Top button
+/* eslint-disable no-new */
+new Vue({
+  el: '#btn-top',
+  store,
+  components: {
+    BtnScore,
+    BtnWeapon,
   },
 })
 

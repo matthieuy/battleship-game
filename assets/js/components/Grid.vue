@@ -2,7 +2,7 @@
   <div>
     <div id="status">{{ status }}</div>
     <div id="grid-container">
-      <div id="grid" class="grid" unselectable="on">
+      <div id="grid" class="grid" unselectable="on" contextmenu="grid-menu">
         <div v-for="row in grid" class="grid-line">
           <span
             v-for="box in row"
@@ -30,6 +30,9 @@ import * as types from '@js/store/game/types'
 export default {
   data () {
     return {
+      trans () {
+        return Translator.trans(...arguments)
+      },
     }
   },
   computed: {
@@ -99,14 +102,15 @@ export default {
     },
     // click on a box
     click (box) {
-      console.log(box)
       if (!window.isMobile()) {
         this.shoot(box)
       }
     },
     // Do a shoot
     shoot (box) {
-
+      if (this.gameover || !this.me || (this.me && this.me.life <= 0) || (this.tour.indexOf(this.me.position + '') < 0)) {
+        return false
+      }
     },
   },
   watch: {

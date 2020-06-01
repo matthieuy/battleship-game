@@ -8,6 +8,8 @@ import Vuex from 'vuex'
 import mutations from '@js/store/game/mutations'
 import actions from '@js/store/game/actions'
 import getters from '@js/store/game/getters'
+import scoreModule from '@js/store/modules/score'
+import weaponModule from '@js/store/modules/weapons'
 /* global Translator */
 
 // Init
@@ -34,6 +36,9 @@ export default new Vuex.Store({
   mutations,
   getters,
   actions,
-  modules: {},
+  modules: {
+    score: scoreModule,
+    weapon: weaponModule,
+  },
   strict: process.env.NODE_ENV !== 'production',
 })
