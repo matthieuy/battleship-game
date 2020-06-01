@@ -2,10 +2,9 @@
  * Actions for waiting store
  */
 
-import axios from 'axios'
+import ajax from '@js/libs/ajax'
 import * as types from './types'
 import Routing from '@js/Routing'
-import Flash from '@js/Flash'
 
 export default {
   /**
@@ -15,7 +14,7 @@ export default {
     context.commit(types.MUTATION.SET_SLUG, slug)
     const url = Routing.generate('match.ajax.infos', { slug: slug })
     console.log('[STORE] Load infos', url)
-    return axios.get(url).then((response) => {
+    return ajax.get(url).then((response) => {
       if (response.status === 200 && response.data.id) {
         if (response.data.hasOwnProperty('players')) {
           context.commit(types.MUTATION.SET_PLAYERS, response.data.players)
@@ -37,7 +36,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
-    return ajaxPostCall(url, {
+    return ajax.postCall(url, {
       options: 'size',
       value: size,
     }, 'Can\'t change size !')
@@ -51,7 +50,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.edit.infos', { slug: context.state.slug })
-    return ajaxPostCall(url, {
+    return ajax.postCall(url, {
       options: 'maxplayers',
       value: maxPlayer,
     }, 'Can\'t change max player')
@@ -65,7 +64,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.options', { slug: context.state.slug })
-    return ajaxPostCall(url, obj, 'Can\'t change max player')
+    return ajax.postCall(url, obj, 'Can\'t change max player')
   },
 
   /**
@@ -76,7 +75,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.color', { slug: context.state.slug })
-    return ajaxPostCall(url, obj, 'Can\'t change color')
+    return ajax.postCall(url, obj, 'Can\'t change color')
   },
 
   /**
@@ -87,7 +86,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.team', { slug: context.state.slug })
-    return ajaxPostCall(url, obj, 'Can\'t change team')
+    return ajax.postCall(url, obj, 'Can\'t change team')
   },
 
   /**
@@ -98,7 +97,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.join', { slug: context.state.slug })
-    return ajaxPostCall(url, { join: join }, 'Can\'t join/leave game')
+    return ajax.postCall(url, { join: join }, 'Can\'t join/leave game')
   },
 
   /**
@@ -109,7 +108,7 @@ export default {
 
     // Request
     const url = Routing.generate('match.ajax.join', { slug: context.state.slug })
-    return ajaxPostCall(url, {
+    return ajax.postCall(url, {
       join: false,
       playerId: playerId,
     }, 'Can\'t join/leave game')
@@ -121,7 +120,7 @@ export default {
   [types.ACTION.ADD_AI] (context) {
     console.log('[STORE] Add a AI')
     const url = Routing.generate('match.ajax.join', { slug: context.state.slug })
-    return ajaxPostCall(url, {
+    return ajax.postCall(url, {
       join: true,
       ai: true,
     }, 'Can\'t add AI')
@@ -133,7 +132,7 @@ export default {
   [types.ACTION.UPDATE_ORDER] (context, obj) {
     console.log('[STORE] Change order', obj)
     const url = Routing.generate('match.ajax.order', { slug: context.state.slug })
-    return ajaxPostCall(url, obj, 'Can\'t change order')
+    return ajax.postCall(url, obj, 'Can\'t change order')
   },
 
   /**
@@ -142,7 +141,7 @@ export default {
   [types.ACTION.DELETE_GAME] (context) {
     console.log('[STORE] Delete game')
     const url = Routing.generate('match.delete', { slug: context.state.slug })
-    return ajaxPostCall(url, {}, 'Can\'t delete').then((obj) => {
+    return ajax.postCall(url, {}, 'Can\'t delete').then((obj) => {
       if (obj.success) {
         window.location.replace(Routing.generate('homepage'))
       }
@@ -152,32 +151,6 @@ export default {
   [types.ACTION.RUN] (context) {
     console.log('[STORE] Run')
     const url = Routing.generate('match.run', { slug: context.state.slug })
-    return ajaxPostCall(url, {}, 'Can\'t run')
+    return ajax.postCall(url, {}, 'Can\'t run')
   },
-}
-
-/**
- * Do a AJAX POST call
- * @private
- * @param url
- * @param params
- * @param errorMsg
- * @returns {Promise}
- */
-function ajaxPostCall (url, params, errorMsg) {
-  return axios.post(url, new URLSearchParams(params)).then((response) => {
-    console.log(response.status, response.data, response.data.hasOwnProperty('error'))
-    if (response.status === 200) {
-      if (response.data.success) {
-        return Promise.resolve(response.data)
-      } else if (response.data.hasOwnProperty('error')) {
-        errorMsg = response.data.error
-      }
-
-      return Promise.reject(new Error(errorMsg))
-    }
-    return Promise.reject(new Error(errorMsg))
-  }).catch(() => {
-    Flash.error(errorMsg)
-  })
 }

@@ -54,6 +54,20 @@ interface WeaponInterface
     public function isShuffled(): bool;
 
     /**
+     * Set rotate
+     * @param int $rotate
+     *
+     * @return $this
+     */
+    public function setNumberRotate(int $rotate): self;
+
+    /**
+     * Get number of rotate
+     * @return int
+     */
+    public function getNumberRotate(): int;
+
+    /**
      * Convert to string
      * @return string
      */

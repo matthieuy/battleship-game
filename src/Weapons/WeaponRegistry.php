@@ -30,4 +30,19 @@ class WeaponRegistry
     {
         return $this->weapons;
     }
+
+    /**
+     * Get a specific name
+     * @param string $name
+     *
+     * @return WeaponInterface|null
+     */
+    public function getWeapon(string $name): ?WeaponInterface
+    {
+        if (array_key_exists($name, $this->weapons)) {
+            return $this->weapons[$name];
+        }
+
+        return null;
+    }
 }

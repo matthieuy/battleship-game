@@ -111,6 +111,17 @@ export default {
       if (this.gameover || !this.me || (this.me && this.me.life <= 0) || (this.tour.indexOf(this.me.position + '') < 0)) {
         return false
       }
+
+      // Data to send
+      const data = {
+        x: box.x,
+        y: box.y,
+      }
+
+      // Event to edit data to send
+      this.$store.dispatch(types.ACTIONS.BEFORE_SHOOT, data).then((data) => {
+        this.$store.dispatch(types.ACTIONS.SHOOT, data)
+      })
     },
   },
   watch: {

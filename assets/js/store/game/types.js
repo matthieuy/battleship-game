@@ -16,4 +16,6 @@ export const MUTATION = {
 export const ACTIONS = {
   LOAD_GAME: 'LOAD_GAME', // Load the game
   WEAPON_LOAD: 'WEAPON_LOAD', // Load weapons
+  BEFORE_SHOOT: 'BEFORE_SHOOT', // Before shoot
+  SHOOT: 'SHOOT', // Do fire
 }

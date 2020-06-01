@@ -1,7 +1,7 @@
 /**
  * Weapon module vuex store
  */
-import axios from 'axios'
+import ajax from '@js/libs/ajax'
 import Routing from '@js/Routing'
 import * as types from '@js/store/game/types'
 
@@ -102,11 +102,26 @@ export default {
     [types.ACTIONS.WEAPON_LOAD] (context) {
       const url = Routing.generate('weapons.list')
       console.log('[STORE] Load weapons')
-      return axios.get(url).then((response) => {
+      return ajax.get(url).then((response) => {
         if (response.status === 200 && response.data) {
           return Promise.resolve(response.data)
         }
         return Promise.resolve([])
+      })
+    },
+    /**
+     * Before shoot : add weapon infos
+     */
+    [types.ACTIONS.BEFORE_SHOOT] (context, obj) {
+      return new Promise((resolve, reject) => {
+        if (context.state.select) {
+          Object.assign(obj, {
+            weapon: context.state.select,
+            rotate: context.state.rotate,
+          })
+          context.commit(types.MUTATION.WEAPON_SELECT)
+        }
+        resolve(obj)
       })
     },
   },

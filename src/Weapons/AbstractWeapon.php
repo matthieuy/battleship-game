@@ -7,6 +7,33 @@ namespace App\Weapons;
  */
 abstract class AbstractWeapon implements WeaponInterface
 {
+    protected $numberRotate = 0;
+
+    /**
+     * Set NumberRotate
+     * @param int $numberRotate
+     *
+     * @return $this
+     */
+    public function setNumberRotate(int $numberRotate): self
+    {
+        if ($numberRotate > 3) {
+            $this->numberRotate = $numberRotate % 4;
+        }
+        $this->numberRotate = $numberRotate;
+
+        return $this;
+    }
+
+    /**
+     * Get number of rotate
+     * @return int
+     */
+    public function getNumberRotate(): int
+    {
+        return $this->numberRotate;
+    }
+
     /**
      * By default AI don't use the weapon
      * @return bool

@@ -313,6 +313,18 @@
         <source>Close</source>
         <target>Fermer</target>
       </trans-unit>
+      <trans-unit id="gameover" resname="gameover">
+        <source>gameover</source>
+        <target>La partie est terminée</target>
+      </trans-unit>
+      <trans-unit id="error_shoot" resname="error_shoot">
+        <source>error_shoot</source>
+        <target>Vous ne pouvez pas tirer ici</target>
+      </trans-unit>
+      <trans-unit id="error_tour" resname="error_tour">
+        <source>error_tour</source>
+        <target>Vous ne pouvez pas jouer maintenant !</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

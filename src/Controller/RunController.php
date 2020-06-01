@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\User;
 use App\GameHelper\GridGenerator;
+use App\Weapons\WeaponRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -53,5 +55,55 @@ class RunController extends AbstractController
         $infos['grid'] = $generator->getGridForPlayer($mePlayer);
 
         return new JsonResponse($infos);
+    }
+
+    /**
+     * Do a shoot
+     * @Route(
+     *     name="match.shoot",
+     *     path="/game/{slug}/shoot",
+     *     methods={"POST"},
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
+     *
+     * @param Game           $game
+     * @param Request        $request
+     * @param WeaponRegistry $weaponRegistry
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     *
+     * @return JsonResponse
+     */
+    public function shoot(Game $game, Request $request, WeaponRegistry $weaponRegistry): JsonResponse
+    {
+        if ($game->isFinished()) {
+            return new JsonResponse(['error' => 'gameover']);
+        }
+
+        // Get coord
+        $x = $request->request->get('x');
+        $y = $request->request->get('y');
+        if ($x === null || $y === null || $x < 0 || $y < 0 || $x >= $game->getSize() || $y >= $game->getSize()) {
+            return new JsonResponse(['error' => 'error_shoot']);
+        }
+
+        // Get player
+        /** @var User $user */
+        $user = $this->getUser();
+        $player = $game->getPlayerByUser($user);
+        if (!$player || !in_array($player->getPosition(), $game->getTour())) {
+            return new JsonResponse(['error' => 'error_tour']);
+        }
+
+        // Get weapon
+        $weapon = null;
+        $weaponName = $request->request->get('weapon');
+        if ($weaponName) {
+            $weapon = $weaponRegistry->getWeapon($weaponName);
+            $weapon->setNumberRotate($request->request->get('rotate', 0));
+        }
+
+        // Result
+        return new JsonResponse(['success' => true]);
     }
 }
