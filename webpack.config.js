@@ -1,6 +1,7 @@
 var Encore = require('@symfony/webpack-encore');
 var path = require('path');
 var eslintrc = require('./.eslintrc')
+var DashboardPlugin = require('webpack-dashboard/plugin')
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -15,22 +16,18 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
-  .addAliases({
-    '@npm': path.resolve(__dirname, 'node_modules'),
-    '@bundle': path.resolve(__dirname, 'public/bundles'),
-    '@public': path.resolve(__dirname, 'public'),
-    '@js': path.resolve(__dirname, 'assets/js'),
-    '@css': path.resolve(__dirname, 'assets/css'),
-  })
+
+    // Alias
+    .addAliases({
+      '@npm': path.resolve(__dirname, 'node_modules'),
+      '@bundle': path.resolve(__dirname, 'public/bundles'),
+      '@public': path.resolve(__dirname, 'public'),
+      '@js': path.resolve(__dirname, 'assets/js'),
+      '@css': path.resolve(__dirname, 'assets/css'),
+    })
 
     /*
      * ENTRY CONFIG
-     *
-     * Add 1 entry for each "page" of your app
-     * (including one that's included on every page - e.g. "app")
-     *
-     * Each entry will result in one JavaScript file (e.g. app.js)
-     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('create', './assets/js/create.js')
@@ -76,6 +73,9 @@ Encore
     .enableSassLoader()
     .enableLessLoader()
     .enableVueLoader()
+
+    // Dashboard compiler
+    .addPlugin(new DashboardPlugin())
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
