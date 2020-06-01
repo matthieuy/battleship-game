@@ -29,8 +29,6 @@ export default {
   [types.ACTIONS.SHOOT] (context, obj) {
     console.log('[STORE] Shoot', obj)
     const url = Routing.generate('match.shoot', { slug: context.state.slug })
-    return ajax.postCall(url, obj, 'Can\'t shoot').then((obj) => {
-
-    })
+    return ajax.postCall(url, obj, 'Can\'t shoot')
   },
 }

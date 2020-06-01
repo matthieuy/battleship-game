@@ -25,6 +25,7 @@
 // Imports
 import { mapState, mapGetters } from 'vuex'
 import * as types from '@js/store/game/types'
+import Mercure from '@js/Mercure'
 /* global $, Translator */
 
 export default {
@@ -49,6 +50,10 @@ export default {
     ]),
   },
   methods: {
+    // Receive data from mercure
+    receive (obj) {
+      console.log('[GRID] Receive', obj)
+    },
     // CSS for box
     cssBox (box) {
       let css = { // eslint-disable-line prefer-const
@@ -148,6 +153,12 @@ export default {
   },
   mounted () {
     console.log('[VUE] Mount Grid.vue')
+
+    // Subscribe mercure
+    const slug = document.getElementById('slug').value
+    Mercure.subscribeTopic('match.display', { slug: slug }, (obj) => {
+      this.receive(obj)
+    })
 
     // Disable select
     $(document)

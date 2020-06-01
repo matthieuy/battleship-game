@@ -85,7 +85,8 @@ class MatchController extends AbstractController
      *     name="match.display",
      *     path="/game/{slug}",
      *     methods={"GET"},
-     *     requirements={"slug": "([0-9A-Za-z\-]+)"})
+     *     requirements={"slug": "([0-9A-Za-z\-]+)"},
+     *     options={"expose"=true})
      *
      * @param Game $game The game
      *
