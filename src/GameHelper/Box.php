@@ -16,6 +16,11 @@ class Box
     private $player;
     private $team;
     private $boat;
+    private $score = [];
+    private $life = [];
+    private $sinkInfo = [];
+    private $isSink = false;
+    private $dead = false;
 
     /**
      * Box constructor.
@@ -36,7 +41,7 @@ class Box
      *
      * @return Box
      */
-    public static function createFromBox(int $x, int $y, array $gridOrBox): Box
+    public static function createFromGrid(int $x, int $y, array $gridOrBox): Box
     {
         $box = new Box($x, $y);
         $box->populateFromGrid($gridOrBox);
@@ -123,6 +128,28 @@ class Box
     }
 
     /**
+     * Is your boat ?
+     * @param Player $player
+     *
+     * @return bool
+     */
+    public function isOwner(Player $player): bool
+    {
+        return $this->player === $player->getPosition();
+    }
+
+    /**
+     * Is the same team
+     * @param Player|null $player
+     *
+     * @return bool
+     */
+    public function isSameTeam(?Player $player = null): bool
+    {
+        return $player && $this->team === $player->getTeam();
+    }
+
+    /**
      * Get team number
      * @return int|null
      */
@@ -138,6 +165,80 @@ class Box
     public function getBoat(): ?int
     {
         return $this->boat;
+    }
+
+    /**
+     * Set new score
+     * @param Player $player
+     *
+     * @return $this
+     */
+    public function setScore(Player $player): self
+    {
+        $this->score[$player->getPosition()] = $player->getScore();
+
+        return $this;
+    }
+
+    /**
+     * Set new life
+     * @param Player $player
+     *
+     * @return $this
+     */
+    public function setLife(Player $player): self
+    {
+        $this->life[$player->getPosition()] = $player->getLife();
+    }
+
+    /**
+     * Set Dead
+     * @param bool $dead
+     *
+     * @return $this
+     */
+    public function setDead(bool $dead): self
+    {
+        $this->dead = $dead;
+
+        return $this;
+    }
+
+    /**
+     * Is out of the grid ?
+     * @param int $gridSize
+     *
+     * @return bool
+     */
+    public function isOffzone(int $gridSize): bool
+    {
+        return $this->x < 0 || $this->y < 0 || $this->x >= $gridSize || $this->y >= $gridSize;
+    }
+
+    /**
+     * Set boat as sink
+     * @param bool $isSink
+     *
+     * @return $this
+     */
+    public function setSink(bool $isSink = true): self
+    {
+        $this->isSink = $isSink;
+
+        return $this;
+    }
+
+    /**
+     * Add sink infos
+     * @param array<mixed> $infos
+     *
+     * @return $this
+     */
+    public function addSinkInfo(array $infos): self
+    {
+        $this->sinkInfo[] = $infos;
+
+        return $this;
     }
 
     /**
@@ -173,7 +274,7 @@ class Box
 
     /**
      * Get infos to return
-     * @param bool $toSave Get infos for save
+     * @param bool $toSave Get infos for save in DB
      *
      * @return array<mixed>
      */
@@ -193,10 +294,26 @@ class Box
                 'team' => $this->team,
             ]);
         }
+        if ($this->dead) {
+            $infos['dead'] = $this->dead;
+        }
+        if (!$this->dead && $this->shoot !== null && $this->img > 0) {
+            $infos['explose'] = true;
+        }
 
         if ($toSave) {
             if ($this->boat !== null) {
                 $infos['boat'] = $this->boat;
+            }
+        } else {
+            if (!count($this->score)) {
+                $infos['score'] = $this->score;
+            }
+            if (!count($this->life)) {
+                $infos['life'] = $this->life;
+            }
+            if ($this->isSink) {
+                $infos['sink'] = $this->sinkInfo;
             }
         }
 

@@ -360,6 +360,28 @@ class Player
     }
 
     /**
+     * Add points
+     * @param int $points
+     *
+     * @return $this
+     */
+    public function addScore(int $points): self
+    {
+        $this->score += $points;
+    }
+
+    /**
+     * Remove point
+     * @param int $points
+     *
+     * @return $this
+     */
+    public function removeScore(int $points): self
+    {
+        $this->score -= $points;
+    }
+
+    /**
      * Convert to string (name)
      * @return string
      */

@@ -50,6 +50,26 @@ class Boats
     }
 
     /**
+     * Get dead image to replace alive
+     * @param int $img        Alive img
+     * @param int $lengthBoat Length of the boat
+     *
+     * @return int|null Dead image or null
+     */
+    public static function getDeadImg(int $img, int $lengthBoat): ?int
+    {
+        $boats = self::getList();
+        /** @var Boat $boat */
+        foreach ($boats as $boat) {
+            if ($boat->getLength() === $lengthBoat) {
+                return $boat->findDeadImg($img);
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get the init life
      * @return int
      */

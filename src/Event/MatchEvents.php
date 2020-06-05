@@ -30,4 +30,16 @@ final class MatchEvents
      * Instance of Event\GameEvent
      */
     public const LAUNCH = 'match.launch';
+
+    /**
+     * When a player use a weapon (before do shoot)
+     * Instance of Event\WeaponEvent
+     */
+    public const WEAPON = 'match.weapon';
+
+    /**
+     * When a player shoot another
+     * Instance of Event\TouchEvent
+     */
+    public const TOUCH = 'match.touch';
 }

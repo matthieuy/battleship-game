@@ -2,6 +2,8 @@
 
 namespace App\Weapons;
 
+use App\Entity\Game;
+use App\GameHelper\Box;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -66,6 +68,24 @@ interface WeaponInterface
      * @return int
      */
     public function getNumberRotate(): int;
+
+    /**
+     * Get boxes to shoot
+     * @param Game $game The game
+     * @param int  $x    X position of initial shoot
+     * @param int  $y    Y position of initial shoot
+     *
+     * @return array<Box>
+     */
+    public function getBoxes(Game $game, int $x, int $y): array;
+
+    /**
+     * Rotate the matrix
+     * @param array<int> $matrix Matrix/Grid to rotate
+     *
+     * @return array<Box> The matrix rotated
+     */
+    public function rotate(array $matrix): array;
 
     /**
      * Convert to string

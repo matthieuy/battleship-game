@@ -18,13 +18,15 @@ List of game options available :
 
 #### Box (grid)
 
-* x : The X position
-* y : The Y position
-* img : the img number to display
-* player : the player position of the owner boat (warning : it's not the player's ID)
-* team : the team
-* boat : the boat number
-* shoot : The player position shoot on this box
+* x {int} : The X position
+* y {int} : The Y position
+* img {?int} : the img number to display
+* player {?int} : the player position of the owner boat (warning : it's not the player's ID)
+* team {?int}: the team ID
+* boat {?int} : the boat number
+* shoot {?int} : The player position shoot on this box
+* dead {?bool} : isDead
+* explose {?bool} : currently explose
 
 
 #### Boat
@@ -38,3 +40,18 @@ List of game options available :
 All responses content 2 items :
 * topic : The topic URI
 * content : The data
+
+The content :
+* img[] :
+    * x {int} : The X position
+    * y {int} : The Y position
+    * img {?int} : the img number to display
+    * player {?int} : the player position of the owner boat (warning : it's not the player's ID)
+    * team {?int} : the team ID
+    * shoot {?int} : The player position shoot on this box
+    * score[] {?Object} : List of score to update
+        * playerPosition {int} => new score {int}
+    * life[] {?Object} : List of life to update
+        * playerPosition {int} => new life {int}
+    * sink[] {?Object] : List of img to update after animation
+        * x, y, img, shoot, player, dead

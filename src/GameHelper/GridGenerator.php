@@ -267,7 +267,7 @@ class GridGenerator
 
         foreach ($grid as $y => $row) {
             foreach ($row as $x => $data) {
-                $box = Box::createFromBox($x, $y, $data);
+                $box = Box::createFromGrid($x, $y, $data);
 
                 // Can we show this box ?
                 if ($finished || $debug) {

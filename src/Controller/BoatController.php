@@ -62,7 +62,7 @@ class BoatController extends AbstractController
 
         // Compress
         $content = $response->getContent();
-//        $content = str_replace(["    ", "\t", "\r", "\n"], '', $content);
+        $content = str_replace(["    ", "\t", "\r", "\n"], '', $content);
         $response->setContent($content);
 
         return $response;

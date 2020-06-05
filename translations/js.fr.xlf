@@ -261,6 +261,10 @@
         <source>your_boat</source>
         <target>Votre bateau</target>
       </trans-unit>
+      <trans-unit id="shoot_your_boat" resname="shoot_your_boat">
+        <source>shoot_your_boat</source>
+        <target>Impossible de tirer sur son bateau !</target>
+      </trans-unit>
       <trans-unit id="your_shot" resname="your_shot">
         <source>your_shot</source>
         <target>Votre tir</target>
@@ -324,6 +328,18 @@
       <trans-unit id="error_tour" resname="error_tour">
         <source>error_tour</source>
         <target>Vous ne pouvez pas jouer maintenant !</target>
+      </trans-unit>
+      <trans-unit id="already_shoot" resname="already_shoot">
+        <source>already_shoot</source>
+        <target>Quelqu'un a déjà tiré ici !</target>
+      </trans-unit>
+      <trans-unit id="team_shoot" resname="team_shoot">
+        <source>team_shoot</source>
+        <target>Le tir allié est interdit !</target>
+      </trans-unit>
+      <trans-unit id="error_boat404" resname="error_boat404">
+        <source>error_boat404</source>
+        <target>Bateau introuvable</target>
       </trans-unit>
     </body>
   </file>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\User;
+use App\GameHelper\GameHelper;
 use App\GameHelper\GridGenerator;
 use App\Weapons\WeaponRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,12 +70,13 @@ class RunController extends AbstractController
      * @param Game           $game
      * @param Request        $request
      * @param WeaponRegistry $weaponRegistry
+     * @param GameHelper     $gameHelper
      *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      *
      * @return JsonResponse
      */
-    public function shoot(Game $game, Request $request, WeaponRegistry $weaponRegistry): JsonResponse
+    public function shoot(Game $game, Request $request, WeaponRegistry $weaponRegistry, GameHelper $gameHelper): JsonResponse
     {
         if ($game->isFinished()) {
             return new JsonResponse(['error' => 'gameover']);
@@ -102,6 +104,9 @@ class RunController extends AbstractController
             $weapon = $weaponRegistry->getWeapon($weaponName);
             $weapon->setNumberRotate($request->request->get('rotate', 0));
         }
+
+        // Do the shoot
+        $gameHelper->shoot($game, $player, $x, $y, $weapon);
 
         // Result
         return new JsonResponse(['success' => true]);

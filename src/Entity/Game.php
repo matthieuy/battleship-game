@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Boats;
+use App\GameHelper\Box;
 use App\Repository\GameRepository;
 use DateTime as DateTimeAlias;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -594,6 +596,63 @@ class Game
         }
 
         return $players;
+    }
+
+    /**
+     * Get player by position
+     * @param int $position
+     *
+     * @return Player|null
+     */
+    public function getPlayerByPosition(int $position): ?Player
+    {
+        $playerFind = null;
+        foreach ($this->players as $player) {
+            if ($position === $player->getPosition()) {
+                $playerFind = $player;
+                // phpcs:disable Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose
+                // phpcs:disable SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountAfterLastControlStructure
+                break;
+            }
+        }
+
+        return $playerFind;
+    }
+
+    /**
+     * Save box to grid
+     * @param Box $box
+     *
+     * @return $this
+     */
+    public function saveBox(Box $box): self
+    {
+        $this->grid[$box->getY()][$box->getX()] = $box->getInfosToReturn(true);
+
+        return $this;
+    }
+
+    /**
+     * Update grid after sink a boat
+     * @param Box $box
+     * @param int $boatLength
+     *
+     * @return array<mixed>
+     */
+    public function updateSink(Box $box, int $boatLength): array
+    {
+        $this->saveBox($box);
+        foreach ($this->grid as $y => $row) {
+            foreach ($row as $x => $b) {
+                if (array_key_exists('boat', $b) && $b['boat'] === $box->getBoat()) {
+                    $this->grid[$y][$x]['img'] = Boats::getDeadImg($b['img'], $boatLength);
+                    $this->grid[$y][$x]['dead'] = true;
+                    unset($this->grid[$y][$x]['explose']);
+                }
+            }
+        }
+
+        return $this->grid;
     }
 
     /**

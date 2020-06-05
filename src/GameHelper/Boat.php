@@ -107,4 +107,23 @@ class Boat
     {
         return count($this->img[0]);
     }
+
+    /**
+     * Get image dead from img alive number
+     * @param int $img
+     *
+     * @return int|null
+     */
+    public function findDeadImg(int $img): ?int
+    {
+        for ($orientation = 0; $orientation <= 1; $orientation++) {
+            foreach ($this->img as $i) {
+                if ($this->img[$orientation][$i] === $img) {
+                    return $this->imgDead[$orientation][$i];
+                }
+            }
+        }
+
+        return null;
+    }
 }
