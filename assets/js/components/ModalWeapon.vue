@@ -13,6 +13,7 @@
 
             <div class="large-12 column">
               <div class="row">
+                <h3 v-if="!weapon.loaded" class="center">{{ trans('loading', {}, 'js') }}</h3>
                 <div v-for="w in weapon.list" class="large-3 column">
                   <div :class="classWeapon(w)" class="center weapon" @click="highlight(w)">
                     <h3>{{ trans(w.name, {}, 'js') }}</h3>
