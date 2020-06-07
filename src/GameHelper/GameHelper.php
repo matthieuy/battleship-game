@@ -9,8 +9,9 @@ use App\Event\TouchEvent;
 use App\Event\WeaponEvent;
 use App\ImagesConstant;
 use App\PointsConstants;
+use App\Utils\MercureDispatcher;
 use App\Weapons\WeaponInterface;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -20,18 +21,25 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class GameHelper
 {
     private EventDispatcherInterface $eventDispatcher;
-    private EntityManager $entityManager;
+    private EntityManagerInterface $entityManager;
+    private MercureDispatcher $mercureDispatcher;
+
     private ReturnBox $returnBox;
 
     /**
      * GameHelper constructor.
      * @param EventDispatcherInterface $eventDispatcher
-     * @param EntityManager            $entityManager
+     * @param EntityManagerInterface   $entityManager
+     * @param MercureDispatcher        $mercureDispatcher
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, EntityManager $entityManager)
-    {
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        EntityManagerInterface $entityManager,
+        MercureDispatcher $mercureDispatcher
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->entityManager = $entityManager;
+        $this->mercureDispatcher = $mercureDispatcher;
     }
 
     /**
@@ -80,8 +88,17 @@ class GameHelper
             }
         }
 
+        // realtime
+        $result = $this->returnBox->getReturnInfos($game);
+        $this->mercureDispatcher->dispatchData('match.display', ['slug' => $game->getSlug()], $result);
+
         // Save
         $this->entityManager->flush();
+
+        return new JsonResponse([
+            'success' => true,
+            'infos' => $result,
+        ]);
     }
 
     /**

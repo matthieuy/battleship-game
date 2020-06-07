@@ -3,6 +3,7 @@
 namespace App\GameHelper;
 
 use App\Boats;
+use App\Entity\Game;
 use App\Weapons\WeaponInterface;
 
 /**
@@ -88,5 +89,25 @@ class ReturnBox
         }
 
         return $this;
+    }
+
+    /**
+     * Get infos to return to players (realtime)
+     * @param Game $game
+     *
+     * @return array<mixed>
+     */
+    public function getReturnInfos(Game $game): array
+    {
+        $infos = [
+            'img' => [],
+            'finished' => $game->isFinished(),
+        ];
+
+        foreach ($this->listBox as $box) {
+            $infos['img'][] = $box->getInfosToReturn();
+        }
+
+        return $infos;
     }
 }

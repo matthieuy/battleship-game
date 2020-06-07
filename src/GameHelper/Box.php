@@ -107,6 +107,8 @@ class Box
     public function setShooter(?Player $shooter = null): self
     {
         $this->shoot = $shooter === null ? 0 : $shooter->getPosition();
+
+        return $this;
     }
 
     /**
@@ -189,6 +191,8 @@ class Box
     public function setLife(Player $player): self
     {
         $this->life[$player->getPosition()] = $player->getLife();
+
+        return $this;
     }
 
     /**
@@ -306,10 +310,10 @@ class Box
                 $infos['boat'] = $this->boat;
             }
         } else {
-            if (!count($this->score)) {
+            if (count($this->score)) {
                 $infos['score'] = $this->score;
             }
-            if (!count($this->life)) {
+            if (count($this->life)) {
                 $infos['life'] = $this->life;
             }
             if ($this->isSink) {

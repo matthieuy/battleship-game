@@ -42,7 +42,7 @@ All responses content 2 items :
 * content : The data
 
 The content :
-* img[] :
+* img[] {Object} :
     * x {int} : The X position
     * y {int} : The Y position
     * img {?int} : the img number to display
@@ -55,3 +55,4 @@ The content :
         * playerPosition {int} => new life {int}
     * sink[] {?Object] : List of img to update after animation
         * x, y, img, shoot, player, dead
+* finished {bool} : Game is over
