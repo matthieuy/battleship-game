@@ -18,8 +18,27 @@ export default {
         state.life = me.life
       }
     },
+    /**
+     * Set life
+     */
+    [types.MUTATION.SCORE_SET_LIFE] (state, life) {
+      state.life = life
+    },
   },
-  actions: {},
+  actions: {
+    /**
+     * After each rocket
+     */
+    [types.ACTIONS.AFTER_ROCKET] (context, box) {
+      // Update life
+      if (context.rootState.me) {
+        const position = context.rootState.me.position
+        if (box.life && box.life.hasOwnProperty(position)) {
+          context.commit(types.MUTATION.SCORE_SET_LIFE, box.life[position])
+        }
+      }
+    },
+  },
   getters: {},
   strict: process.env.NODE_ENV !== 'production',
 }

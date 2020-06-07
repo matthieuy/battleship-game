@@ -3,6 +3,7 @@
  */
 
 import * as types from './types'
+import Vue from 'vue'
 
 export default {
   /**
@@ -56,5 +57,32 @@ export default {
     state.gameover = obj.finished
     state.players = obj.players
     state.grid = grid
+  },
+  /**
+   * After each rocket animate
+   */
+  [types.MUTATION.AFTER_ROCKET] (state, box) {
+    // Update grid
+    if (typeof box.x !== 'undefined') {
+      Vue.set(state.grid[box.y], box.x, box)
+    }
+    if (box.sink) {
+      box.sink.forEach(function (b, i) {
+        state.grid[b.y][b.x] = b
+      })
+    }
+  },
+  /**
+   * After all animate of shoot finished
+   */
+  [types.MUTATION.AFTER_ANIMATE] (state, obj) {
+    // Game is over
+    if (obj.finished) {
+      state.gameover = true
+    }
+    // Update tour
+    if (obj.tour) {
+      state.tour = obj.tour
+    }
   },
 }

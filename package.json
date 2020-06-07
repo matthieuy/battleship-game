@@ -26,10 +26,12 @@
     "scripts": {
         "dev-server": "webpack-dashboard -- encore dev-server",
         "dev": "webpack-dashboard -- encore dev",
+        "encore": "encore dev",
         "watch": "webpack-dashboard -- encore dev --watch",
         "build": "webpack-dashboard -- encore production --progress"
     },
     "dependencies": {
+        "async": "^3.2.0",
         "axios": "^0.19.2",
         "bazinga-translator": "^3.0.1",
         "favico.js": "^0.3.10",
@@ -38,6 +40,7 @@
         "jquery-ui": "^1.12.1",
         "slidebars": "https://github.com/jaredh159/Slidebars.git#3.0.0",
         "typeface-lobster": "^0.0.72",
+        "velocity-animate": "^1.5.2",
         "vue": "^2.6.11",
         "vue-loader": "^15.9.2",
         "vuex": "^3.4.0"

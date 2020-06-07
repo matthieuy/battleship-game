@@ -106,7 +106,7 @@ class Box
      */
     public function setShooter(?Player $shooter = null): self
     {
-        $this->shoot = $shooter === null ? 0 : $shooter->getPosition();
+        $this->shoot = $shooter === null ? -1 : $shooter->getPosition();
 
         return $this;
     }
@@ -285,8 +285,6 @@ class Box
     public function getInfosToReturn(bool $toSave = false): array
     {
         $infos = [
-            'x' => $this->x,
-            'y' => $this->y,
             'img' => $this->img,
         ];
         if ($this->shoot !== null) {
@@ -310,6 +308,10 @@ class Box
                 $infos['boat'] = $this->boat;
             }
         } else {
+            $infos = array_merge($infos, [
+                'x' => $this->x,
+                'y' => $this->y,
+            ]);
             if (count($this->score)) {
                 $infos['score'] = $this->score;
             }

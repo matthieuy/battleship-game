@@ -13,7 +13,7 @@ export default {
    */
   postCall (url, params, errorMsg) {
     return axios.post(url, new URLSearchParams(params)).then((response) => {
-      console.log(response.status, response.data, response.data.hasOwnProperty('error'))
+      console.log('[AJAX Response]', response.status, response.data)
       if (response.status === 200) {
         if (response.data.success) {
           return Promise.resolve(response.data)

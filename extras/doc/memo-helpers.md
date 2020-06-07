@@ -56,3 +56,4 @@ The content :
     * sink[] {?Object] : List of img to update after animation
         * x, y, img, shoot, player, dead
 * finished {bool} : Game is over
+* tour {array) : List of player tour

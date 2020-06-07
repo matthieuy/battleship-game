@@ -368,6 +368,8 @@ class Player
     public function addScore(int $points): self
     {
         $this->score += $points;
+
+        return $this;
     }
 
     /**
@@ -379,6 +381,8 @@ class Player
     public function removeScore(int $points): self
     {
         $this->score -= $points;
+
+        return $this;
     }
 
     /**

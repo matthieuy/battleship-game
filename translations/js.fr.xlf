@@ -341,6 +341,10 @@
         <source>error_boat404</source>
         <target>Bateau introuvable</target>
       </trans-unit>
+      <trans-unit id="penalty_on" resname="penalty_on">
+        <source>penalty_on</source>
+        <target>Pénalité pour %name%</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

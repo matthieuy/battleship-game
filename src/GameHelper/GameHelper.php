@@ -25,6 +25,7 @@ class GameHelper
     private MercureDispatcher $mercureDispatcher;
 
     private ReturnBox $returnBox;
+    private Game $game;
 
     /**
      * GameHelper constructor.
@@ -55,6 +56,7 @@ class GameHelper
     public function shoot(Game $game, Player $player, int $x, int $y, ?WeaponInterface $weapon = null): JsonResponse
     {
         $this->returnBox = new ReturnBox();
+        $this->game = $game;
 
         // Check box (only if no weapon else allow shoot on a box already shoot)
         $box = Box::createFromGrid($x, $y, $game->getGrid());
@@ -76,11 +78,11 @@ class GameHelper
         }
 
         // Get boxes to shoot
-        $boxList = $this->getBoxesToShoot($game, $player, $x, $y, $weapon);
+        $boxList = $this->getBoxesToShoot($player, $x, $y, $weapon);
 
         // Do fire
         foreach ($boxList as $i => $box) {
-            $result = $this->doFire($game, $box, $player, $i === 0);
+            $result = $this->doFire($box, $player, $i === 0);
 
             // Error ?
             if ($result instanceof JsonResponse) {
@@ -89,7 +91,7 @@ class GameHelper
         }
 
         // realtime
-        $result = $this->returnBox->getReturnInfos($game);
+        $result = $this->returnBox->getReturnInfos($this->game);
         $this->mercureDispatcher->dispatchData('match.display', ['slug' => $game->getSlug()], $result);
 
         // Save
@@ -103,7 +105,6 @@ class GameHelper
 
     /**
      * Get list of box to shoot
-     * @param Game                 $game   The game
      * @param Player               $player The shooter
      * @param int                  $x      X position
      * @param int                  $y      Y position
@@ -111,7 +112,7 @@ class GameHelper
      *
      * @return array<Box>
      */
-    private function getBoxesToShoot(Game $game, Player $player, int $x, int $y, ?WeaponInterface $weapon = null): array
+    private function getBoxesToShoot(Player $player, int $x, int $y, ?WeaponInterface $weapon = null): array
     {
         $boxList = [];
 
@@ -119,9 +120,9 @@ class GameHelper
             $price = $weapon->getPrice();
             if ($player->getScore() >= $price) {
                 $player->removeScore($price);
-                $boxList = $weapon->getBoxes($game, $x, $y);
+                $boxList = $weapon->getBoxes($this->game, $x, $y);
 
-                $event = new WeaponEvent($game, $player, $weapon);
+                $event = new WeaponEvent($this->game, $player, $weapon);
                 $this->eventDispatcher->dispatch($event, MatchEvents::WEAPON);
             } else {
                 $weapon = null;
@@ -130,7 +131,7 @@ class GameHelper
 
         // No weapon (or price too expensive)
         if (!$weapon) {
-            $boxList[] = Box::createFromGrid($x, $y, $game->getGrid());
+            $boxList[] = Box::createFromGrid($x, $y, $this->game->getGrid());
         }
         $this->returnBox->setWeapon($weapon);
 
@@ -140,14 +141,13 @@ class GameHelper
 
     /**
      * Do a shoot
-     * @param Game        $game     The game
      * @param Box         $box      The box to shoot
      * @param Player|null $shooter  Shooter or null (for bonus type)
      * @param bool        $firstBox It is the first box we shoot ?
      *
      * @return bool|JsonResponse
      */
-    private function doFire(Game $game, Box $box, ?Player $shooter = null, bool $firstBox = false)
+    private function doFire(Box $box, ?Player $shooter = null, bool $firstBox = false)
     {
         // Use weapon : add score to return on first shoot
         if ($firstBox && $this->returnBox->getWeapon()) {
@@ -155,7 +155,7 @@ class GameHelper
         }
 
         // Some check
-        if (($shooter && $box->isSameTeam($shooter)) || $box->isAlreadyShoot() || $box->isOffzone($game->getSize())) {
+        if (($shooter && $box->isSameTeam($shooter)) || $box->isAlreadyShoot() || $box->isOffzone($this->game->getSize())) {
             return false;
         }
 
@@ -165,30 +165,29 @@ class GameHelper
                 ->setImg(ImagesConstant::MISS)
                 ->setShooter($shooter);
             $this->returnBox->addBox($box);
-            $game->saveBox($box);
+            $this->game->saveBox($box);
 
             return true;
         }
 
-        return $this->touch($game, $box, $shooter);
+        return $this->touch($box, $shooter);
     }
 
     /**
      * Touch a boat
-     * @param Game        $game
      * @param Box         $box
      * @param Player|null $shooter
      * @param bool        $isPenalty
      *
      * @return bool|JsonResponse
      */
-    private function touch(Game $game, Box $box, ?Player $shooter = null, bool $isPenalty = false)
+    private function touch(Box $box, ?Player $shooter = null, bool $isPenalty = false)
     {
         // Update box
         $box->setShooter($shooter);
 
         // Get victim
-        $victim = $game->getPlayerByPosition($box->getPlayer());
+        $victim = $this->game->getPlayerByPosition($box->getPlayer());
         if (!$victim) {
             return new JsonResponse(['error' => 'Player not found']);
         }
@@ -207,7 +206,7 @@ class GameHelper
         $isSink = $boat[2] >= $boat[1]; // Touch >= length
 
         // Prepare event
-        $eventTouch = new TouchEvent($game, $boat);
+        $eventTouch = new TouchEvent($this->game, $boat);
 
         // Calcul points
         if (!$victim->isAlive()) { // Fatal
@@ -242,10 +241,10 @@ class GameHelper
             ->setSink($isSink)
             ->setLife($victim);
         $this->returnBox->addBox($box);
+        $this->game->saveBox($box);
         if ($isSink) {
-            $grid = $game->updateSink($box, $boat[1]);
-            $this->returnBox->updateSink($grid, $boat[1]);
-            $game->setGrid($grid);
+            $this->returnBox->updateSink($this->game->getGrid(), $boat[1]);
+            $this->game->updateSink($box, $boat[1]);
         }
 
         // Dispatch event

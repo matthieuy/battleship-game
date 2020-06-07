@@ -18,7 +18,7 @@ abstract class AbstractWeapon implements WeaponInterface
      *
      * @return array<Box> The matrix rotated
      */
-    public function rotate(array $matrix): array
+    public function rotateMatrix(array $matrix): array
     {
         $time = $this->getNumberRotate();
         if (!$this->isRotate() || $time = 0) {
@@ -56,7 +56,7 @@ abstract class AbstractWeapon implements WeaponInterface
     public function getBoxes(Game $game, int $x, int $y): array
     {
         $gridGame = $game->getGrid();
-        $grid = $this->rotate($this->getGrid());
+        $grid = $this->rotateMatrix($this->getGrid());
         $rows = count($grid);
         $cols = count($grid[0]);
         $centerY = floor($rows / 2);
@@ -81,6 +81,8 @@ abstract class AbstractWeapon implements WeaponInterface
                 $boxes = array_reverse($boxes);
             }
         }
+
+        return $boxes;
     }
 
     /**

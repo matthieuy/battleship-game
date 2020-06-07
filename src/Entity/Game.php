@@ -641,7 +641,6 @@ class Game
      */
     public function updateSink(Box $box, int $boatLength): array
     {
-        $this->saveBox($box);
         foreach ($this->grid as $y => $row) {
             foreach ($row as $x => $b) {
                 if (array_key_exists('boat', $b) && $b['boat'] === $box->getBoat()) {

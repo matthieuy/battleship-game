@@ -106,9 +106,6 @@ class RunController extends AbstractController
         }
 
         // Do the shoot
-        $gameHelper->shoot($game, $player, $x, $y, $weapon);
-
-        // Result
-        return new JsonResponse(['success' => true]);
+        return $gameHelper->shoot($game, $player, $x, $y, $weapon);
     }
 }

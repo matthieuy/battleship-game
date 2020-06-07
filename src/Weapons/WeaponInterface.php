@@ -85,7 +85,7 @@ interface WeaponInterface
      *
      * @return array<Box> The matrix rotated
      */
-    public function rotate(array $matrix): array;
+    public function rotateMatrix(array $matrix): array;
 
     /**
      * Convert to string

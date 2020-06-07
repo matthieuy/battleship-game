@@ -69,27 +69,29 @@ class Mercure {
    */
   _onReceive (response) {
     if (response.data && response.data !== '') {
+      let data = null
+      let topic = null
       try {
-        const data = JSON.parse(response.data)
-        const topic = data.topic
+        data = JSON.parse(response.data)
+        topic = data.topic
         console.log('[MERCURE] Receive', data.content, topic)
-
-        // Call all callback subscribe
-        if (typeof this._subscribe[topic] !== 'undefined') {
-          // Redirect
-          if (data.content.redirect) {
-            return window.location.replace(data.content.redirect)
-          }
-
-          // Callback
-          const listCallback = this._subscribe[topic]
-          for (let i = 0; i < listCallback.length; i++) {
-            listCallback[i](data.content)
-          }
-        }
       } catch (e) {
-        console.error('JSON Error', response.data)
+        console.error('JSON Error', response.data, e)
         return Promise.reject(new Error('JSON Error'))
+      }
+
+      // Call all callback subscribe
+      if (data && topic && typeof this._subscribe[topic] !== 'undefined') {
+        // Redirect
+        if (data.content.redirect) {
+          return window.location.replace(data.content.redirect)
+        }
+
+        // Callback
+        const listCallback = this._subscribe[topic]
+        for (let i = 0; i < listCallback.length; i++) {
+          listCallback[i](data.content)
+        }
       }
     }
   }

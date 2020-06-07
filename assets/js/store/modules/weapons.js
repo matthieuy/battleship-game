@@ -124,6 +124,18 @@ export default {
         resolve(obj)
       })
     },
+    /**
+     * After each rocket
+     */
+    [types.ACTIONS.AFTER_ROCKET] (context, box) {
+      // Update points
+      if (context.rootState.me) {
+        const position = context.rootState.me.position
+        if (box.score && box.score.hasOwnProperty(position)) {
+          context.commit(types.MUTATION.WEAPON_SET_SCORE, box.score[position])
+        }
+      }
+    },
   },
   getters: {
     // Get weapon

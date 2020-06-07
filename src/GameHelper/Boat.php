@@ -117,13 +117,14 @@ class Boat
     public function findDeadImg(int $img): ?int
     {
         for ($orientation = 0; $orientation <= 1; $orientation++) {
-            foreach ($this->img as $i) {
+            // phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
+            foreach ($this->img as $i => $imgNumber) {
                 if ($this->img[$orientation][$i] === $img) {
                     return $this->imgDead[$orientation][$i];
                 }
             }
         }
 
-        return null;
+        return $img;
     }
 }

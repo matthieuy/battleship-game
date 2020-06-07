@@ -23,6 +23,8 @@
 
 <script>
 // Imports
+import async from 'async'
+import velocity from 'velocity-animate'
 import { mapState, mapGetters } from 'vuex'
 import * as types from '@js/store/game/types'
 import Mercure from '@js/Mercure'
@@ -44,6 +46,7 @@ export default {
       'me',
       'tour',
       'gameover',
+      'boxSize',
     ]),
     ...mapGetters([
       'playerById',
@@ -53,6 +56,62 @@ export default {
     // Receive data from mercure
     receive (obj) {
       console.log('[GRID] Receive', obj)
+      const self = this
+      if (obj.img) {
+        async.mapSeries(
+          obj.img,
+          (img, next) => { // Animate for all img
+            // Box target
+            const $box = $('#g_' + img.y + '_' + img.x)
+            $box.getTop = function () {
+              return this.offset().top + document.querySelector('#container').scrollTop
+            }
+            $box.getLeft = function () {
+              return this.offset().left + document.querySelector('#container').scrollLeft
+            }
+
+            // Status
+            const shooter = self.playerById(img.shoot)
+            if (typeof img.player !== 'undefined' && img.player === img.shoot) { // Penalty
+              self.$store.commit(types.MUTATION.SET_STATUS, Translator.trans('penalty_on', { name: shooter.name }, 'js'))
+            } else {
+              self.$store.commit(types.MUTATION.SET_STATUS, Translator.trans('shoot_of', { name: shooter.name }, 'js'))
+            }
+
+            // Rocket
+            velocity(document.getElementById('rocket' + img.shoot), {
+              top: $box.getTop() - (self.boxSize / 2),
+              left: $box.getLeft() + (self.boxSize / 4),
+            }, {
+              duration: 5 * ($box.getTop() + 20),
+              easing: 'linear',
+              begin (rocket) {
+                // Start position of the rocket
+                $(rocket).css({
+                  top: -20,
+                  left: $box.getLeft() + (self.boxSize / 4),
+                })
+              },
+              complete (rocket) {
+                $(rocket).css('top', '-40px')
+
+                // Update grid
+                $box.addClass('animated')
+                self.$store.commit(types.MUTATION.AFTER_ROCKET, img)
+                self.$store.dispatch(types.ACTIONS.AFTER_ROCKET, img)
+
+                // Next img
+                next()
+              },
+            })
+          },
+          () => { // End of animate
+            self.$store.commit(types.MUTATION.AFTER_ANIMATE, obj)
+          },
+        )
+      } else {
+        this.$store.commit(types.MUTATION.AFTER_ANIMATE, obj)
+      }
     },
     // CSS for box
     cssBox (box) {

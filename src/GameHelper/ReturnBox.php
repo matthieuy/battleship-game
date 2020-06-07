@@ -102,6 +102,7 @@ class ReturnBox
         $infos = [
             'img' => [],
             'finished' => $game->isFinished(),
+            'tour' => $game->getTour(),
         ];
 
         foreach ($this->listBox as $box) {
