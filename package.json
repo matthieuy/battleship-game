@@ -31,7 +31,7 @@
         "build": "webpack-dashboard -- encore production --progress"
     },
     "dependencies": {
-        "async": "^3.2.0",
+        "async": "^3.2.2",
         "axios": "^0.19.2",
         "bazinga-translator": "^3.0.1",
         "favico.js": "^0.3.10",
