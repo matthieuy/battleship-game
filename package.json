@@ -37,7 +37,7 @@
         "favico.js": "^0.3.10",
         "font-awesome": "^4.7.0",
         "jquery": "^3.5.1",
-        "jquery-ui": "^1.12.1",
+        "jquery-ui": "^1.13.2",
         "slidebars": "https://github.com/jaredh159/Slidebars.git#3.0.0",
         "typeface-lobster": "^0.0.72",
         "velocity-animate": "^1.5.2",
